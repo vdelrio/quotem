@@ -7,7 +7,8 @@ export const theme = {
     five: "#f3b7ad",
   },
   colors: {
-    green: "#29b365",
+    black: "#000",
+    grey: "#808080",
     white: "#fff",
   },
 };
