@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Platform } from "react-native";
 import { theme } from "@/theme";
 import { Quote } from "@/store/quoteStore";
 
@@ -28,8 +28,12 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   quote: {
+    fontFamily: Platform.select({
+      ios: "OpenSans-Regular",
+      android: "OpenSans_400Regular",
+    }),
     fontSize: 16,
-    marginBottom: 4,
+    marginBottom: 6,
   },
   author: {
     color: theme.colors.grey,
