@@ -7,6 +7,11 @@ export type Author = {
   name: string;
 };
 
+export const ucdmAuthor: Author = {
+  id: 1,
+  name: "UCDM",
+};
+
 type AuthorStore = {
   nextId: number;
   authors: Author[];
@@ -17,8 +22,8 @@ type AuthorStore = {
 export const useAuthorStore = create<AuthorStore>()(
   persist(
     (set) => ({
-      authors: [],
-      nextId: 1,
+      authors: [ucdmAuthor],
+      nextId: 2,
       addAuthor: async (name: string) => {
         set((state) => {
           return {
@@ -44,7 +49,7 @@ export const useAuthorStore = create<AuthorStore>()(
       },
     }),
     {
-      name: "quotem-authors-store",
+      name: "quotem-author-store",
       storage: createJSONStorage(() => AsyncStorage),
     },
   ),
