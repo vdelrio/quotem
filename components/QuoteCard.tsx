@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.white,
     borderRadius: 6,
     padding: 12,
-    // marginBottom: 12,
+    marginBottom: 8,
     shadowColor: theme.colors.black,
     shadowOffset: {
       width: 0,
@@ -29,10 +29,10 @@ const styles = StyleSheet.create({
   },
   quote: {
     fontFamily: Platform.select({
-      ios: "OpenSans-Regular",
-      android: "OpenSans_400Regular",
+      ios: "PTSans-Narrow",
+      android: "PTSansNarrow_400Regular",
     }),
-    fontSize: 16,
+    fontSize: 18,
     marginBottom: 6,
   },
   author: {

@@ -25,8 +25,13 @@ export const useQuoteStore = create<QuoteStore>()(
           text: "La fe es lo opuesto al miedo y forma parte del amor tal como el miedo forma parte del ataque.",
           author: ucdmAuthor,
         },
+        {
+          id: 2,
+          text: "Padre, hoy quiero oír sólo Tu Voz. Vengo a Ti en el más profundo de los silencios para oír Tu Voz y recibir Tu Palabra. No tengo otra oración que ésta: que me des la verdad. Y la verdad no es sino Tu Voluntad, que hoy quiero compartir Contigo.",
+          author: ucdmAuthor,
+        },
       ],
-      nextId: 2,
+      nextId: 3,
       addQuote: async (text: string, author?: Author) => {
         set((state) => {
           return {
