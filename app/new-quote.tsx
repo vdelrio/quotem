@@ -4,21 +4,23 @@ import { QButton } from "@/components/QButton";
 import { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useQuoteStore } from "@/store/quoteStore";
+import { Author, useAuthorStore } from "@/store/authorStore";
 import { useRouter } from "expo-router";
+import { Picker } from "@react-native-picker/picker";
 
 export default function NewScreen() {
   const router = useRouter();
-  const addQuote = useQuoteStore((state) => state.addQuote);
   const [text, setText] = useState<string>();
+  const [author, setAuthor] = useState<Author>();
+  const addQuote = useQuoteStore((state) => state.addQuote);
+  const findAuthorById = useAuthorStore((state) => state.findAuthorById);
+  const authors: Author[] = useAuthorStore((state) => state.authors);
 
   const handleSubmit = () => {
     if (!text) {
-      return Alert.alert(
-        "Validation Error",
-        "Debes ingresar el texto de la cita.",
-      );
+      return;
     }
-    addQuote(text);
+    addQuote(text, author);
     router.back();
   };
 
@@ -37,7 +39,28 @@ export default function NewScreen() {
         multiline
         numberOfLines={12}
       />
-      <QButton title="Agregar" onPress={handleSubmit} />
+      <Text style={styles.label}>Autor</Text>
+      <Picker
+        selectedValue={author?.id}
+        onValueChange={(itemValue) => setAuthor(findAuthorById(itemValue))}
+        style={styles.picker}
+      >
+        <Picker.Item
+          label="Sin autor"
+          value={-1}
+          key="-1"
+          style={{ color: "gray" }}
+        />
+        {authors.length &&
+          authors.map((author) => (
+            <Picker.Item
+              label={author?.name}
+              value={author?.id}
+              key={author?.id}
+            />
+          ))}
+      </Picker>
+      <QButton title="Agregar" onPress={handleSubmit} disabled={!text} />
     </KeyboardAwareScrollView>
   );
 }
@@ -64,5 +87,8 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     marginBottom: 8,
+  },
+  picker: {
+    marginBottom: 24,
   },
 });

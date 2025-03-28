@@ -17,11 +17,12 @@ type AuthorStore = {
   authors: Author[];
   addAuthor: (name: string) => Promise<void>;
   removeAuthor: (authorId: number) => void;
+  findAuthorById: (authorId: number) => Author | undefined;
 };
 
 export const useAuthorStore = create<AuthorStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       authors: [ucdmAuthor],
       nextId: 2,
       addAuthor: async (name: string) => {
@@ -46,6 +47,9 @@ export const useAuthorStore = create<AuthorStore>()(
             authors: state.authors.filter((author) => author.id !== authorId),
           };
         });
+      },
+      findAuthorById: (authorId: number) => {
+        return get().authors.find((author) => author.id === authorId);
       },
     }),
     {

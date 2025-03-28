@@ -4,9 +4,10 @@ import { StyleSheet, Text, Pressable } from "react-native";
 type Props = {
   title: string;
   onPress: () => void;
+  disabled?: boolean;
 };
 
-export function QButton({ title, onPress }: Props) {
+export function QButton({ title, disabled = false, onPress }: Props) {
   return (
     <Pressable
       onPress={onPress}
@@ -16,6 +17,7 @@ export function QButton({ title, onPress }: Props) {
         }
         return styles.button;
       }}
+      disabled={disabled}
     >
       <Text style={styles.text}>{title}</Text>
     </Pressable>
