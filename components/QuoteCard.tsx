@@ -11,6 +11,11 @@ export function QuoteCard({ quote }: { quote: Quote }) {
   );
 }
 
+const fontFamily = Platform.select({
+  ios: "PTSans-Narrow",
+  android: "PTSansNarrow_400Regular",
+});
+
 const styles = StyleSheet.create({
   quoteContainer: {
     backgroundColor: theme.colors.white,
@@ -24,18 +29,16 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
-
     elevation: 3,
   },
   quote: {
-    fontFamily: Platform.select({
-      ios: "PTSans-Narrow",
-      android: "PTSansNarrow_400Regular",
-    }),
+    fontFamily,
     fontSize: 18,
     marginBottom: 6,
   },
   author: {
+    fontFamily,
+    fontSize: 16,
     color: theme.colors.grey,
   },
 });
