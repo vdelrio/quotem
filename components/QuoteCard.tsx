@@ -5,7 +5,9 @@ import { Quote } from "@/store/quoteStore";
 export function QuoteCard({ quote }: { quote: Quote }) {
   return (
     <View style={styles.quoteContainer}>
-      <Text style={styles.quote}>{quote.text}</Text>
+      <Text style={styles.quote} numberOfLines={4}>
+        {quote.text}
+      </Text>
       {quote.author && <Text style={styles.author}>{quote.author.name}</Text>}
     </View>
   );

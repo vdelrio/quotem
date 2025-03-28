@@ -33,9 +33,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     paddingVertical: 12,
     borderRadius: 6,
-    backgroundColor: theme.palette.one,
+    backgroundColor: theme.palette.four,
   },
   buttonPressed: {
-    backgroundColor: theme.palette.two,
+    backgroundColor: theme.palette.four,
   },
 });
