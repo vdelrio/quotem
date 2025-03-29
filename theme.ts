@@ -8,7 +8,7 @@ export const theme = {
   },
   colors: {
     black: "#000",
-    grey: "#808080",
+    grey: "#ccc",
     white: "#fff",
   },
 };

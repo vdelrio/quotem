@@ -1,4 +1,4 @@
-import { Text, StyleSheet, TextInput, Alert } from "react-native";
+import { Text, StyleSheet, TextInput } from "react-native";
 import { theme } from "@/theme";
 import { QButton } from "@/components/QButton";
 import { useState } from "react";
@@ -60,7 +60,12 @@ export default function NewScreen() {
             />
           ))}
       </Picker>
-      <QButton title="Agregar" onPress={handleSubmit} disabled={!text} />
+      <QButton
+        title="Agregar"
+        color={theme.palette.four}
+        onPress={handleSubmit}
+        disabled={!text}
+      />
     </KeyboardAwareScrollView>
   );
 }

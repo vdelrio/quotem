@@ -1,26 +1,32 @@
 import { theme } from "@/theme";
-import { StyleSheet, Text, Pressable } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 type Props = {
   title: string;
+  color?: string;
   onPress: () => void;
   disabled?: boolean;
 };
 
-export function QButton({ title, disabled = false, onPress }: Props) {
+export function QButton({
+  title,
+  color = theme.palette.one,
+  disabled = false,
+  onPress,
+}: Props) {
+  const getButtonStyle = () => ({
+    ...styles.button,
+    backgroundColor: disabled ? theme.colors.grey : color,
+  });
   return (
-    <Pressable
+    <TouchableOpacity
+      activeOpacity={0.8}
       onPress={onPress}
-      style={(state) => {
-        if (state.pressed) {
-          return [styles.button, styles.buttonPressed];
-        }
-        return styles.button;
-      }}
+      style={getButtonStyle()}
       disabled={disabled}
     >
       <Text style={styles.text}>{title}</Text>
-    </Pressable>
+    </TouchableOpacity>
   );
 }
 
@@ -35,9 +41,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     paddingVertical: 12,
     borderRadius: 6,
-    backgroundColor: theme.palette.four,
-  },
-  buttonPressed: {
-    backgroundColor: theme.palette.four,
   },
 });
