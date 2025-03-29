@@ -8,10 +8,12 @@ import { Author, useAuthorStore } from "@/store/authorStore";
 import { useRouter } from "expo-router";
 import { Picker } from "@react-native-picker/picker";
 
+const noAuthor = { id: "-1", name: "Sin autor" };
+
 export default function NewScreen() {
   const router = useRouter();
   const [text, setText] = useState<string>();
-  const [author, setAuthor] = useState<Author>();
+  const [author, setAuthor] = useState<Author | undefined>(noAuthor);
   const addQuote = useQuoteStore((state) => state.addQuote);
   const findAuthorById = useAuthorStore((state) => state.findAuthorById);
   const authors: Author[] = useAuthorStore((state) => state.authors);
@@ -22,6 +24,11 @@ export default function NewScreen() {
     }
     addQuote(text, author);
     router.back();
+  };
+
+  const onChangeAuthor = (authorId: string) => {
+    const selectedAuthor = findAuthorById(authorId);
+    setAuthor(selectedAuthor);
   };
 
   return (
@@ -42,13 +49,12 @@ export default function NewScreen() {
       <Text style={styles.label}>Autor</Text>
       <Picker
         selectedValue={author?.id}
-        onValueChange={(itemValue) => setAuthor(findAuthorById(itemValue))}
+        onValueChange={onChangeAuthor}
         style={styles.picker}
       >
         <Picker.Item
-          label="Sin autor"
-          value={-1}
-          key="-1"
+          label={noAuthor.name}
+          value={noAuthor.id}
           style={{ color: "gray" }}
         />
         {authors.length &&

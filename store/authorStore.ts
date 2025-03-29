@@ -1,30 +1,22 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-
-export type Author = {
-  id: number;
-  name: string;
-};
-
-export const ucdmAuthor: Author = {
-  id: 1,
-  name: "UCDM",
-};
+import { Author } from "@/models/models";
+import { authorsNextId, mockedAuthors } from "@/models/mock-data";
 
 type AuthorStore = {
   nextId: number;
   authors: Author[];
   addAuthor: (name: string) => Promise<void>;
-  removeAuthor: (authorId: number) => void;
-  findAuthorById: (authorId: number) => Author | undefined;
+  removeAuthor: (authorId: string) => void;
+  findAuthorById: (authorId: string) => Author | undefined;
 };
 
 export const useAuthorStore = create<AuthorStore>()(
   persist(
     (set, get) => ({
-      authors: [ucdmAuthor],
-      nextId: 2,
+      authors: mockedAuthors,
+      nextId: authorsNextId,
       addAuthor: async (name: string) => {
         set((state) => {
           return {
@@ -32,7 +24,7 @@ export const useAuthorStore = create<AuthorStore>()(
             nextId: state.nextId + 1,
             authors: [
               {
-                id: state.nextId,
+                id: String(state.nextId),
                 name,
               },
               ...state.authors,
@@ -40,7 +32,7 @@ export const useAuthorStore = create<AuthorStore>()(
           };
         });
       },
-      removeAuthor: (authorId: number) => {
+      removeAuthor: (authorId: string) => {
         set((state) => {
           return {
             ...state,
@@ -48,7 +40,7 @@ export const useAuthorStore = create<AuthorStore>()(
           };
         });
       },
-      findAuthorById: (authorId: number) => {
+      findAuthorById: (authorId: string) => {
         return get().authors.find((author) => author.id === authorId);
       },
     }),
