@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, Platform } from "react-native";
 import { theme } from "@/theme";
-import { Quote } from "@/store/quoteStore";
+import { Quote } from "@/models/models";
 
 export function QuoteCard({ quote }: { quote: Quote }) {
   return (
