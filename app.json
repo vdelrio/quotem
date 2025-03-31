@@ -30,7 +30,12 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      [
+        "expo-font",
+        {
+          "fonts": ["node_modules/@expo-google-fonts/pt-sans-narrow/PTSansNarrow_400Regular.ttf"]
+        }
+      ]
     ]
   }
 }
