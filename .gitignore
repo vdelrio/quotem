@@ -37,3 +37,7 @@ yarn-error.*
 
 # idea files
 .idea
+
+# prebuild files
+ios
+android
