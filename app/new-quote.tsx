@@ -4,9 +4,10 @@ import { QButton } from "@/components/QButton";
 import { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useQuoteStore } from "@/store/quoteStore";
-import { Author, useAuthorStore } from "@/store/authorStore";
+import { useAuthorStore } from "@/store/authorStore";
 import { useRouter } from "expo-router";
 import { Picker } from "@react-native-picker/picker";
+import { Author } from "@/models/models";
 
 const noAuthor = { id: "-1", name: "Sin autor" };
 

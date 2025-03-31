@@ -1,22 +1,21 @@
-import { Text, View, StyleSheet } from "react-native";
-import { theme } from "@/theme";
+import { StyleSheet } from "react-native";
+import {
+  Camera,
+  useCameraDevice,
+  useCameraPermission,
+} from "react-native-vision-camera";
 
 export default function ProfileScreen() {
+  const device = useCameraDevice("back");
+  const { hasPermission } = useCameraPermission();
+
+  // if (!hasPermission) {
+  //   return <PermissionsPage />;
+  // }
+  if (device == null) {
+    return null;
+  }
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Profile</Text>
-    </View>
+    <Camera style={StyleSheet.absoluteFill} device={device} isActive={true} />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: theme.colors.white,
-  },
-  text: {
-    fontSize: 24,
-  },
-});
