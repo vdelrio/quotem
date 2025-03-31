@@ -43,6 +43,16 @@ export default function Layout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="permission"
+        options={{
+          title: "Permission",
+          tabBarShowLabel: false,
+          tabBarIcon: ({ size, color }) => (
+            <Feather name="user" size={size} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }
