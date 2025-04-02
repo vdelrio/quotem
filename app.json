@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "quotem",
+    "name": "QuoteM",
     "slug": "quotem",
     "scheme": "quotem",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/q-icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
@@ -19,13 +19,13 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/q-adaptive-icon.png",
+        "backgroundColor": "#ff9800"
       },
       "package": "com.vdelrio.quotem"
     },
     "web": {
-      "favicon": "./assets/favicon.png",
+      "favicon": "./assets/q-favicon.png",
       "bundler": "metro"
     },
     "plugins": [
