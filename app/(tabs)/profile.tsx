@@ -1,22 +1,46 @@
-import { Text, View, StyleSheet } from "react-native";
-import { theme } from "@/theme";
+import Animated, {
+  useSharedValue,
+  withTiming,
+  useAnimatedStyle,
+  Easing,
+} from "react-native-reanimated";
+import { View, Button } from "react-native";
 
-export default function ProfileScreen() {
+export default function AnimatedStyleUpdateExample() {
+  const randomWidth = useSharedValue(10);
+
+  const config = {
+    duration: 500,
+    easing: Easing.bezier(0.5, 0.01, 0, 1),
+  };
+
+  const style = useAnimatedStyle(() => {
+    return {
+      width: withTiming(randomWidth.value, config),
+    };
+  });
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Profile</Text>
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+      }}
+    >
+      <Animated.View
+        style={[
+          { width: 100, height: 80, backgroundColor: "black", margin: 30 },
+          style,
+        ]}
+      />
+      <Button
+        title="toggle"
+        onPress={() => {
+          randomWidth.value = Math.random() * 350;
+        }}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: theme.colors.white,
-  },
-  text: {
-    fontSize: 24,
-  },
-});
