@@ -34,6 +34,7 @@
       [
         "expo-splash-screen",
         {
+          "backgroundColor": "#ff9800",
           "image": "./assets/q-adaptive-icon.png",
           "imageWidth": 200
         }
