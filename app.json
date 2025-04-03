@@ -8,11 +8,6 @@
     "icon": "./assets/q-icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.vdelrio.quotem"
@@ -34,6 +29,13 @@
         "expo-font",
         {
           "fonts": ["node_modules/@expo-google-fonts/pt-sans-narrow/PTSansNarrow_400Regular.ttf"]
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/q-adaptive-icon.png",
+          "imageWidth": 200
         }
       ]
     ]
