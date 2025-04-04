@@ -1,22 +1,20 @@
-import { Text, StyleSheet, TextInput } from "react-native";
+import { StyleSheet } from "react-native";
+import { Button, TextField, Picker } from "react-native-ui-lib";
 import { theme } from "@/theme";
-import { QButton } from "@/components/QButton";
 import { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useQuoteStore } from "@/store/quoteStore";
-import { Author, useAuthorStore } from "@/store/authorStore";
+import { useAuthorStore } from "@/store/authorStore";
 import { useRouter } from "expo-router";
-import { Picker } from "@react-native-picker/picker";
-
-const noAuthor = { id: "-1", name: "Sin autor" };
+import { Author } from "@/models/models";
 
 export default function NewScreen() {
   const router = useRouter();
   const [text, setText] = useState<string>();
-  const [author, setAuthor] = useState<Author | undefined>(noAuthor);
   const addQuote = useQuoteStore((state) => state.addQuote);
   const findAuthorById = useAuthorStore((state) => state.findAuthorById);
   const authors: Author[] = useAuthorStore((state) => state.authors);
+  const [author, setAuthor] = useState<Author>(authors[0]);
 
   const handleSubmit = () => {
     if (!text) {
@@ -37,26 +35,26 @@ export default function NewScreen() {
       contentContainerStyle={styles.contentContainer}
       keyboardShouldPersistTaps="handled"
     >
-      <Text style={styles.label}>Cita</Text>
-      <TextInput
+      <TextField
+        marginB-s6
+        text70L
+        label="Cita"
         value={text}
         onChangeText={setText}
-        style={styles.input}
         placeholder="Ingrese la cita..."
         multiline
         numberOfLines={12}
       />
-      <Text style={styles.label}>Autor</Text>
       <Picker
-        selectedValue={author?.id}
-        onValueChange={onChangeAuthor}
-        style={styles.picker}
+        marginB-s6
+        text70L
+        label="Autor"
+        value={author?.id}
+        placeholder="Seleccione un autor"
+        onChange={(value) => onChangeAuthor(value as string)}
+        useSafeArea
+        topBarProps={{ title: "Autor" }}
       >
-        <Picker.Item
-          label={noAuthor.name}
-          value={noAuthor.id}
-          style={{ color: "gray" }}
-        />
         {authors.length &&
           authors.map((author) => (
             <Picker.Item
@@ -66,12 +64,7 @@ export default function NewScreen() {
             />
           ))}
       </Picker>
-      <QButton
-        title="Agregar"
-        color={theme.palette.four}
-        onPress={handleSubmit}
-        disabled={!text}
-      />
+      <Button label="Agregar" onPress={handleSubmit} disabled={!text} />
     </KeyboardAwareScrollView>
   );
 }
@@ -82,24 +75,6 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.white,
   },
   contentContainer: {
-    paddingTop: 24,
-    paddingHorizontal: 24,
-    paddingBottom: 100,
-  },
-  input: {
-    borderWidth: 2,
-    borderColor: theme.palette.four,
-    borderRadius: 6,
-    padding: 12,
-    marginBottom: 24,
-    fontSize: 18,
-    textAlignVertical: "top",
-  },
-  label: {
-    fontSize: 18,
-    marginBottom: 8,
-  },
-  picker: {
-    marginBottom: 24,
+    padding: 24,
   },
 });

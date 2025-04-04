@@ -2,13 +2,18 @@ import { Author, Quote } from "@/models/models";
 
 // Authors --------------------------------------------------------------------------------------
 
-export const ucdmAuthor: Author = {
+export const noAuthor: Author = {
   id: "1",
+  name: "Sin autor",
+};
+
+export const ucdmAuthor: Author = {
+  id: "2",
   name: "UCDM",
 };
 
-export const mockedAuthors: Author[] = [ucdmAuthor];
-export const authorsNextId = 2;
+export const mockedAuthors: Author[] = [noAuthor, ucdmAuthor];
+export const authorsNextId = 3;
 
 // ----------------------------------------------------------------------------------------------
 // Quotes ---------------------------------------------------------------------------------------

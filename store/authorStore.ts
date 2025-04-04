@@ -2,14 +2,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { Author } from "@/models/models";
-import { authorsNextId, mockedAuthors } from "@/models/mock-data";
+import { authorsNextId, mockedAuthors, noAuthor } from "@/models/mock-data";
 
 type AuthorStore = {
   nextId: number;
   authors: Author[];
   addAuthor: (name: string) => Promise<void>;
   removeAuthor: (authorId: string) => void;
-  findAuthorById: (authorId: string) => Author | undefined;
+  findAuthorById: (authorId: string) => Author;
 };
 
 export const useAuthorStore = create<AuthorStore>()(
@@ -41,7 +41,8 @@ export const useAuthorStore = create<AuthorStore>()(
         });
       },
       findAuthorById: (authorId: string) => {
-        return get().authors.find((author) => author.id === authorId);
+        const author = get().authors.find((author) => author.id === authorId);
+        return author || noAuthor;
       },
     }),
     {
