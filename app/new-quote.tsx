@@ -1,5 +1,13 @@
-import { StyleSheet } from "react-native";
-import { Button, TextField, Picker } from "react-native-ui-lib";
+import { Text, StyleSheet, TextInput } from "react-native";
+import {
+  Button,
+  Picker,
+  Icon,
+  Colors,
+  BorderRadiuses,
+  Typography,
+  Spacings,
+} from "react-native-ui-lib";
 import { theme } from "@/theme";
 import { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -7,6 +15,8 @@ import { useQuoteStore } from "@/store/quoteStore";
 import { useAuthorStore } from "@/store/authorStore";
 import { useRouter } from "expo-router";
 import { Author } from "@/models/models";
+
+const dropdownIcon = <Icon source={require("@/assets/chevronDown.png")} />;
 
 export default function NewScreen() {
   const router = useRouter();
@@ -35,25 +45,29 @@ export default function NewScreen() {
       contentContainerStyle={styles.contentContainer}
       keyboardShouldPersistTaps="handled"
     >
-      <TextField
-        marginB-s6
-        text70L
-        label="Cita"
+      <Text style={styles.label}>Cita</Text>
+      <TextInput
         value={text}
         onChangeText={setText}
+        style={styles.textArea}
         placeholder="Ingrese la cita..."
         multiline
         numberOfLines={12}
       />
       <Picker
-        marginB-s6
-        text70L
         label="Autor"
+        labelProps={{
+          text65: true,
+          "marginB-s1": true,
+        }}
+        preset="underline"
+        text70
         value={author?.id}
-        placeholder="Seleccione un autor"
         onChange={(value) => onChangeAuthor(value as string)}
         useSafeArea
         topBarProps={{ title: "Autor" }}
+        trailingAccessory={dropdownIcon}
+        marginB-s2
       >
         {authors.length &&
           authors.map((author) => (
@@ -64,7 +78,13 @@ export default function NewScreen() {
             />
           ))}
       </Picker>
-      <Button label="Agregar" onPress={handleSubmit} disabled={!text} />
+      <Button
+        label="Agregar"
+        backgroundColor={theme.palette.two}
+        onPress={handleSubmit}
+        borderRadius={BorderRadiuses.br50}
+        disabled={!text}
+      />
     </KeyboardAwareScrollView>
   );
 }
@@ -75,6 +95,18 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.white,
   },
   contentContainer: {
-    padding: 24,
+    padding: Spacings.s6,
+  },
+  label: {
+    fontSize: Typography.text65?.fontSize,
+    marginBottom: Spacings.s1,
+  },
+  textArea: {
+    borderBottomWidth: 1,
+    borderColor: Colors.$outlineDefault,
+    paddingVertical: Spacings.s2,
+    fontSize: Typography.text70?.fontSize,
+    textAlignVertical: "top",
+    marginBottom: Spacings.s6,
   },
 });
