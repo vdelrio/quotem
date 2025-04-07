@@ -2,8 +2,8 @@ import { StyleSheet } from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { useRouter } from "expo-router";
 import { useQuoteStore } from "@/store/quoteStore";
-import { QuoteCard } from "@/components/QuoteCard";
-import { QButton } from "@/components/QButton";
+import { RNUICard } from "@/components/RNUICard";
+import { Button } from "react-native-ui-lib";
 
 export default function App() {
   const router = useRouter();
@@ -14,11 +14,11 @@ export default function App() {
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
       data={quotes}
-      renderItem={({ item }) => <QuoteCard quote={item} />}
+      renderItem={({ item }) => <RNUICard quote={item} />}
       itemLayoutAnimation={LinearTransition}
       ListEmptyComponent={
-        <QButton
-          title="Add your first quote"
+        <Button
+          label="Agrega tu primera cita"
           onPress={() => {
             router.navigate("/new");
           }}
