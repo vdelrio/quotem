@@ -4,7 +4,6 @@ import { useRouter } from "expo-router";
 import { useQuoteStore } from "@/store/quoteStore";
 import { QuoteCard } from "@/components/QuoteCard";
 import { QButton } from "@/components/QButton";
-import { Colors } from "react-native-ui-lib";
 
 export default function App() {
   const router = useRouter();
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // TODO: ver por qué no toma el del design system
-    // backgroundColor: Colors.two,
+    // backgroundColor: Colors.secondary,
     backgroundColor: "#9dbdba",
   },
   contentContainer: {

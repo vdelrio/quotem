@@ -2,11 +2,9 @@ import { BorderRadiuses, Colors, ThemeManager } from "react-native-ui-lib";
 
 // Initial color palette
 const colorPalette = {
-  one: "#93aec1",
-  two: "#9dbdba",
-  three: "#f8b042",
-  four: "#ec6a52",
-  five: "#f3b7ad",
+  primary: "#ec6a52",
+  secondary: "#9dbdba",
+  accent: "#42a28f",
 };
 
 // Function to update theme components based on current colors
@@ -22,7 +20,7 @@ export default {
     // Load initial colors
     Colors.loadColors(colorPalette);
     // Load design tokens based on primary color
-    Colors.loadDesignTokens({ primaryColor: colorPalette.four });
+    Colors.loadDesignTokens({ primaryColor: colorPalette.primary });
     // Initialize component themes
     updateComponentThemes();
   },

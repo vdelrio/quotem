@@ -15,7 +15,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/q-adaptive-icon.png",
-        "backgroundColor": "#ff9800"
+        "backgroundColor": "#ec6a52"
       },
       "package": "com.vdelrio.quotem"
     },
@@ -36,7 +36,7 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#ff9800",
+          "backgroundColor": "#ec6a52",
           "image": "./assets/q-adaptive-icon.png",
           "imageWidth": 200
         }
