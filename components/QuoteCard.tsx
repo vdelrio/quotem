@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, Platform } from "react-native";
-import { theme } from "@/theme";
 import { Quote } from "@/models/models";
+import { Colors } from "react-native-ui-lib";
 
 export function QuoteCard({ quote }: { quote: Quote }) {
   return (
@@ -20,11 +20,11 @@ const fontFamily = Platform.select({
 
 const styles = StyleSheet.create({
   quoteContainer: {
-    backgroundColor: theme.colors.white,
+    backgroundColor: Colors.white,
     borderRadius: 6,
     padding: 12,
     marginBottom: 8,
-    shadowColor: theme.colors.black,
+    shadowColor: Colors.black,
     shadowOffset: {
       width: 0,
       height: 1,
@@ -41,6 +41,6 @@ const styles = StyleSheet.create({
   author: {
     fontFamily,
     fontSize: 16,
-    color: theme.colors.grey,
+    color: Colors.$textNeutralLight,
   },
 });

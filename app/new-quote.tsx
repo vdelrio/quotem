@@ -4,11 +4,9 @@ import {
   Picker,
   Icon,
   Colors,
-  BorderRadiuses,
   Typography,
   Spacings,
 } from "react-native-ui-lib";
-import { theme } from "@/theme";
 import { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useQuoteStore } from "@/store/quoteStore";
@@ -78,13 +76,7 @@ export default function NewScreen() {
             />
           ))}
       </Picker>
-      <Button
-        label="Agregar"
-        backgroundColor={theme.palette.two}
-        onPress={handleSubmit}
-        borderRadius={BorderRadiuses.br50}
-        disabled={!text}
-      />
+      <Button label="Agregar" onPress={handleSubmit} disabled={!text} />
     </KeyboardAwareScrollView>
   );
 }
@@ -92,7 +84,7 @@ export default function NewScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.white,
+    backgroundColor: Colors.white,
   },
   contentContainer: {
     padding: Spacings.s6,

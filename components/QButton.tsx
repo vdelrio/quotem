@@ -1,4 +1,3 @@
-import { theme } from "@/theme";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 type Props = {
@@ -10,13 +9,13 @@ type Props = {
 
 export function QButton({
   title,
-  color = theme.palette.one,
+  color = "#93aec1",
   disabled = false,
   onPress,
 }: Props) {
   const getButtonStyle = () => ({
     ...styles.button,
-    backgroundColor: disabled ? theme.colors.grey : color,
+    backgroundColor: disabled ? "#ccc" : color,
   });
   return (
     <TouchableOpacity

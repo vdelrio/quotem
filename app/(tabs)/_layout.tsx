@@ -1,13 +1,13 @@
 import { Tabs, Link } from "expo-router";
 import Feather from "@expo/vector-icons/Feather";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { theme } from "@/theme";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { Pressable } from "react-native";
+import { Colors } from "react-native-ui-lib";
 
 export default function Layout() {
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: theme.palette.four }}>
+    <Tabs screenOptions={{ tabBarActiveTintColor: Colors.$iconPrimary }}>
       <Tabs.Screen
         name="index"
         options={{
@@ -26,7 +26,7 @@ export default function Layout() {
                 <AntDesign
                   name="pluscircleo"
                   size={24}
-                  color={theme.palette.four}
+                  color={Colors.$iconPrimary}
                 />
               </Pressable>
             </Link>

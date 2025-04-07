@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { useRouter } from "expo-router";
-import { theme } from "@/theme";
 import { useQuoteStore } from "@/store/quoteStore";
 import { QuoteCard } from "@/components/QuoteCard";
 import { QButton } from "@/components/QButton";
+import { Colors } from "react-native-ui-lib";
 
 export default function App() {
   const router = useRouter();
@@ -32,7 +32,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.palette.two,
+    // TODO: ver por qué no toma el del design system
+    // backgroundColor: Colors.two,
+    backgroundColor: "#9dbdba",
   },
   contentContainer: {
     padding: 12,
