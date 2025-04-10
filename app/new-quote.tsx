@@ -22,7 +22,7 @@ export default function NewScreen() {
   const addQuote = useQuoteStore((state) => state.addQuote);
   const findAuthorById = useAuthorStore((state) => state.findAuthorById);
   const authors: Author[] = useAuthorStore((state) => state.authors);
-  const [author, setAuthor] = useState<Author>(authors[0]);
+  const [author, setAuthor] = useState<Author>(authors[1]);
 
   const handleSubmit = () => {
     if (!text) {

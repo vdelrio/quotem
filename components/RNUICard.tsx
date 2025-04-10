@@ -7,10 +7,7 @@ import { FancyFontText } from "@/components/FancyFontText";
 export function RNUICard({ quote }: { quote: Quote }) {
   const router = useRouter();
   return (
-    <Card
-      style={styles.card}
-      onPress={() => router.navigate(`quotes/${quote.id}`)}
-    >
+    <Card style={styles.card} onPress={() => router.navigate(`/${quote.id}`)}>
       <View>
         <FancyFontText numberOfLines={4} style={styles.quoteText}>
           {quote.text}

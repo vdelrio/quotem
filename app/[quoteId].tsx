@@ -28,15 +28,15 @@ export default function QuoteDetails() {
     }
 
     Alert.alert("Eliminar cita", "¿Estas seguro de eliminar la cita?", [
+      { text: "Cancelar", style: "cancel" },
       {
-        text: "Si",
+        text: "Eliminar",
         onPress: () => {
           removeQuote(quote.id);
-          router.navigate("/");
+          router.back();
         },
         style: "destructive",
       },
-      { text: "Cancelar", style: "cancel" },
     ]);
   };
 
