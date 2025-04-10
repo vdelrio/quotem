@@ -54,10 +54,7 @@ export default function NewScreen() {
       />
       <Picker
         label="Autor"
-        labelProps={{
-          text65: true,
-          "marginB-s1": true,
-        }}
+        labelStyle={styles.label}
         preset="underline"
         text70
         value={author?.id}

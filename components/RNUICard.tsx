@@ -1,21 +1,19 @@
-import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Card, Colors, View } from "react-native-ui-lib";
+import { useRouter } from "expo-router";
 import { Quote } from "@/models/models";
 import { FancyFontText } from "@/components/FancyFontText";
 
 export function RNUICard({ quote }: { quote: Quote }) {
-  const [expanded, setExpanded] = useState<boolean>(false);
+  const router = useRouter();
   return (
     <Card
       style={styles.card}
-      onPress={() => setExpanded((prevState) => !prevState)}
+      onPress={() => router.navigate(`quotes/${quote.id}`)}
+      // onPress={() => router.navigate(`quotes/58`)}
     >
       <View>
-        <FancyFontText
-          numberOfLines={expanded ? undefined : 4}
-          style={styles.quoteText}
-        >
+        <FancyFontText numberOfLines={4} style={styles.quoteText}>
           {quote.text}
         </FancyFontText>
         {quote.author && (

@@ -9,11 +9,12 @@ type QuoteStore = {
   quotes: Quote[];
   addQuote: (text: string, author?: Author) => Promise<void>;
   removeQuote: (quoteId: string) => void;
+  findQuoteById: (quoteId: string) => Quote | undefined;
 };
 
 export const useQuoteStore = create<QuoteStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       quotes: mockedQuotes,
       nextId: quoteNextId,
       addQuote: async (text: string, author?: Author) => {
@@ -39,6 +40,9 @@ export const useQuoteStore = create<QuoteStore>()(
             quotes: state.quotes.filter((quote) => quote.id !== quoteId),
           };
         });
+      },
+      findQuoteById: (quoteId: string) => {
+        return get().quotes.find((quote) => quote.id === quoteId);
       },
     }),
     {
