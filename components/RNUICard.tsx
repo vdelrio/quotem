@@ -10,7 +10,6 @@ export function RNUICard({ quote }: { quote: Quote }) {
     <Card
       style={styles.card}
       onPress={() => router.navigate(`quotes/${quote.id}`)}
-      // onPress={() => router.navigate(`quotes/58`)}
     >
       <View>
         <FancyFontText numberOfLines={4} style={styles.quoteText}>

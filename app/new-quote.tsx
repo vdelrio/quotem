@@ -87,14 +87,14 @@ const styles = StyleSheet.create({
     padding: Spacings.s6,
   },
   label: {
-    fontSize: Typography.text65?.fontSize,
+    ...Typography.text65R,
     marginBottom: Spacings.s1,
   },
   textArea: {
     borderBottomWidth: 1,
     borderColor: Colors.$outlineDefault,
     paddingVertical: Spacings.s2,
-    fontSize: Typography.text70?.fontSize,
+    ...Typography.text70R,
     textAlignVertical: "top",
     marginBottom: Spacings.s6,
   },

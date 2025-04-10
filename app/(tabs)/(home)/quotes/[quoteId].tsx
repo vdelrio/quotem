@@ -2,19 +2,19 @@ import { useEffect } from "react";
 import { View, Text, StyleSheet, Alert } from "react-native";
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { useQuoteStore } from "@/store/quoteStore";
-import { Button, Colors } from "react-native-ui-lib";
+import { Button, Colors, Spacings, Typography } from "react-native-ui-lib";
 import { FancyFontText } from "@/components/FancyFontText";
 
 export default function QuoteDetails() {
   const router = useRouter();
-
-  const params = useLocalSearchParams();
-  const quoteId = params.quoteId as string;
-
-  const removeQuote = useQuoteStore((store) => store.removeQuote);
-  const findQuoteById = useQuoteStore((state) => state.findQuoteById);
-  const quote = findQuoteById(quoteId);
   const navigation = useNavigation();
+  const params = useLocalSearchParams();
+
+  const findQuoteById = useQuoteStore((state) => state.findQuoteById);
+  const removeQuote = useQuoteStore((store) => store.removeQuote);
+
+  const quoteId = params.quoteId as string;
+  const quote = findQuoteById(quoteId);
 
   useEffect(() => {
     navigation.setOptions({
@@ -64,13 +64,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-    padding: 18,
+    padding: Spacings.s5,
   },
   quoteTextContainer: {
-    marginBottom: 24,
+    marginBottom: Spacings.s6,
   },
   quoteText: {
-    fontSize: 20,
+    fontSize: Typography.text60?.fontSize,
     textAlign: "justify",
   },
   notFoundContainer: {
@@ -80,6 +80,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   notFoundText: {
-    fontSize: 18,
+    fontSize: Typography.text70?.fontSize,
   },
 });
