@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useQuoteStore } from "@/store/quoteStore";
-import { useAuthorStore } from "@/store/authorStore";
+import { Author, useAuthorStore } from "@/store/authorStore";
 import { useRouter } from "expo-router";
 import { Author } from "@/models/models";
 
