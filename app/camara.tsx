@@ -3,6 +3,7 @@ import { Camera, useCameraDevice } from "react-native-vision-camera";
 import { useRef, useState } from "react";
 import * as FileSystem from "expo-file-system";
 import { useQuoteStore } from "@/store/quoteStore";
+import { router } from "expo-router";
 
 export default function CamaraPage() {
   const camera = useRef<Camera>(null);
@@ -62,9 +63,12 @@ export default function CamaraPage() {
           <Image source={{ uri: photoUri }} style={styles.previewImage} />
           <TouchableOpacity
             style={styles.closePreviewButton}
-            onPress={() => setPhotoUri(null)}
+            onPress={() => {
+              setPhotoUri(null);
+              router.back();
+            }}
           >
-            <Text style={styles.closeButtonText}>Close</Text>
+            <Text style={styles.closeButtonText}>Confirmar</Text>
           </TouchableOpacity>
         </View>
       )}

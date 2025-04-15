@@ -73,14 +73,16 @@ export default function NewScreen() {
             />
           ))}
       </Picker>
-      <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
+      {quote.imageUri && (
+        <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
+      )}
+      <TakePhotoBtn label="Tomar foto" marginB-10 />
       <Button
-        marginB-20
-        label="Agregar"
+        label="Crear cita"
         onPress={handleSubmit}
         disabled={!quote.text}
+        style={styles.primaryBtn}
       />
-      <TakePhotoBtn />
     </KeyboardAwareScrollView>
   );
 }
@@ -106,9 +108,12 @@ const styles = StyleSheet.create({
     marginBottom: Spacings.s6,
   },
   previewImage: {
-    width: 200,
-    height: 200,
+    width: "100%",
+    height: 300,
     borderRadius: 5,
     marginBottom: 10,
+  },
+  primaryBtn: {
+    height: 55,
   },
 });

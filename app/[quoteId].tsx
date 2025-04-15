@@ -55,7 +55,9 @@ export default function QuoteDetails() {
       <View style={styles.quoteTextContainer}>
         <FancyFontText style={styles.quoteText}>{quote.text}</FancyFontText>
       </View>
-      <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
+      {quote.imageUri && (
+        <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
+      )}
       <Button label="Eliminar" onPress={handleDeleteQuote} />
     </View>
   );
@@ -84,8 +86,8 @@ const styles = StyleSheet.create({
     fontSize: Typography.text70?.fontSize,
   },
   previewImage: {
-    width: 200,
-    height: 200,
+    width: "100%",
+    height: 300,
     borderRadius: 5,
     marginBottom: 10,
   },
