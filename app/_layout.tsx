@@ -1,7 +1,6 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import DesignSystem from "@/theme/DesignSystem";
-import { Colors } from "react-native-ui-lib";
 
 export default function Layout() {
   DesignSystem.initializeDesignSystem();
@@ -23,6 +22,13 @@ export default function Layout() {
           name="[quoteId]"
           options={{
             title: "",
+            presentation: "modal",
+          }}
+        />
+        <Stack.Screen
+          name="camara"
+          options={{
+            title: "Camara",
             presentation: "modal",
           }}
         />

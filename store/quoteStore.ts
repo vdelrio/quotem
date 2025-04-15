@@ -1,15 +1,24 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { mockedQuotes, quoteNextId } from "@/models/mock-data";
-import { Author, Quote } from "@/models/models";
+import { mockedQuotes, quoteNextId, ucdmAuthor } from "@/models/mock-data";
+import { Quote } from "@/models/models";
 
 type QuoteStore = {
   nextId: number;
   quotes: Quote[];
-  addQuote: (text: string, author?: Author) => Promise<void>;
+  currentQuote: Quote;
+  updateCurrentQuote: (fieldName: keyof Quote, value: any) => void;
+  addQuote: () => void;
   removeQuote: (quoteId: string) => void;
   findQuoteById: (quoteId: string) => Quote | undefined;
+};
+
+const currentQuoteInitialState: Quote = {
+  id: "",
+  text: "",
+  author: ucdmAuthor,
+  imageUri: undefined,
 };
 
 export const useQuoteStore = create<QuoteStore>()(
@@ -17,19 +26,31 @@ export const useQuoteStore = create<QuoteStore>()(
     (set, get) => ({
       quotes: mockedQuotes,
       nextId: quoteNextId,
-      addQuote: async (text: string, author?: Author) => {
+      currentQuote: currentQuoteInitialState,
+      updateCurrentQuote: (fieldName: keyof Quote, value: any) => {
+        set((state) => {
+          return {
+            ...state,
+            currentQuote: {
+              ...state.currentQuote,
+              [fieldName]: value,
+            },
+          };
+        });
+      },
+      addQuote: () => {
         set((state) => {
           return {
             ...state,
             nextId: state.nextId + 1,
             quotes: [
               {
+                ...state.currentQuote,
                 id: String(state.nextId),
-                text,
-                author,
               },
               ...state.quotes,
             ],
+            currentQuote: currentQuoteInitialState,
           };
         });
       },

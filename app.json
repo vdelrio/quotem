@@ -40,6 +40,12 @@
           "image": "./assets/q-adaptive-icon.png",
           "imageWidth": 200
         }
+      ],
+      [
+        "react-native-vision-camera",
+        {
+          "cameraPermissionText": "$(PRODUCT_NAME) necesita acceso a tu cámara."
+        }
       ]
     ],
     "extra": {

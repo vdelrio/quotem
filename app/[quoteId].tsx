@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, Text, StyleSheet, Alert, Image } from "react-native";
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { useQuoteStore } from "@/store/quoteStore";
 import { Button, Colors, Spacings, Typography } from "react-native-ui-lib";
@@ -55,6 +55,7 @@ export default function QuoteDetails() {
       <View style={styles.quoteTextContainer}>
         <FancyFontText style={styles.quoteText}>{quote.text}</FancyFontText>
       </View>
+      <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
       <Button label="Eliminar" onPress={handleDeleteQuote} />
     </View>
   );
@@ -81,5 +82,11 @@ const styles = StyleSheet.create({
   },
   notFoundText: {
     fontSize: Typography.text70?.fontSize,
+  },
+  previewImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 5,
+    marginBottom: 10,
   },
 });

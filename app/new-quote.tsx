@@ -1,4 +1,4 @@
-import { Text, StyleSheet, TextInput } from "react-native";
+import { Text, StyleSheet, TextInput, Image } from "react-native";
 import {
   Button,
   Picker,
@@ -7,34 +7,34 @@ import {
   Typography,
   Spacings,
 } from "react-native-ui-lib";
-import { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useQuoteStore } from "@/store/quoteStore";
 import { useAuthorStore } from "@/store/authorStore";
 import { useRouter } from "expo-router";
 import { Author } from "@/models/models";
+import { TakePhotoBtn } from "@/components/TakePhotoBtn";
 
 const dropdownIcon = <Icon source={require("@/assets/chevronDown.png")} />;
 
 export default function NewScreen() {
   const router = useRouter();
-  const [text, setText] = useState<string>();
   const addQuote = useQuoteStore((state) => state.addQuote);
+  const quote = useQuoteStore((state) => state.currentQuote);
+  const updateQuote = useQuoteStore((state) => state.updateCurrentQuote);
   const findAuthorById = useAuthorStore((state) => state.findAuthorById);
   const authors: Author[] = useAuthorStore((state) => state.authors);
-  const [author, setAuthor] = useState<Author>(authors[1]);
 
   const handleSubmit = () => {
-    if (!text) {
+    if (!quote.text) {
       return;
     }
-    addQuote(text, author);
+    addQuote();
     router.back();
   };
 
   const onChangeAuthor = (authorId: string) => {
     const selectedAuthor = findAuthorById(authorId);
-    setAuthor(selectedAuthor);
+    updateQuote("author", selectedAuthor);
   };
 
   return (
@@ -45,8 +45,8 @@ export default function NewScreen() {
     >
       <Text style={styles.label}>Cita</Text>
       <TextInput
-        value={text}
-        onChangeText={setText}
+        value={quote.text}
+        onChangeText={(text) => updateQuote("text", text)}
         style={styles.textArea}
         placeholder="Ingrese la cita..."
         multiline
@@ -57,7 +57,7 @@ export default function NewScreen() {
         labelStyle={styles.label}
         preset="underline"
         text70
-        value={author?.id}
+        value={quote.author?.id}
         onChange={(value) => onChangeAuthor(value as string)}
         useSafeArea
         topBarProps={{ title: "Autor" }}
@@ -73,7 +73,14 @@ export default function NewScreen() {
             />
           ))}
       </Picker>
-      <Button label="Agregar" onPress={handleSubmit} disabled={!text} />
+      <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
+      <Button
+        marginB-20
+        label="Agregar"
+        onPress={handleSubmit}
+        disabled={!quote.text}
+      />
+      <TakePhotoBtn />
     </KeyboardAwareScrollView>
   );
 }
@@ -97,5 +104,11 @@ const styles = StyleSheet.create({
     ...Typography.text70R,
     textAlignVertical: "top",
     marginBottom: Spacings.s6,
+  },
+  previewImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 5,
+    marginBottom: 10,
   },
 });
