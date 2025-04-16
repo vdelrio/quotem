@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Camera, useCameraDevice } from "react-native-vision-camera";
 import { PhotoRecognizer } from "react-native-vision-camera-text-recognition";
+import ImagePicker from "react-native-image-crop-picker";
 import { useRef } from "react";
 import * as FileSystem from "expo-file-system";
 import { useQuoteStore } from "@/store/quoteStore";
@@ -10,6 +11,29 @@ export default function CamaraPage() {
   const camera = useRef<Camera>(null);
   const device = useCameraDevice("back");
   const updateCurrentQuote = useQuoteStore((state) => state.updateCurrentQuote);
+
+  const openCropper = async (imagePath: string) => {
+    const image = await ImagePicker.openCropper({
+      mediaType: "photo",
+      path: imagePath,
+      freeStyleCropEnabled: true,
+      width: 300,
+      height: 300,
+    });
+
+    const newUri = image.path;
+    console.log(image.path);
+
+    updateCurrentQuote("imageUri", newUri);
+    const result = await PhotoRecognizer({
+      uri: newUri,
+      orientation: "portrait",
+    });
+    console.log("Scanned:", result?.resultText);
+    updateCurrentQuote("text", result?.resultText?.replace(/\r?\n|\r/g, " "));
+
+    router.back();
+  };
 
   const takePhoto = async () => {
     try {
@@ -30,15 +54,7 @@ export default function CamaraPage() {
         });
         console.log("Photo moved to app directory:", newUri);
 
-        updateCurrentQuote("imageUri", newUri);
-        const result = await PhotoRecognizer({
-          uri: newUri,
-          orientation: "portrait",
-        });
-        console.log("Scanned:", result?.resultText);
-        updateCurrentQuote("text", result?.resultText);
-
-        router.back();
+        openCropper(newUri);
       }
     } catch (error) {
       console.error("Failed to take photo:", error);
