@@ -1,4 +1,4 @@
-import { Text, StyleSheet, TextInput, Image } from "react-native";
+import { Text, StyleSheet, TextInput } from "react-native";
 import {
   Button,
   Picker,
@@ -73,9 +73,6 @@ export default function NewScreen() {
             />
           ))}
       </Picker>
-      {quote.imageUri && (
-        <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
-      )}
       <TakePhotoBtn label="Tomar foto" marginB-10 />
       <Button
         label="Crear cita"
@@ -106,12 +103,6 @@ const styles = StyleSheet.create({
     ...Typography.text70R,
     textAlignVertical: "top",
     marginBottom: Spacings.s6,
-  },
-  previewImage: {
-    width: "100%",
-    height: 300,
-    borderRadius: 5,
-    marginBottom: 10,
   },
   primaryBtn: {
     height: 55,

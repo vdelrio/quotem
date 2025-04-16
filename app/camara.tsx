@@ -1,36 +1,44 @@
-import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Camera, useCameraDevice } from "react-native-vision-camera";
-import { useRef, useState } from "react";
-import * as FileSystem from "expo-file-system";
+import { PhotoRecognizer } from "react-native-vision-camera-text-recognition";
+import ImagePicker from "react-native-image-crop-picker";
+import { useRef } from "react";
 import { useQuoteStore } from "@/store/quoteStore";
 import { router } from "expo-router";
+
+const REMOVE_NEWLINES_REGEX = /\r?\n|\r/g;
 
 export default function CamaraPage() {
   const camera = useRef<Camera>(null);
   const device = useCameraDevice("back");
-  const [photoUri, setPhotoUri] = useState<string | null>(null);
   const updateCurrentQuote = useQuoteStore((state) => state.updateCurrentQuote);
+
+  const openCropper = async (imagePath: string) => {
+    const image = await ImagePicker.openCropper({
+      mediaType: "photo",
+      path: imagePath,
+      freeStyleCropEnabled: true,
+    });
+
+    // Extract text from image
+    const result = await PhotoRecognizer({
+      uri: image.path,
+      orientation: "portrait",
+    });
+    updateCurrentQuote(
+      "text",
+      result?.resultText?.replace(REMOVE_NEWLINES_REGEX, " "),
+    );
+
+    await ImagePicker.cleanSingle(image.path);
+    router.back();
+  };
 
   const takePhoto = async () => {
     try {
       const photo = await camera.current?.takePhoto();
       if (photo) {
-        console.log("Photo taken!", photo?.path);
-
-        const appDirectory = FileSystem.documentDirectory + "photos/";
-        await FileSystem.makeDirectoryAsync(appDirectory, {
-          intermediates: true,
-        });
-        const newUri = `${appDirectory}${Date.now()}.jpg`;
-        console.log({ newUri });
-
-        await FileSystem.moveAsync({
-          from: `file://${photo.path}`,
-          to: newUri,
-        });
-        console.log("Photo moved to app directory:", newUri);
-        setPhotoUri(newUri);
-        updateCurrentQuote("imageUri", newUri);
+        await openCropper(`file://${photo.path}`);
       }
     } catch (error) {
       console.error("Failed to take photo:", error);
@@ -57,21 +65,6 @@ export default function CamaraPage() {
       <TouchableOpacity style={styles.captureButton} onPress={takePhoto}>
         <View style={styles.innerCircle} />
       </TouchableOpacity>
-
-      {photoUri && (
-        <View style={styles.previewContainer}>
-          <Image source={{ uri: photoUri }} style={styles.previewImage} />
-          <TouchableOpacity
-            style={styles.closePreviewButton}
-            onPress={() => {
-              setPhotoUri(null);
-              router.back();
-            }}
-          >
-            <Text style={styles.closeButtonText}>Confirmar</Text>
-          </TouchableOpacity>
-        </View>
-      )}
     </View>
   );
 }
@@ -98,29 +91,5 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 30,
     backgroundColor: "red",
-  },
-  previewContainer: {
-    position: "absolute",
-    top: 20,
-    left: 20,
-    right: 20,
-    backgroundColor: "rgba(0,0,0,0.7)",
-    borderRadius: 10,
-    padding: 10,
-    alignItems: "center",
-  },
-  previewImage: {
-    width: 200,
-    height: 200,
-    borderRadius: 5,
-    marginBottom: 10,
-  },
-  closePreviewButton: {
-    backgroundColor: "lightgray",
-    padding: 10,
-    borderRadius: 5,
-  },
-  closeButtonText: {
-    fontWeight: "bold",
   },
 });
