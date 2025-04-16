@@ -3,9 +3,10 @@ import { Camera, useCameraDevice } from "react-native-vision-camera";
 import { PhotoRecognizer } from "react-native-vision-camera-text-recognition";
 import ImagePicker from "react-native-image-crop-picker";
 import { useRef } from "react";
-import * as FileSystem from "expo-file-system";
 import { useQuoteStore } from "@/store/quoteStore";
 import { router } from "expo-router";
+
+const REMOVE_NEWLINES_REGEX = /\r?\n|\r/g;
 
 export default function CamaraPage() {
   const camera = useRef<Camera>(null);
@@ -17,21 +18,19 @@ export default function CamaraPage() {
       mediaType: "photo",
       path: imagePath,
       freeStyleCropEnabled: true,
-      width: 300,
-      height: 300,
     });
 
-    const newUri = image.path;
-    console.log(image.path);
-
-    updateCurrentQuote("imageUri", newUri);
+    // Extract text from image
     const result = await PhotoRecognizer({
-      uri: newUri,
+      uri: image.path,
       orientation: "portrait",
     });
-    console.log("Scanned:", result?.resultText);
-    updateCurrentQuote("text", result?.resultText?.replace(/\r?\n|\r/g, " "));
+    updateCurrentQuote(
+      "text",
+      result?.resultText?.replace(REMOVE_NEWLINES_REGEX, " "),
+    );
 
+    await ImagePicker.cleanSingle(image.path);
     router.back();
   };
 
@@ -39,22 +38,7 @@ export default function CamaraPage() {
     try {
       const photo = await camera.current?.takePhoto();
       if (photo) {
-        console.log("Photo taken!", photo?.path);
-
-        const appDirectory = FileSystem.documentDirectory + "photos/";
-        await FileSystem.makeDirectoryAsync(appDirectory, {
-          intermediates: true,
-        });
-        const newUri = `${appDirectory}${Date.now()}.jpg`;
-        console.log({ newUri });
-
-        await FileSystem.moveAsync({
-          from: `file://${photo.path}`,
-          to: newUri,
-        });
-        console.log("Photo moved to app directory:", newUri);
-
-        openCropper(newUri);
+        await openCropper(`file://${photo.path}`);
       }
     } catch (error) {
       console.error("Failed to take photo:", error);

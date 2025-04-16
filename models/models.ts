@@ -6,6 +6,5 @@ export type Author = {
 export type Quote = {
   id: string;
   text: string;
-  imageUri?: string;
   author: Author;
 };
