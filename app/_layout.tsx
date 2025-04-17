@@ -32,6 +32,13 @@ export default function Layout() {
             presentation: "modal",
           }}
         />
+        <Stack.Screen
+          name="image-generator"
+          options={{
+            title: "Crear imagen",
+            presentation: "modal",
+          }}
+        />
       </Stack>
       <StatusBar style="auto" />
     </>

@@ -7,4 +7,5 @@ export type Quote = {
   id: string;
   text: string;
   author: Author;
+  imageUri?: string;
 };

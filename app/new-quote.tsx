@@ -1,4 +1,4 @@
-import { Text, StyleSheet, TextInput } from "react-native";
+import { Text, StyleSheet, TextInput, Image } from "react-native";
 import {
   Button,
   Picker,
@@ -10,7 +10,7 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useQuoteStore } from "@/store/quoteStore";
 import { useAuthorStore } from "@/store/authorStore";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { Author } from "@/models/models";
 import { TakePhotoBtn } from "@/components/TakePhotoBtn";
 
@@ -73,7 +73,13 @@ export default function NewScreen() {
             />
           ))}
       </Picker>
+      {quote.imageUri && (
+        <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
+      )}
       <TakePhotoBtn label="Tomar foto" marginB-10 />
+      <Link href="/image-generator" asChild>
+        <Button label="Generar imagen" background-accent marginB-10 />
+      </Link>
       <Button
         label="Crear cita"
         onPress={handleSubmit}
@@ -103,6 +109,12 @@ const styles = StyleSheet.create({
     ...Typography.text70R,
     textAlignVertical: "top",
     marginBottom: Spacings.s6,
+  },
+  previewImage: {
+    width: "100%",
+    height: 300,
+    borderRadius: 5,
+    marginBottom: 10,
   },
   primaryBtn: {
     height: 55,

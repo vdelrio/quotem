@@ -18,6 +18,7 @@ const currentQuoteInitialState: Quote = {
   id: "",
   text: "",
   author: ucdmAuthor,
+  imageUri: undefined,
 };
 
 export const useQuoteStore = create<QuoteStore>()(
