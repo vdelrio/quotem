@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { View, Text, StyleSheet, Alert, Image } from "react-native";
-import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
+import {
+  Link,
+  useLocalSearchParams,
+  useNavigation,
+  useRouter,
+} from "expo-router";
 import { useQuoteStore } from "@/store/quoteStore";
 import { Button, Colors, Spacings, Typography } from "react-native-ui-lib";
 import { FancyFontText } from "@/components/FancyFontText";
@@ -11,6 +16,7 @@ export default function QuoteDetails() {
   const params = useLocalSearchParams();
 
   const findQuoteById = useQuoteStore((state) => state.findQuoteById);
+  const updateCurrentQuote = useQuoteStore((state) => state.updateCurrentQuote);
   const removeQuote = useQuoteStore((store) => store.removeQuote);
 
   const quoteId = params.quoteId as string;
@@ -50,13 +56,19 @@ export default function QuoteDetails() {
     );
   }
 
+  updateCurrentQuote("text", quote.text);
+
   return (
     <View style={styles.container}>
       <View style={styles.quoteTextContainer}>
         <FancyFontText style={styles.quoteText}>{quote.text}</FancyFontText>
       </View>
-      {quote.imageUri && (
+      {quote.imageUri ? (
         <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
+      ) : (
+        <Link href="/image-generator" asChild>
+          <Button label="Generar imagen" background-accent marginB-10 />
+        </Link>
       )}
       <Button label="Eliminar" onPress={handleDeleteQuote} />
     </View>

@@ -1,12 +1,6 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Button } from "react-native-ui-lib";
-import {
-  View,
-  Image,
-  StyleSheet,
-  ImageBackground,
-  Dimensions,
-} from "react-native";
+import { View, StyleSheet, ImageBackground, Dimensions } from "react-native";
 import ViewShot, { captureRef } from "react-native-view-shot";
 import { FancyFontText } from "@/components/FancyFontText";
 import { useQuoteStore } from "@/store/quoteStore";
@@ -19,7 +13,6 @@ export default function ImageWithTextOverlay() {
   const viewShotRef = useRef<ViewShot>(null);
   const quote = useQuoteStore((state) => state.currentQuote);
   const updateCurrentQuote = useQuoteStore((state) => state.updateCurrentQuote);
-  // const [imagePath, setImagePath] = useState<string | undefined>(undefined);
 
   const saveImage = async (currentUri: string) => {
     const appDirectory = FileSystem.documentDirectory + "photos/";
@@ -54,17 +47,18 @@ export default function ImageWithTextOverlay() {
     <View style={styles.container}>
       <ViewShot ref={viewShotRef}>
         <ImageBackground
-          source={require("@/assets/backgrounds/fondo-1.jpeg")}
+          source={require("@/assets/backgrounds/fondo-2.jpeg")}
           style={styles.imageBackground}
           resizeMode="cover"
         >
           <View style={styles.textContainer}>
             <FancyFontText style={styles.text}>{quote.text}</FancyFontText>
+            <FancyFontText marginT-10 style={styles.text}>
+              {quote.author.name}
+            </FancyFontText>
           </View>
         </ImageBackground>
       </ViewShot>
-
-      {/*<Image source={{ uri: imagePath }} style={styles.previewImage} />*/}
 
       <Button label="Confirmar" onPress={captureAndSave} marginT-10 />
     </View>
@@ -93,11 +87,5 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 22,
     textAlign: "center",
-    // numberOfLines y ellipsizeMode se pueden añadir al componente Text para controlar desbordamiento
-  },
-  previewImage: {
-    width: width * 0.9, // 90% del ancho de la pantalla
-    height: 300, // Altura fija o puedes hacerla relativa también
-    marginTop: 20,
   },
 });

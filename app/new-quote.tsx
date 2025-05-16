@@ -20,7 +20,7 @@ export default function NewScreen() {
   const router = useRouter();
   const addQuote = useQuoteStore((state) => state.addQuote);
   const quote = useQuoteStore((state) => state.currentQuote);
-  const updateQuote = useQuoteStore((state) => state.updateCurrentQuote);
+  const updateCurrentQuote = useQuoteStore((state) => state.updateCurrentQuote);
   const findAuthorById = useAuthorStore((state) => state.findAuthorById);
   const authors: Author[] = useAuthorStore((state) => state.authors);
 
@@ -34,7 +34,7 @@ export default function NewScreen() {
 
   const onChangeAuthor = (authorId: string) => {
     const selectedAuthor = findAuthorById(authorId);
-    updateQuote("author", selectedAuthor);
+    updateCurrentQuote("author", selectedAuthor);
   };
 
   return (
@@ -46,7 +46,7 @@ export default function NewScreen() {
       <Text style={styles.label}>Cita</Text>
       <TextInput
         value={quote.text}
-        onChangeText={(text) => updateQuote("text", text)}
+        onChangeText={(text) => updateCurrentQuote("text", text)}
         style={styles.textArea}
         placeholder="Ingrese la cita..."
         multiline
