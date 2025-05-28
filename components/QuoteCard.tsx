@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text, Platform } from "react-native";
-import { Quote } from "@/models/models";
+import { Quote } from "@model/models";
 import { Colors } from "react-native-ui-lib";
 
 export function QuoteCard({ quote }: { quote: Quote }) {

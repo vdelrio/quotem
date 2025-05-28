@@ -1,4 +1,4 @@
-import { Author, Quote } from "@/models/models";
+import { Author, Quote } from "@model/models";
 
 // Authors --------------------------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ export const ucdmAuthor: Author = {
 };
 
 export const mockedAuthors: Author[] = [noAuthor, ucdmAuthor];
-export const authorsNextId = 3;
+export const authorNextId = 3;
 
 // ----------------------------------------------------------------------------------------------
 // Quotes ---------------------------------------------------------------------------------------

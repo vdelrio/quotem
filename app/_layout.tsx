@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import DesignSystem from "@/theme/DesignSystem";
+import DesignSystem from "@theme/DesignSystem";
 
 export default function Layout() {
   DesignSystem.initializeDesignSystem();

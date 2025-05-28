@@ -1,13 +1,13 @@
 import { StyleSheet } from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { useRouter } from "expo-router";
-import { useQuoteStore } from "@/store/quoteStore";
-import { RNUICard } from "@/components/RNUICard";
+import { useQuoteRepository } from "@repository/quoteRepository";
+import { RNUICard } from "@components/RNUICard";
 import { Button } from "react-native-ui-lib";
 
 export default function App() {
   const router = useRouter();
-  const quotes = useQuoteStore((state) => state.quotes);
+  const quotes = useQuoteRepository((state) => state.quotes);
 
   return (
     <Animated.FlatList

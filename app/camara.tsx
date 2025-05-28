@@ -3,7 +3,7 @@ import { Camera, useCameraDevice } from "react-native-vision-camera";
 import { PhotoRecognizer } from "react-native-vision-camera-text-recognition";
 import ImagePicker from "react-native-image-crop-picker";
 import { useRef } from "react";
-import { useQuoteStore } from "@/store/quoteStore";
+import { useQuoteStore } from "@store/quoteStore";
 import { router } from "expo-router";
 
 const REMOVE_NEWLINES_REGEX = /\r?\n|\r/g;
@@ -11,7 +11,9 @@ const REMOVE_NEWLINES_REGEX = /\r?\n|\r/g;
 export default function CamaraPage() {
   const camera = useRef<Camera>(null);
   const device = useCameraDevice("back");
-  const updateCurrentQuote = useQuoteStore((state) => state.updateCurrentQuote);
+  const updateCurrentQuoteField = useQuoteStore(
+    (state) => state.updateCurrentQuoteField,
+  );
 
   const openCropper = async (imagePath: string) => {
     const image = await ImagePicker.openCropper({
@@ -25,7 +27,7 @@ export default function CamaraPage() {
       uri: image.path,
       orientation: "portrait",
     });
-    updateCurrentQuote(
+    updateCurrentQuoteField(
       "text",
       result?.resultText?.replace(REMOVE_NEWLINES_REGEX, " "),
     );

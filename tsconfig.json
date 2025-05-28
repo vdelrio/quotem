@@ -3,9 +3,12 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"],
+      "@components/*": ["./components/*"],
+      "@model/*": ["./business/model/*"],
+      "@repository/*": ["./business/repository/*"],
+      "@store/*": ["./business/store/*"],
+      "@theme/*": ["./theme/*"]
     }
   }
 }

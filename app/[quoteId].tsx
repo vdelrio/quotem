@@ -6,30 +6,39 @@ import {
   useNavigation,
   useRouter,
 } from "expo-router";
-import { useQuoteStore } from "@/store/quoteStore";
 import { Button, Colors, Spacings, Typography } from "react-native-ui-lib";
-import { FancyFontText } from "@/components/FancyFontText";
+import { FancyFontText } from "@components/FancyFontText";
+import { useQuoteRepository } from "@repository/quoteRepository";
+import { useQuoteStore } from "@store/quoteStore";
 
 export default function QuoteDetails() {
   const router = useRouter();
   const navigation = useNavigation();
   const params = useLocalSearchParams();
 
-  const findQuoteById = useQuoteStore((state) => state.findQuoteById);
-  const updateCurrentQuote = useQuoteStore((state) => state.updateCurrentQuote);
-  const removeQuote = useQuoteStore((store) => store.removeQuote);
-
-  const quoteId = params.quoteId as string;
-  const quote = findQuoteById(quoteId);
+  const findQuoteById = useQuoteRepository((state) => state.findQuoteById);
+  const deleteQuote = useQuoteRepository((store) => store.deleteQuote);
+  const currentQuote = useQuoteStore((state) => state.currentQuote);
+  const setCurrentQuote = useQuoteStore((state) => state.setCurrentQuote);
 
   useEffect(() => {
-    navigation.setOptions({
-      title: quote?.author?.name,
-    });
-  }, [quote?.author?.name, navigation]);
+    const found = findQuoteById(params.quoteId as string);
+    if (found) {
+      setCurrentQuote(found);
+      navigation.setOptions({
+        title: currentQuote?.author?.name,
+      });
+    }
+  }, [
+    params.quoteId,
+    currentQuote?.author?.name,
+    findQuoteById,
+    setCurrentQuote,
+    navigation,
+  ]);
 
   const handleDeleteQuote = () => {
-    if (!quote?.id) {
+    if (!currentQuote?.id) {
       return;
     }
 
@@ -38,7 +47,8 @@ export default function QuoteDetails() {
       {
         text: "Eliminar",
         onPress: () => {
-          removeQuote(quote.id);
+          // @ts-ignore
+          deleteQuote(currentQuote?.id);
           router.back();
         },
         style: "destructive",
@@ -46,25 +56,28 @@ export default function QuoteDetails() {
     ]);
   };
 
-  if (!quote) {
+  if (!currentQuote?.id) {
     return (
       <View style={styles.notFoundContainer}>
         <Text style={styles.notFoundText}>
-          No se ha encontrado la cita de ID {quoteId}.
+          No se ha encontrado la cita de ID {params.quoteId}.
         </Text>
       </View>
     );
   }
 
-  updateCurrentQuote("text", quote.text);
-
   return (
     <View style={styles.container}>
       <View style={styles.quoteTextContainer}>
-        <FancyFontText style={styles.quoteText}>{quote.text}</FancyFontText>
+        <FancyFontText style={styles.quoteText}>
+          {currentQuote.text}
+        </FancyFontText>
       </View>
-      {quote.imageUri ? (
-        <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
+      {currentQuote.imageUri ? (
+        <Image
+          source={{ uri: currentQuote.imageUri }}
+          style={styles.previewImage}
+        />
       ) : (
         <Link href="/image-generator" asChild>
           <Button label="Generar imagen" background-accent marginB-10 />

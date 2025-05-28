@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Text, StyleSheet, TextInput, Image } from "react-native";
 import {
   Button,
@@ -8,33 +9,43 @@ import {
   Spacings,
 } from "react-native-ui-lib";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { useQuoteStore } from "@/store/quoteStore";
-import { useAuthorStore } from "@/store/authorStore";
 import { Link, useRouter } from "expo-router";
-import { Author } from "@/models/models";
-import { TakePhotoBtn } from "@/components/TakePhotoBtn";
+import { useQuoteRepository } from "@repository/quoteRepository";
+import { useQuoteStore } from "@store/quoteStore";
+import { useAuthorRepository } from "@repository/authorRepository";
+import { Author } from "@model/models";
+import { TakePhotoBtn } from "@components/TakePhotoBtn";
 
 const dropdownIcon = <Icon source={require("@/assets/chevronDown.png")} />;
 
 export default function NewScreen() {
   const router = useRouter();
-  const addQuote = useQuoteStore((state) => state.addQuote);
-  const quote = useQuoteStore((state) => state.currentQuote);
-  const updateCurrentQuote = useQuoteStore((state) => state.updateCurrentQuote);
-  const findAuthorById = useAuthorStore((state) => state.findAuthorById);
-  const authors: Author[] = useAuthorStore((state) => state.authors);
+  const addQuote = useQuoteRepository((state) => state.addQuote);
+
+  const currentQuote = useQuoteStore((state) => state.currentQuote);
+  const updateCurrentQuoteField = useQuoteStore(
+    (state) => state.updateCurrentQuoteField,
+  );
+  const clearCurrentQuote = useQuoteStore((state) => state.clearCurrentQuote);
+
+  const findAuthorById = useAuthorRepository((state) => state.findAuthorById);
+  const authors: Author[] = useAuthorRepository((state) => state.authors);
+
+  useEffect(() => {
+    clearCurrentQuote();
+  }, [clearCurrentQuote]);
 
   const handleSubmit = () => {
-    if (!quote.text) {
+    if (!currentQuote.text) {
       return;
     }
-    addQuote();
+    addQuote(currentQuote);
     router.back();
   };
 
   const onChangeAuthor = (authorId: string) => {
     const selectedAuthor = findAuthorById(authorId);
-    updateCurrentQuote("author", selectedAuthor);
+    updateCurrentQuoteField("author", selectedAuthor);
   };
 
   return (
@@ -45,8 +56,8 @@ export default function NewScreen() {
     >
       <Text style={styles.label}>Cita</Text>
       <TextInput
-        value={quote.text}
-        onChangeText={(text) => updateCurrentQuote("text", text)}
+        value={currentQuote.text}
+        onChangeText={(text) => updateCurrentQuoteField("text", text)}
         style={styles.textArea}
         placeholder="Ingrese la cita..."
         multiline
@@ -57,7 +68,7 @@ export default function NewScreen() {
         labelStyle={styles.label}
         preset="underline"
         text70
-        value={quote.author?.id}
+        value={currentQuote.author?.id}
         onChange={(value) => onChangeAuthor(value as string)}
         useSafeArea
         topBarProps={{ title: "Autor" }}
@@ -68,13 +79,16 @@ export default function NewScreen() {
           authors.map((author) => (
             <Picker.Item
               label={author?.name}
-              value={author?.id}
+              value={author?.id || -1}
               key={author?.id}
             />
           ))}
       </Picker>
-      {quote.imageUri && (
-        <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
+      {currentQuote.imageUri && (
+        <Image
+          source={{ uri: currentQuote.imageUri }}
+          style={styles.previewImage}
+        />
       )}
       <TakePhotoBtn label="Tomar foto" marginB-10 />
       <Link href="/image-generator" asChild>
@@ -83,7 +97,7 @@ export default function NewScreen() {
       <Button
         label="Crear cita"
         onPress={handleSubmit}
-        disabled={!quote.text}
+        disabled={!currentQuote.text}
         style={styles.primaryBtn}
       />
     </KeyboardAwareScrollView>
