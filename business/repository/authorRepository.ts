@@ -10,7 +10,7 @@ type AuthorStore = {
   addAuthor: (newAuthor: Author) => void;
   updateAuthor: (modifiedAuthor: Author) => void;
   deleteAuthor: (authorId: string) => void;
-  findAuthorById: (authorId: string) => Author | undefined;
+  findAuthorById: (authorId: string) => Author | null;
 };
 
 export const useAuthorRepository = create<AuthorStore>()(
@@ -45,7 +45,7 @@ export const useAuthorRepository = create<AuthorStore>()(
         }));
       },
       findAuthorById: (authorId: string) => {
-        return get().authors.find((author) => author.id === authorId);
+        return get().authors.find((author) => author.id === authorId) || null;
       },
     }),
     {

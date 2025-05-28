@@ -10,7 +10,7 @@ type QuoteStore = {
   addQuote: (newQuote: Quote) => void;
   updateQuote: (modifiedQuote: Quote) => void;
   deleteQuote: (quoteId: string) => void;
-  findQuoteById: (quoteId: string) => Quote | undefined;
+  findQuoteById: (quoteId: string) => Quote | null;
 };
 
 export const useQuoteRepository = create<QuoteStore>()(
@@ -45,7 +45,7 @@ export const useQuoteRepository = create<QuoteStore>()(
         }));
       },
       findQuoteById: (quoteId: string) => {
-        return get().quotes.find((quote) => quote.id === quoteId);
+        return get().quotes.find((quote) => quote.id === quoteId) || null;
       },
     }),
     {

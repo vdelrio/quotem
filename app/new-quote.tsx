@@ -13,7 +13,7 @@ import { Link, useRouter } from "expo-router";
 import { useQuoteRepository } from "@repository/quoteRepository";
 import { useQuoteStore } from "@store/quoteStore";
 import { useAuthorRepository } from "@repository/authorRepository";
-import { Author } from "@model/models";
+import { Author, NO_AUTHOR } from "@model/models";
 import { TakePhotoBtn } from "@components/TakePhotoBtn";
 
 const dropdownIcon = <Icon source={require("@/assets/chevronDown.png")} />;
@@ -68,18 +68,23 @@ export default function NewScreen() {
         labelStyle={styles.label}
         preset="underline"
         text70
-        value={currentQuote.author?.id}
+        value={currentQuote.author?.id || NO_AUTHOR.id}
         onChange={(value) => onChangeAuthor(value as string)}
         useSafeArea
         topBarProps={{ title: "Autor" }}
         trailingAccessory={dropdownIcon}
         marginB-s2
       >
+        <Picker.Item
+          label={NO_AUTHOR.name}
+          value={NO_AUTHOR.id}
+          key={NO_AUTHOR.id}
+        />
         {authors.length &&
           authors.map((author) => (
             <Picker.Item
               label={author?.name}
-              value={author?.id || -1}
+              value={author?.id || "-1"}
               key={author?.id}
             />
           ))}

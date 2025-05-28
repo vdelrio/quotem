@@ -26,16 +26,10 @@ export default function QuoteDetails() {
     if (found) {
       setCurrentQuote(found);
       navigation.setOptions({
-        title: currentQuote?.author?.name,
+        title: found.author ? `Cita de ${found.author.name}` : "Cita sin autor",
       });
     }
-  }, [
-    params.quoteId,
-    currentQuote?.author?.name,
-    findQuoteById,
-    setCurrentQuote,
-    navigation,
-  ]);
+  }, [params.quoteId, findQuoteById, setCurrentQuote, navigation]);
 
   const handleDeleteQuote = () => {
     if (!currentQuote?.id) {

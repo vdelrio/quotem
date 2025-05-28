@@ -55,9 +55,11 @@ export default function ImageWithTextOverlay() {
         >
           <View style={styles.textContainer}>
             <FancyFontText style={styles.text}>{quote.text}</FancyFontText>
-            <FancyFontText marginT-10 style={styles.text}>
-              {quote.author.name}
-            </FancyFontText>
+            {quote.author && (
+              <FancyFontText marginT-10 style={styles.text}>
+                {quote.author.name}
+              </FancyFontText>
+            )}
           </View>
         </ImageBackground>
       </ViewShot>
