@@ -22,14 +22,14 @@ export default function QuoteDetailsScreen() {
   const setCurrentQuote = useQuoteStore((state) => state.setCurrentQuote);
 
   useEffect(() => {
-    const found = findQuoteById(params.quoteId as string);
+    const found = findQuoteById(params.id as string);
     if (found) {
       setCurrentQuote(found);
       navigation.setOptions({
         title: found.author ? `Cita de ${found.author.name}` : "Cita sin autor",
       });
     }
-  }, [params.quoteId, findQuoteById, setCurrentQuote, navigation]);
+  }, [params.id, findQuoteById, setCurrentQuote, navigation]);
 
   const handleDeleteQuote = () => {
     if (!currentQuote?.id) {
@@ -54,7 +54,7 @@ export default function QuoteDetailsScreen() {
     return (
       <View style={styles.notFoundContainer}>
         <Text style={styles.notFoundText}>
-          No se ha encontrado la cita de ID {params.quoteId}.
+          No se ha encontrado la cita de ID {params.id}.
         </Text>
       </View>
     );
@@ -78,6 +78,10 @@ export default function QuoteDetailsScreen() {
         </Link>
       )}
       <Button label="Eliminar" onPress={handleDeleteQuote} />
+      <Button
+        label="Editar"
+        onPress={() => router.navigate(`/${currentQuote.id}/edit`)}
+      />
     </View>
   );
 }

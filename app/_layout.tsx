@@ -1,4 +1,7 @@
-import { Stack } from "expo-router";
+import { Tabs } from "expo-router";
+import Feather from "@expo/vector-icons/Feather";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Colors } from "react-native-ui-lib";
 import { StatusBar } from "expo-status-bar";
 import DesignSystem from "@theme/DesignSystem";
 
@@ -6,47 +9,32 @@ export default function Layout() {
   DesignSystem.initializeDesignSystem();
   return (
     <>
-      <Stack>
-        <Stack.Screen
-          name="(tabs)"
-          options={{ headerShown: false, animation: "fade" }}
-        />
-        <Stack.Screen
-          name="new-quote"
+      <Tabs screenOptions={{ tabBarActiveTintColor: Colors.$iconPrimary }}>
+        <Tabs.Screen
+          name="(quotes)"
           options={{
-            title: "Nueva cita",
-            presentation: "modal",
+            tabBarShowLabel: false,
+            headerShown: false,
+            tabBarIcon: ({ size, color }) => (
+              <MaterialCommunityIcons
+                name="comment-quote-outline"
+                size={size}
+                color={color}
+              />
+            ),
           }}
         />
-        <Stack.Screen
-          name="edit-[quoteId]"
+        <Tabs.Screen
+          name="profile"
           options={{
-            title: "Editar cita",
-            presentation: "modal",
+            title: "Profile",
+            tabBarShowLabel: false,
+            tabBarIcon: ({ size, color }) => (
+              <Feather name="user" size={size} color={color} />
+            ),
           }}
         />
-        <Stack.Screen
-          name="[quoteId]"
-          options={{
-            title: "",
-            presentation: "modal",
-          }}
-        />
-        <Stack.Screen
-          name="camara"
-          options={{
-            title: "Camara",
-            presentation: "modal",
-          }}
-        />
-        <Stack.Screen
-          name="image-generator"
-          options={{
-            title: "Crear imagen",
-            presentation: "modal",
-          }}
-        />
-      </Stack>
+      </Tabs>
       <StatusBar style="auto" />
     </>
   );
