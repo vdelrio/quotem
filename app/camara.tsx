@@ -8,11 +8,11 @@ import { router } from "expo-router";
 
 const REMOVE_NEWLINES_REGEX = /\r?\n|\r/g;
 
-export default function CamaraPage() {
+export default function CamaraScreen() {
   const camera = useRef<Camera>(null);
   const device = useCameraDevice("back");
-  const updateCurrentQuoteField = useQuoteStore(
-    (state) => state.updateCurrentQuoteField,
+  const setCurrentQuoteField = useQuoteStore(
+    (state) => state.setCurrentQuoteField,
   );
 
   const openCropper = async (imagePath: string) => {
@@ -27,7 +27,7 @@ export default function CamaraPage() {
       uri: image.path,
       orientation: "portrait",
     });
-    updateCurrentQuoteField(
+    setCurrentQuoteField(
       "text",
       result?.resultText?.replace(REMOVE_NEWLINES_REGEX, " "),
     );

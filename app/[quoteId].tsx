@@ -7,11 +7,11 @@ import {
   useRouter,
 } from "expo-router";
 import { Button, Colors, Spacings, Typography } from "react-native-ui-lib";
-import { FancyFontText } from "@components/FancyFontText";
+import { FancyFontText } from "@components/atoms/FancyFontText";
 import { useQuoteRepository } from "@repository/quoteRepository";
 import { useQuoteStore } from "@store/quoteStore";
 
-export default function QuoteDetails() {
+export default function QuoteDetailsScreen() {
   const router = useRouter();
   const navigation = useNavigation();
   const params = useLocalSearchParams();

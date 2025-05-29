@@ -5,7 +5,7 @@ import { Quote } from "@model/models";
 type QuoteStore = {
   currentQuote: Quote;
   setCurrentQuote: (quote: Quote) => void;
-  updateCurrentQuoteField: (fieldName: keyof Quote, value: any) => void;
+  setCurrentQuoteField: (fieldName: keyof Quote, value: any) => void;
   clearCurrentQuote: () => void;
 };
 
@@ -16,7 +16,7 @@ export const useQuoteStore = create<QuoteStore>()((set) => ({
       currentQuote: { ...quote },
     }));
   },
-  updateCurrentQuoteField: (fieldName: keyof Quote, value: any) => {
+  setCurrentQuoteField: (fieldName: keyof Quote, value: any) => {
     set((state) => ({
       currentQuote: {
         ...state.currentQuote,

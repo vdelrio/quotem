@@ -2,9 +2,9 @@ import { StyleSheet } from "react-native";
 import { Card, Colors, View } from "react-native-ui-lib";
 import { useRouter } from "expo-router";
 import { Quote } from "@model/models";
-import { FancyFontText } from "@components/FancyFontText";
+import { FancyFontText } from "@components/atoms/FancyFontText";
 
-export function RNUICard({ quote }: { quote: Quote }) {
+export function QuoteCard({ quote }: { quote: Quote }) {
   const router = useRouter();
   return (
     <Card style={styles.card} onPress={() => router.navigate(`/${quote.id}`)}>

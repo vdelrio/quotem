@@ -19,6 +19,13 @@ export default function Layout() {
           }}
         />
         <Stack.Screen
+          name="edit-[quoteId]"
+          options={{
+            title: "Editar cita",
+            presentation: "modal",
+          }}
+        />
+        <Stack.Screen
           name="[quoteId]"
           options={{
             title: "",

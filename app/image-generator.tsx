@@ -2,18 +2,18 @@ import { useRef } from "react";
 import { Button } from "react-native-ui-lib";
 import { View, StyleSheet, ImageBackground, Dimensions } from "react-native";
 import ViewShot, { captureRef } from "react-native-view-shot";
-import { FancyFontText } from "@components/FancyFontText";
+import { FancyFontText } from "@components/atoms/FancyFontText";
 import { useQuoteStore } from "@store/quoteStore";
 import * as FileSystem from "expo-file-system";
 import { router } from "expo-router";
 
 const { width } = Dimensions.get("window");
 
-export default function ImageWithTextOverlay() {
+export default function ImageWithTextOverlayScreen() {
   const viewShotRef = useRef<ViewShot>(null);
   const quote = useQuoteStore((state) => state.currentQuote);
-  const updateCurrentQuoteField = useQuoteStore(
-    (state) => state.updateCurrentQuoteField,
+  const setCurrentQuoteField = useQuoteStore(
+    (state) => state.setCurrentQuoteField,
   );
 
   const saveImage = async (currentUri: string) => {
@@ -36,7 +36,7 @@ export default function ImageWithTextOverlay() {
         format: "png",
       });
       const permanentUri = await saveImage(uri);
-      updateCurrentQuoteField("imageUri", permanentUri);
+      setCurrentQuoteField("imageUri", permanentUri);
       router.back();
       // setImagePath(uri);
     } catch (error) {

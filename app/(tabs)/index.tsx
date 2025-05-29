@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { useRouter } from "expo-router";
 import { useQuoteRepository } from "@repository/quoteRepository";
-import { RNUICard } from "@components/RNUICard";
+import { QuoteCard } from "@components/quote/QuoteCard";
 import { Button } from "react-native-ui-lib";
 
 export default function App() {
@@ -14,7 +14,7 @@ export default function App() {
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
       data={quotes}
-      renderItem={({ item }) => <RNUICard quote={item} />}
+      renderItem={({ item }) => <QuoteCard quote={item} />}
       itemLayoutAnimation={LinearTransition}
       ListEmptyComponent={
         <Button
