@@ -22,7 +22,7 @@ export default function TabsLayout() {
             />
           ),
           headerRight: () => (
-            <Link href="/app/quotes/create" asChild>
+            <Link href="/quotes/create" asChild>
               <Pressable hitSlop={20} style={{ marginRight: 18 }}>
                 <AntDesign
                   name="pluscircleo"

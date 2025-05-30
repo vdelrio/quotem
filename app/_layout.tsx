@@ -22,7 +22,7 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen
-          name="quotes/[id]/index"
+          name="quotes/[id]"
           options={{
             title: "", // Se setea de manera dinámica
             // presentation: "modal",

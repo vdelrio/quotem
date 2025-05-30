@@ -30,7 +30,7 @@ export default function EditQuoteScreen() {
       return;
     }
     updateQuote(currentQuote);
-    router.back();
+    router.navigate("/");
   };
 
   if (!currentQuote?.id) {

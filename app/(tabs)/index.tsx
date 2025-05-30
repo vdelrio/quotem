@@ -20,7 +20,7 @@ export default function App() {
         <Button
           label="Agrega tu primera cita"
           onPress={() => {
-            router.navigate("/new");
+            router.navigate("/quotes/create");
           }}
         />
       }
