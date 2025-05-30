@@ -13,7 +13,6 @@ export default function TabsLayout() {
         options={{
           title: "Citas",
           tabBarShowLabel: false,
-          // headerShown: false,
           tabBarIcon: ({ size, color }) => (
             <MaterialCommunityIcons
               name="comment-quote-outline"

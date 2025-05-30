@@ -38,7 +38,6 @@ export default function ImageWithTextOverlayScreen() {
       const permanentUri = await saveImage(uri);
       setCurrentQuoteField("imageUri", permanentUri);
       router.back();
-      // setImagePath(uri);
     } catch (error) {
       console.error("Error al capturar o guardar la imagen:", error);
       alert("Error al guardar la imagen.");
