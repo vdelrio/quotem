@@ -77,11 +77,13 @@ export default function QuoteDetailsScreen() {
           <Button label="Generar imagen" background-accent marginB-10 />
         </Link>
       )}
-      <Button label="Eliminar" onPress={handleDeleteQuote} />
       <Button
         label="Editar"
         onPress={() => router.navigate(`/${currentQuote.id}/edit`)}
+        background-accent
+        marginB-10
       />
+      <Button label="Eliminar" onPress={handleDeleteQuote} />
     </View>
   );
 }

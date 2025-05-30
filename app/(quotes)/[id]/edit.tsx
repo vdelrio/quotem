@@ -48,6 +48,7 @@ export default function EditQuoteScreen() {
       quote={currentQuote}
       setQuoteField={setCurrentQuoteField}
       onSave={onSave}
+      saveBtnLabel="Guardar cambios"
     />
   );
 }

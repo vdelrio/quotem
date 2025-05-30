@@ -19,9 +19,15 @@ type Props = {
   quote: Quote;
   setQuoteField: (fieldName: keyof Quote, value: any) => void;
   onSave: (quote: Quote) => void;
+  saveBtnLabel: string;
 };
 
-export function QuoteForm({ quote, setQuoteField, onSave }: Props) {
+export function QuoteForm({
+  quote,
+  setQuoteField,
+  onSave,
+  saveBtnLabel,
+}: Props) {
   const authors: Author[] = useAuthorRepository((state) => state.authors);
   const findAuthorById = useAuthorRepository((state) => state.findAuthorById);
 
@@ -79,7 +85,7 @@ export function QuoteForm({ quote, setQuoteField, onSave }: Props) {
         <Button label="Generar imagen" background-accent marginB-10 />
       </Link>
       <Button
-        label="Crear cita"
+        label={saveBtnLabel}
         onPress={onSave}
         disabled={!quote.text}
         style={styles.primaryBtn}
