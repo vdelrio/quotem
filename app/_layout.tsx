@@ -1,40 +1,55 @@
-import { Tabs } from "expo-router";
-import Feather from "@expo/vector-icons/Feather";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Colors } from "react-native-ui-lib";
+import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import DesignSystem from "@theme/DesignSystem";
 
-export default function Layout() {
+export default function RootLayout() {
   DesignSystem.initializeDesignSystem();
   return (
     <>
-      <Tabs screenOptions={{ tabBarActiveTintColor: Colors.$iconPrimary }}>
-        <Tabs.Screen
-          name="(quotes)"
+      <Stack>
+        <Stack.Screen
+          name="(tabs)"
           options={{
-            tabBarShowLabel: false,
             headerShown: false,
-            tabBarIcon: ({ size, color }) => (
-              <MaterialCommunityIcons
-                name="comment-quote-outline"
-                size={size}
-                color={color}
-              />
-            ),
+            // animation: "fade",
           }}
         />
-        <Tabs.Screen
-          name="profile"
+        <Stack.Screen
+          name="quotes/create"
           options={{
-            title: "Profile",
-            tabBarShowLabel: false,
-            tabBarIcon: ({ size, color }) => (
-              <Feather name="user" size={size} color={color} />
-            ),
+            title: "Nueva cita",
+            presentation: "modal",
           }}
         />
-      </Tabs>
+        <Stack.Screen
+          name="quotes/[id]/index"
+          options={{
+            title: "", // Se setea de manera dinámica
+            // presentation: "modal",
+          }}
+        />
+        <Stack.Screen
+          name="quotes/[id]/edit"
+          options={{
+            title: "Editar cita",
+            presentation: "modal",
+          }}
+        />
+        <Stack.Screen
+          name="quotes/camara"
+          options={{
+            title: "Camara",
+            // presentation: "modal",
+          }}
+        />
+        <Stack.Screen
+          name="quotes/image-generator"
+          options={{
+            title: "Generar imagen",
+            // presentation: "modal",
+          }}
+        />
+      </Stack>
       <StatusBar style="auto" />
     </>
   );

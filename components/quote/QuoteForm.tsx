@@ -81,7 +81,7 @@ export function QuoteForm({
         <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
       )}
       <TakePhotoBtn label="Tomar foto" marginB-10 />
-      <Link href="/image-generator" asChild>
+      <Link href="/quotes/image-generator" asChild>
         <Button label="Generar imagen" background-accent marginB-10 />
       </Link>
       <Button

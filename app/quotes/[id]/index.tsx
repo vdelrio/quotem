@@ -1,11 +1,6 @@
 import { useEffect } from "react";
 import { View, Text, StyleSheet, Alert, Image } from "react-native";
-import {
-  Link,
-  useLocalSearchParams,
-  useNavigation,
-  useRouter,
-} from "expo-router";
+import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { Button, Colors, Spacings, Typography } from "react-native-ui-lib";
 import { FancyFontText } from "@components/atoms/FancyFontText";
 import { useQuoteRepository } from "@repository/quoteRepository";
@@ -67,19 +62,15 @@ export default function QuoteDetailsScreen() {
           {currentQuote.text}
         </FancyFontText>
       </View>
-      {currentQuote.imageUri ? (
+      {currentQuote.imageUri && (
         <Image
           source={{ uri: currentQuote.imageUri }}
           style={styles.previewImage}
         />
-      ) : (
-        <Link href="/image-generator" asChild>
-          <Button label="Generar imagen" background-accent marginB-10 />
-        </Link>
       )}
       <Button
         label="Editar"
-        onPress={() => router.navigate(`/${currentQuote.id}/edit`)}
+        onPress={() => router.navigate(`/quotes/${currentQuote.id}/edit`)}
         background-accent
         marginB-10
       />

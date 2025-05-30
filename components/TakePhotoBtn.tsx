@@ -6,17 +6,19 @@ import {
   useCameraDevice,
 } from "react-native-vision-camera";
 
+const CAMARA_SCREEN_ROUTE = "/quotes/camara";
+
 export function TakePhotoBtn(props: ButtonProps) {
   const device = useCameraDevice("back");
   const { hasPermission, requestPermission } = useCameraPermission();
 
   const checkPermission = async () => {
     if (hasPermission && device) {
-      router.navigate("/camara");
+      router.navigate(CAMARA_SCREEN_ROUTE);
     } else {
       const allowed = await requestPermission();
       if (allowed) {
-        router.navigate("/camara");
+        router.navigate(CAMARA_SCREEN_ROUTE);
       }
     }
   };

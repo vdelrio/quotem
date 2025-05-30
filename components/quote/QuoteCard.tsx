@@ -7,7 +7,10 @@ import { FancyFontText } from "@components/atoms/FancyFontText";
 export function QuoteCard({ quote }: { quote: Quote }) {
   const router = useRouter();
   return (
-    <Card style={styles.card} onPress={() => router.navigate(`/${quote.id}`)}>
+    <Card
+      style={styles.card}
+      onPress={() => router.navigate(`/quotes/${quote.id}`)}
+    >
       <View>
         <FancyFontText numberOfLines={4} style={styles.quoteText}>
           {quote.text}
