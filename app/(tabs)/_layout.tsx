@@ -1,6 +1,5 @@
 import { Link, Tabs } from "expo-router";
-import Feather from "@expo/vector-icons/Feather";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
 import { Colors } from "react-native-ui-lib";
 import { Pressable } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -34,12 +33,12 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="settings"
         options={{
-          title: "Profile",
+          title: "Settings",
           tabBarShowLabel: false,
           tabBarIcon: ({ size, color }) => (
-            <Feather name="user" size={size} color={color} />
+            <Feather name="settings" size={size} color={color} />
           ),
         }}
       />

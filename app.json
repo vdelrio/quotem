@@ -10,7 +10,8 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.vdelrio.quotem"
+      "bundleIdentifier": "com.vdelrio.quotem",
+      "usesIcloudStorage": true
     },
     "android": {
       "adaptiveIcon": {
@@ -46,7 +47,8 @@
         {
           "cameraPermissionText": "$(PRODUCT_NAME) necesita acceso a tu cámara."
         }
-      ]
+      ],
+      ["expo-document-picker"]
     ],
     "extra": {
       "router": {
