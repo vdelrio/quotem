@@ -1,7 +1,15 @@
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet, Alert, Platform } from "react-native";
+import { View, Text, StyleSheet, Alert, Platform } from "react-native";
+import { Button } from "react-native-ui-lib";
 import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system";
+import { isJsonFile } from "@utils/fileType";
+import { Toast } from "react-native-ui-lib/incubator";
+
+const errorMsg = {
+  wrongFile: "El archivo seleccionado es incorrecto.",
+  noSelection: "No se seleccionó ningún archivo.",
+};
 
 // Define a type for your parsed JSON data, if you know its structure.
 // For a generic JSON array of objects, `Array<Record<string, any>>` is a good starting point.
@@ -13,25 +21,27 @@ export default function JsonFilePicker(): JSX.Element {
     null,
   );
   const [fileName, setFileName] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showErrorToast, setShowErrorToast] = useState(false);
 
   const pickAndParseJson = async (): Promise<void> => {
     try {
       // Reset previous state
       setPickedJsonData(null);
       setFileName(null);
-      setError(null);
+      setError(undefined);
       setIsLoading(true);
 
       const result = await DocumentPicker.getDocumentAsync({
-        type: "application/json", // Specifically request JSON files
-        copyToCacheDirectory: true, // We need to read its content, so copy to cache
+        type: "application/json",
+        // We need to read its content, so copy to cache
+        copyToCacheDirectory: true,
       });
 
       // Check if the user cancelled the picker
       if (result.canceled) {
-        setError("JSON file picking cancelled.");
+        setError(errorMsg.noSelection);
         setIsLoading(false);
         return;
       }
@@ -41,14 +51,8 @@ export default function JsonFilePicker(): JSX.Element {
         const doc = result.assets[0];
         setFileName(doc.name);
 
-        // --- Validate File Type (important for robustness, even if picker suggests JSON) ---
-        const fileExtension = doc.name.split(".").pop()?.toLowerCase();
-        // doc.mimeType is available on Android. On iOS/Web, you often rely on extension.
-        const isJson =
-          fileExtension === "json" || doc.mimeType === "application/json";
-
-        if (!isJson) {
-          setError("Please select a valid JSON file (.json).");
+        if (!isJsonFile(doc)) {
+          setError(errorMsg.wrongFile);
           setIsLoading(false);
           return;
         }
@@ -78,19 +82,14 @@ export default function JsonFilePicker(): JSX.Element {
               `Successfully parsed JSON file: ${doc.name}`,
             );
           } else {
-            setError(
-              "The selected JSON file does not contain an array of objects.",
-            );
+            setError(errorMsg.wrongFile);
           }
         } catch (parseError: any) {
           // Catch the parsing error
-          setError(
-            `Invalid JSON file content: ${parseError.message || "Unknown parsing error"}`,
-          );
+          setError(errorMsg.wrongFile);
         }
       } else {
-        // This case should ideally not happen if result.canceled is false
-        setError("No JSON file was selected.");
+        setError(errorMsg.noSelection);
       }
     } catch (err: any) {
       // Catch any errors from DocumentPicker or FileSystem
@@ -105,16 +104,12 @@ export default function JsonFilePicker(): JSX.Element {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Pick and Parse JSON File</Text>
-
+      <Text style={styles.title}>Importar citas</Text>
       <Button
-        title={isLoading ? "Loading..." : "Select JSON File"}
+        label="Seleccionar archivo"
         onPress={pickAndParseJson}
         disabled={isLoading}
       />
-
-      {error && <Text style={styles.errorText}>{error}</Text>}
-
       {pickedJsonData && (
         <View style={styles.jsonInfo}>
           <Text style={styles.infoTitle}>File: {fileName}</Text>
@@ -136,6 +131,17 @@ export default function JsonFilePicker(): JSX.Element {
           )}
         </View>
       )}
+      <Toast
+        visible={showErrorToast || !!error}
+        position="bottom"
+        autoDismiss={3500}
+        onDismiss={() => {
+          setShowErrorToast(false);
+          setError(undefined);
+        }}
+        message={error}
+        preset="failure"
+      />
     </View>
   );
 }
@@ -182,11 +188,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
     borderRadius: 4,
     fontFamily: Platform.OS === "ios" ? "Menlo" : "monospace", // For better JSON formatting
-  },
-  errorText: {
-    marginTop: 20,
-    color: "red",
-    fontSize: 16,
-    textAlign: "center",
   },
 });

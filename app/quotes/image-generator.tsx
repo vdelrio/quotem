@@ -48,7 +48,7 @@ export default function ImageWithTextOverlayScreen() {
     <View style={styles.container}>
       <ViewShot ref={viewShotRef}>
         <ImageBackground
-          source={require("@/assets/backgrounds/fondo-2.jpeg")}
+          source={require("@assets/backgrounds/fondo-2.jpeg")}
           style={styles.imageBackground}
           resizeMode="cover"
         >

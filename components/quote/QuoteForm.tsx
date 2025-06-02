@@ -13,7 +13,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { TakePhotoBtn } from "@components/TakePhotoBtn";
 import { useAuthorRepository } from "@repository/authorRepository";
 
-const dropdownIcon = <Icon source={require("@/assets/chevronDown.png")} />;
+const dropdownIcon = <Icon source={require("@assets/chevronDown.png")} />;
 
 type Props = {
   quote: Quote;
