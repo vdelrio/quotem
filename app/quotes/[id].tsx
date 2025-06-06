@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, Alert, Image } from "react-native";
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { Button, Colors, Spacings, Typography } from "react-native-ui-lib";
 import { FancyFontText } from "@components/atoms/FancyFontText";
-import { useQuoteRepository } from "@repository/quoteRepository";
 import { useQuoteStore } from "@store/quoteStore";
 
 export default function QuoteDetailsScreen() {
@@ -11,13 +10,13 @@ export default function QuoteDetailsScreen() {
   const navigation = useNavigation();
   const params = useLocalSearchParams();
 
-  const findQuoteById = useQuoteRepository((state) => state.findQuoteById);
-  const deleteQuote = useQuoteRepository((store) => store.deleteQuote);
+  const findQuoteById = useQuoteStore((state) => state.findQuoteById);
+  const deleteQuote = useQuoteStore((store) => store.deleteQuote);
   const currentQuote = useQuoteStore((state) => state.currentQuote);
   const setCurrentQuote = useQuoteStore((state) => state.setCurrentQuote);
 
   useEffect(() => {
-    const found = findQuoteById(params.id as string);
+    const found = findQuoteById(parseInt(params.id as string));
     if (found) {
       setCurrentQuote(found);
       navigation.setOptions({

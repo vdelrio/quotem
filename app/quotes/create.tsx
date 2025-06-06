@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import { useRouter } from "expo-router";
 import { useQuoteStore } from "@store/quoteStore";
 import { QuoteForm } from "@components/quote/QuoteForm";
-import { useQuoteRepository2 } from "@repository/useQuoteRepository";
+import { useQuoteRepository } from "@repository/useQuoteRepository";
 
 export default function NewQuoteScreen() {
   const router = useRouter();
 
-  const { createQuote } = useQuoteRepository2();
+  const { createQuote } = useQuoteRepository();
 
   // const addQuote = useQuoteRepository((state) => state.addQuote);
   const currentQuote = useQuoteStore((state) => state.currentQuote);

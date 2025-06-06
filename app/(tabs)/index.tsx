@@ -3,13 +3,18 @@ import Animated, { LinearTransition } from "react-native-reanimated";
 import { useRouter } from "expo-router";
 import { QuoteCard } from "@components/quote/QuoteCard";
 import { Button } from "react-native-ui-lib";
-import { useQuoteRepository2 } from "@repository/useQuoteRepository";
+import { useQuoteStore } from "@store/quoteStore";
+import { useQuoteRepository } from "@repository/useQuoteRepository";
 
 export default function App() {
   const router = useRouter();
-  // const quotes = useQuoteRepository((state) => state.quotes);
+  const quotes = useQuoteStore((state) => state.quotes);
 
-  const { quotes, refetch, loading } = useQuoteRepository2();
+  const { loading } = useQuoteRepository();
+  if (loading) {
+    return;
+  }
+
   return (
     <Animated.FlatList
       style={styles.container}
@@ -17,8 +22,6 @@ export default function App() {
       data={quotes}
       renderItem={({ item }) => <QuoteCard quote={item} />}
       itemLayoutAnimation={LinearTransition}
-      onRefresh={refetch}
-      refreshing={loading}
       ListEmptyComponent={
         <Button
           label="Agrega tu primera cita"

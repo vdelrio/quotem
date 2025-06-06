@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useQuoteRepository } from "@repository/quoteRepository";
 import { useQuoteStore } from "@store/quoteStore";
 import { QuoteForm } from "@components/quote/QuoteForm";
 import { StyleSheet, Text, View } from "react-native";
@@ -10,8 +9,8 @@ export default function EditQuoteScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
 
-  const findQuoteById = useQuoteRepository((state) => state.findQuoteById);
-  const updateQuote = useQuoteRepository((state) => state.updateQuote);
+  const findQuoteById = useQuoteStore((state) => state.findQuoteById);
+  const updateQuote = useQuoteStore((state) => state.updateQuote);
   const currentQuote = useQuoteStore((state) => state.currentQuote);
   const setCurrentQuote = useQuoteStore((state) => state.setCurrentQuote);
   const setCurrentQuoteField = useQuoteStore(
@@ -19,13 +18,13 @@ export default function EditQuoteScreen() {
   );
 
   useEffect(() => {
-    const found = findQuoteById(params.quoteId as string);
+    const found = findQuoteById(parseInt(params.quoteId as string));
     if (found) {
       setCurrentQuote(found);
     }
   }, [params.quoteId, findQuoteById, setCurrentQuote]);
 
-  const onSave = () => {
+  const onSave = async (): Promise<void> => {
     if (!currentQuote.text) {
       return;
     }

@@ -2,21 +2,23 @@ import { useState, useEffect } from "react";
 import { client } from "@/supabase/client";
 import { Quote } from "@model/models";
 import { QuoteForInsert } from "@/supabase/extra.types";
+import { useQuoteStore } from "@store/quoteStore";
 
 const QUOTE_SELECT_VALUES = "id, text, imageUri:image_uri, author:author_id(*)";
 
 interface UseQuoteRepositoryReturn {
-  quotes: Quote[];
   loading: boolean;
   error: string | null;
   refetch: () => Promise<void>;
-  createQuote: (quote: Quote) => Promise<Quote | null>;
+  createQuote: (quote: Quote) => Promise<null>;
   // updateQuote: (id: string, updates: QuoteUpdate) => Promise<Quote | null>;
   // deleteQuote: (id: string) => Promise<boolean>;
 }
 
-export const useQuoteRepository2 = (): UseQuoteRepositoryReturn => {
-  const [quotes, setQuotes] = useState<Quote[]>([]);
+export const useQuoteRepository = (): UseQuoteRepositoryReturn => {
+  const setQuotes = useQuoteStore((state) => state.setQuotes);
+  const addQuote = useQuoteStore((state) => state.addQuote);
+
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -43,7 +45,7 @@ export const useQuoteRepository2 = (): UseQuoteRepositoryReturn => {
     }
   };
 
-  const createQuote = async (quote: Quote): Promise<Quote | null> => {
+  const createQuote = async (quote: Quote): Promise<null> => {
     try {
       // TODO: hacer este mapeo en otro lado
       const quoteData: QuoteForInsert = {
@@ -62,8 +64,7 @@ export const useQuoteRepository2 = (): UseQuoteRepositoryReturn => {
       }
 
       if (data) {
-        setQuotes((prev) => [data, ...prev]);
-        return data;
+        addQuote(data);
       }
       return null;
     } catch (err) {
@@ -124,7 +125,6 @@ export const useQuoteRepository2 = (): UseQuoteRepositoryReturn => {
   }, []);
 
   return {
-    quotes,
     loading,
     error,
     refetch: fetchQuotes,

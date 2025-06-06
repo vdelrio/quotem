@@ -8,7 +8,3 @@ export type AuthorForUpdate = TablesUpdate<"authors">;
 export type QuoteRow = Tables<"quotes">;
 export type QuoteForInsert = TablesInsert<"quotes">;
 export type QuoteForUpdate = TablesUpdate<"quotes">;
-
-// export type QuoteRowWithAuthor = Omit<QuoteRow, "author_id"> & {
-//   author: AuthorRow;
-// };
