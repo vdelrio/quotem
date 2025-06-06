@@ -1,13 +1,15 @@
 import { useEffect } from "react";
 import { useRouter } from "expo-router";
-import { useQuoteRepository } from "@repository/quoteRepository";
 import { useQuoteStore } from "@store/quoteStore";
 import { QuoteForm } from "@components/quote/QuoteForm";
+import { useQuoteRepository2 } from "@repository/useQuoteRepository";
 
 export default function NewQuoteScreen() {
   const router = useRouter();
 
-  const addQuote = useQuoteRepository((state) => state.addQuote);
+  const { createQuote } = useQuoteRepository2();
+
+  // const addQuote = useQuoteRepository((state) => state.addQuote);
   const currentQuote = useQuoteStore((state) => state.currentQuote);
   const setCurrentQuoteField = useQuoteStore(
     (state) => state.setCurrentQuoteField,
@@ -18,11 +20,12 @@ export default function NewQuoteScreen() {
     clearCurrentQuote();
   }, [clearCurrentQuote]);
 
-  const onSave = () => {
+  const onSave = async (): Promise<void> => {
     if (!currentQuote.text) {
       return;
     }
-    addQuote(currentQuote);
+    // addQuote(currentQuote);
+    await createQuote(currentQuote);
     router.back();
   };
 

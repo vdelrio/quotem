@@ -3,7 +3,7 @@ import { Author, Quote } from "@model/models";
 // Authors --------------------------------------------------------------------------------------
 
 export const ucdmAuthor: Author = {
-  id: "1",
+  id: 1,
   name: "UCDM",
 };
 
@@ -15,14 +15,16 @@ export const authorNextId = 2;
 
 export const mockedQuotes: Quote[] = [
   {
-    id: "1",
+    id: 1,
     text: "La fe es lo opuesto al miedo y forma parte del amor tal como el miedo forma parte del ataque.",
     author: ucdmAuthor,
+    imageUri: null,
   },
   {
-    id: "2",
+    id: 2,
     text: "Padre, hoy quiero oír sólo Tu Voz. Vengo a Ti en el más profundo de los silencios para oír Tu Voz y recibir Tu Palabra. No tengo otra oración que ésta: que me des la verdad. Y la verdad no es sino Tu Voluntad, que hoy quiero compartir Contigo.",
     author: ucdmAuthor,
+    imageUri: null,
   },
 ];
 export const quoteNextId = 3;

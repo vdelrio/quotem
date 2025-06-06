@@ -2,6 +2,12 @@ import { create } from "zustand";
 import { ucdmAuthor } from "@model/mock-data";
 import { Quote } from "@model/models";
 
+const currentQuoteInitialData = {
+  text: "",
+  author: ucdmAuthor,
+  imageUri: null,
+};
+
 type QuoteStore = {
   currentQuote: Quote;
   setCurrentQuote: (quote: Quote) => void;
@@ -10,7 +16,7 @@ type QuoteStore = {
 };
 
 export const useQuoteStore = create<QuoteStore>()((set) => ({
-  currentQuote: new Quote({ author: ucdmAuthor }),
+  currentQuote: { ...currentQuoteInitialData },
   setCurrentQuote: (quote: Quote) => {
     set(() => ({
       currentQuote: { ...quote },
@@ -26,7 +32,7 @@ export const useQuoteStore = create<QuoteStore>()((set) => ({
   },
   clearCurrentQuote: () => {
     set(() => ({
-      currentQuote: new Quote({ author: ucdmAuthor }),
+      currentQuote: { ...currentQuoteInitialData },
     }));
   },
 }));

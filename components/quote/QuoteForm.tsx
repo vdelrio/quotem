@@ -12,13 +12,14 @@ import { Author, NO_AUTHOR, Quote } from "@model/models";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TakePhotoBtn } from "@components/TakePhotoBtn";
 import { useAuthorRepository } from "@repository/authorRepository";
+import { useAuthorRepository2 } from "@repository/useAuthorRepository";
 
 const dropdownIcon = <Icon source={require("@assets/chevronDown.png")} />;
 
 type Props = {
   quote: Quote;
   setQuoteField: (fieldName: keyof Quote, value: any) => void;
-  onSave: (quote: Quote) => void;
+  onSave: () => Promise<void>;
   saveBtnLabel: string;
 };
 
@@ -28,13 +29,19 @@ export function QuoteForm({
   onSave,
   saveBtnLabel,
 }: Props) {
-  const authors: Author[] = useAuthorRepository((state) => state.authors);
-  const findAuthorById = useAuthorRepository((state) => state.findAuthorById);
+  const { authors, loading } = useAuthorRepository2();
 
-  const onChangeAuthor = (authorId: string) => {
-    const selectedAuthor = findAuthorById(authorId);
+  // const authors: Author[] = useAuthorRepository((state) => state.authors);
+  // const findAuthorById = useAuthorRepository((state) => state.findAuthorById);
+
+  const onChangeAuthor = (authorId: number) => {
+    const selectedAuthor = authors.find((author) => author.id === authorId);
     setQuoteField("author", selectedAuthor);
   };
+
+  if (loading) {
+    return;
+  }
 
   return (
     <KeyboardAwareScrollView
@@ -57,7 +64,7 @@ export function QuoteForm({
         preset="underline"
         text70
         value={quote.author?.id || NO_AUTHOR.id}
-        onChange={(value) => onChangeAuthor(value as string)}
+        onChange={(value) => onChangeAuthor(value as number)}
         useSafeArea
         topBarProps={{ title: "Autor" }}
         trailingAccessory={dropdownIcon}
