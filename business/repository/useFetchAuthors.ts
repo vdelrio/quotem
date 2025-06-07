@@ -20,7 +20,10 @@ export const useFetchAuthors = (): ReturnType => {
       setError(null);
 
       console.log("Fetching authors...");
-      const { data, error: fetchError } = await client.from("authors").select();
+      const { data, error: fetchError } = await client
+        .from("authors")
+        .select()
+        .order("name", { ascending: true });
       if (fetchError) {
         throw fetchError;
       }

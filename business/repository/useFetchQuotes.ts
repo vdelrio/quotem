@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { client } from "@supabase/client";
 import { Quote } from "@model/models";
-
-const QUOTE_SELECT_VALUES = "id, text, imageUri:image_uri, author:author_id(*)";
+import { QUOTE_SELECT_VALUES } from "@repository/utils";
 
 interface ReturnType {
   quotes: Quote[];
@@ -24,7 +23,8 @@ export const useFetchQuotes = (): ReturnType => {
       console.log("Fetching quotes...");
       const { data, error: fetchError } = await client
         .from("quotes")
-        .select(QUOTE_SELECT_VALUES);
+        .select(QUOTE_SELECT_VALUES)
+        .order("id", { ascending: false });
 
       if (fetchError) {
         throw fetchError;

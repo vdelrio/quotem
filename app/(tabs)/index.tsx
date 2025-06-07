@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { useRouter } from "expo-router";
 import { QuoteCard } from "@components/quote/QuoteCard";
-import { Button, Colors, LoaderScreen } from "react-native-ui-lib";
+import { Button, LoaderScreen } from "react-native-ui-lib";
 import { useQuoteStore } from "@store/quoteStore";
 import { useFetchQuotes } from "@repository/useFetchQuotes";
 import { useEffect } from "react";

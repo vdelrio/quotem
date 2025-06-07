@@ -47,8 +47,7 @@
         {
           "cameraPermissionText": "$(PRODUCT_NAME) necesita acceso a tu cámara."
         }
-      ],
-      ["expo-document-picker"]
+      ]
     ],
     "extra": {
       "router": {

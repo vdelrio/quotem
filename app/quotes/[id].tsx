@@ -1,32 +1,37 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Alert, Image } from "react-native";
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { Button, Colors, Spacings, Typography } from "react-native-ui-lib";
 import { FancyFontText } from "@components/atoms/FancyFontText";
 import { useQuoteStore } from "@store/quoteStore";
+import { useDeleteQuote } from "@repository/useDeleteQuote";
+import { Quote } from "@model/models";
 
 export default function QuoteDetailsScreen() {
+  const [quote, setQuote] = useState<Quote | null>(null);
   const router = useRouter();
   const navigation = useNavigation();
   const params = useLocalSearchParams();
 
+  const { deleteQuote } = useDeleteQuote();
+
   const findQuoteById = useQuoteStore((state) => state.findQuoteById);
-  const deleteQuote = useQuoteStore((store) => store.deleteQuote);
-  const currentQuote = useQuoteStore((state) => state.currentQuote);
-  const setCurrentQuote = useQuoteStore((state) => state.setCurrentQuote);
+  const deleteQuoteFromStore = useQuoteStore((store) => store.deleteQuote);
 
   useEffect(() => {
-    const found = findQuoteById(parseInt(params.id as string));
-    if (found) {
-      setCurrentQuote(found);
+    const foundQuote = findQuoteById(parseInt(params.id as string));
+    if (foundQuote) {
       navigation.setOptions({
-        title: found.author ? `Cita de ${found.author.name}` : "Cita sin autor",
+        title: foundQuote.author
+          ? `Cita de ${foundQuote.author.name}`
+          : "Cita sin autor",
       });
+      setQuote(foundQuote);
     }
-  }, [params.id, findQuoteById, setCurrentQuote, navigation]);
+  }, [params.id, findQuoteById, setQuote, navigation]);
 
   const handleDeleteQuote = () => {
-    if (!currentQuote?.id) {
+    if (!quote?.id) {
       return;
     }
 
@@ -34,9 +39,11 @@ export default function QuoteDetailsScreen() {
       { text: "Cancelar", style: "cancel" },
       {
         text: "Eliminar",
-        onPress: () => {
-          // @ts-ignore
-          deleteQuote(currentQuote?.id);
+        onPress: async () => {
+          if (quote.id) {
+            await deleteQuote(quote.id);
+            deleteQuoteFromStore(quote.id);
+          }
           router.back();
         },
         style: "destructive",
@@ -44,7 +51,7 @@ export default function QuoteDetailsScreen() {
     ]);
   };
 
-  if (!currentQuote?.id) {
+  if (!quote?.id) {
     return (
       <View style={styles.notFoundContainer}>
         <Text style={styles.notFoundText}>
@@ -57,19 +64,14 @@ export default function QuoteDetailsScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.quoteTextContainer}>
-        <FancyFontText style={styles.quoteText}>
-          {currentQuote.text}
-        </FancyFontText>
+        <FancyFontText style={styles.quoteText}>{quote.text}</FancyFontText>
       </View>
-      {currentQuote.imageUri && (
-        <Image
-          source={{ uri: currentQuote.imageUri }}
-          style={styles.previewImage}
-        />
+      {quote.imageUri && (
+        <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
       )}
       <Button
         label="Editar"
-        onPress={() => router.navigate(`/quotes/${currentQuote.id}/edit`)}
+        onPress={() => router.navigate(`/quotes/${quote.id}/edit`)}
         background-accent
         marginB-10
       />

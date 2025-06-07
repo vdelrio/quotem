@@ -1,38 +1,40 @@
 import { useState } from "react";
 import { Quote } from "@model/models";
 import { client } from "@supabase/client";
-import { QuoteForInsert } from "@supabase/extra.types";
+import { QuoteForUpdate } from "@supabase/extra.types";
 import { QUOTE_SELECT_VALUES } from "@repository/utils";
 
 interface ReturnType {
-  createQuote: (quote: Quote) => Promise<Quote | null>;
+  updateQuote: (quote: Quote) => Promise<Quote | null>;
   loading: boolean;
   error: Error | null;
 }
 
-export const useCreateQuote = (): ReturnType => {
+export const useUpdateQuote = (): ReturnType => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
-  const createQuote = async (quote: Quote): Promise<Quote | null> => {
+  const updateQuote = async (quote: Quote): Promise<Quote | null> => {
     try {
       setLoading(true);
       setError(null);
 
       // TODO: hacer este mapeo en otro lado
-      const quoteData: QuoteForInsert = {
+      const quoteData: QuoteForUpdate = {
         text: quote.text,
         author_id: quote.author?.id,
         image_uri: quote.imageUri,
       };
-      const { data, error: createError } = await client
+
+      const { data, error: updateError } = await client
         .from("quotes")
-        .insert(quoteData)
+        .update(quoteData)
+        .eq("id", quote.id as number)
         .select(QUOTE_SELECT_VALUES)
         .single();
 
-      if (createError) {
-        throw createError;
+      if (updateError) {
+        throw updateError;
       }
 
       return data;
@@ -46,7 +48,7 @@ export const useCreateQuote = (): ReturnType => {
   };
 
   return {
-    createQuote,
+    updateQuote,
     loading,
     error,
   };

@@ -4,13 +4,16 @@ import { useQuoteStore } from "@store/quoteStore";
 import { QuoteForm } from "@components/quote/QuoteForm";
 import { StyleSheet, Text, View } from "react-native";
 import { Colors, Typography } from "react-native-ui-lib";
+import { useUpdateQuote } from "@repository/useUpdateQuote";
 
 export default function EditQuoteScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
 
+  const { updateQuote } = useUpdateQuote();
+
   const findQuoteById = useQuoteStore((state) => state.findQuoteById);
-  const updateQuote = useQuoteStore((state) => state.updateQuote);
+  const updateQuoteInStore = useQuoteStore((state) => state.updateQuote);
   const currentQuote = useQuoteStore((state) => state.currentQuote);
   const setCurrentQuote = useQuoteStore((state) => state.setCurrentQuote);
   const setCurrentQuoteField = useQuoteStore(
@@ -18,25 +21,28 @@ export default function EditQuoteScreen() {
   );
 
   useEffect(() => {
-    const found = findQuoteById(parseInt(params.quoteId as string));
+    const found = findQuoteById(parseInt(params.id as string));
     if (found) {
       setCurrentQuote(found);
     }
-  }, [params.quoteId, findQuoteById, setCurrentQuote]);
+  }, [params.id, findQuoteById, setCurrentQuote]);
 
-  const onSave = async (): Promise<void> => {
+  const onSave = async () => {
     if (!currentQuote.text) {
       return;
     }
-    updateQuote(currentQuote);
-    router.navigate("/");
+    const updatedQuote = await updateQuote(currentQuote);
+    if (updatedQuote) {
+      updateQuoteInStore(updatedQuote);
+    }
+    router.dismiss(2);
   };
 
   if (!currentQuote?.id) {
     return (
       <View style={styles.notFoundContainer}>
         <Text style={styles.notFoundText}>
-          No se ha encontrado la cita de ID {params.quoteId}.
+          No se ha encontrado la cita de ID {params.id}.
         </Text>
       </View>
     );

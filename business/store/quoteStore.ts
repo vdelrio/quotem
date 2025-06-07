@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { mockedQuotes, ucdmAuthor } from "@model/mock-data";
+import { ucdmAuthor } from "@model/mock-data";
 import { Quote } from "@model/models";
 
 const currentQuoteInitialData = {
@@ -22,7 +22,7 @@ type QuoteStore = {
 };
 
 export const useQuoteStore = create<QuoteStore>()((set, get) => ({
-  quotes: mockedQuotes,
+  quotes: [],
   currentQuote: { ...currentQuoteInitialData },
   setQuotes: (quotes: Quote[]): void => {
     set(() => ({

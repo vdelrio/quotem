@@ -18,7 +18,6 @@
     "expo": "~52.0.42",
     "expo-constants": "~17.0.8",
     "expo-dev-client": "~5.0.19",
-    "expo-document-picker": "~13.0.3",
     "expo-file-system": "~18.0.12",
     "expo-font": "~13.0.4",
     "expo-linking": "~7.0.5",
@@ -41,7 +40,6 @@
     "react-native-vision-camera-text-recognition": "^3.1.1",
     "react-native-web": "~0.19.13",
     "react-native-worklets-core": "^1.5.0",
-    "ts-case-convert": "^2.1.0",
     "zustand": "^5.0.3"
   },
   "devDependencies": {

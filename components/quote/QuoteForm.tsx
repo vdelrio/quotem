@@ -3,12 +3,13 @@ import {
   Button,
   Colors,
   Icon,
+  LoaderScreen,
   Picker,
   Spacings,
   Typography,
 } from "react-native-ui-lib";
 import { Link } from "expo-router";
-import { Author, NO_AUTHOR, Quote } from "@model/models";
+import { NO_AUTHOR, Quote } from "@model/models";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TakePhotoBtn } from "@components/TakePhotoBtn";
 import { useFetchAuthors } from "@repository/useFetchAuthors";
@@ -30,16 +31,13 @@ export function QuoteForm({
 }: Props) {
   const { authors, loading } = useFetchAuthors();
 
-  // const authors: Author[] = useAuthorStore((state) => state.authors);
-  // const findAuthorById = useAuthorStore((state) => state.findAuthorById);
-
   const onChangeAuthor = (authorId: number) => {
     const selectedAuthor = authors.find((author) => author.id === authorId);
     setQuoteField("author", selectedAuthor);
   };
 
   if (loading) {
-    return;
+    return <LoaderScreen overlay />;
   }
 
   return (
