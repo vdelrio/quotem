@@ -33,12 +33,12 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="profile"
         options={{
-          title: "Settings",
+          title: "Profile",
           tabBarShowLabel: false,
           tabBarIcon: ({ size, color }) => (
-            <Feather name="settings" size={size} color={color} />
+            <Feather name="user" size={size} color={color} />
           ),
         }}
       />

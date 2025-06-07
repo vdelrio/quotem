@@ -1,13 +1,28 @@
 import { StyleSheet } from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { useRouter } from "expo-router";
-import { useQuoteRepository } from "@repository/quoteRepository";
 import { QuoteCard } from "@components/quote/QuoteCard";
-import { Button } from "react-native-ui-lib";
+import { Button, LoaderScreen } from "react-native-ui-lib";
+import { useQuoteStore } from "@store/quoteStore";
+import { useFetchQuotes } from "@repository/useFetchQuotes";
+import { useEffect } from "react";
 
 export default function App() {
   const router = useRouter();
-  const quotes = useQuoteRepository((state) => state.quotes);
+  const quotes = useQuoteStore((state) => state.quotes);
+  const setQuotes = useQuoteStore((state) => state.setQuotes);
+
+  const { quotes: fetchedQuotes, loading } = useFetchQuotes();
+
+  useEffect(() => {
+    if (!loading && fetchedQuotes) {
+      setQuotes(fetchedQuotes);
+    }
+  }, [loading, fetchedQuotes, setQuotes]);
+
+  if (loading) {
+    return <LoaderScreen overlay />;
+  }
 
   return (
     <Animated.FlatList

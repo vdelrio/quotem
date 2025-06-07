@@ -1,26 +1,16 @@
-export class Author {
-  id?: string;
+export type Author = {
+  id: number;
   name: string;
+};
 
-  constructor(params: { name: string }) {
-    this.name = params.name;
-  }
-}
-
-export const NO_AUTHOR = {
-  id: "0",
+export const NO_AUTHOR: Author = {
+  id: 0,
   name: "Sin autor",
 };
 
-export class Quote {
-  id?: string;
+export type Quote = {
+  id?: number;
   text: string;
-  author?: Author;
-  imageUri?: string;
-
-  constructor(params: { text?: string; author?: Author; imageUri?: string }) {
-    this.text = params.text || "";
-    this.author = params.author;
-    this.imageUri = params.imageUri;
-  }
-}
+  author: Author | null;
+  imageUri: string | null;
+};

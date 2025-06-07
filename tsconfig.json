@@ -4,11 +4,15 @@
     "strict": true,
     "paths": {
       "@/*": ["./*"],
-      "@components/*": ["./components/*"],
+      "@assets/*": ["./assets/*"],
       "@model/*": ["./business/model/*"],
       "@repository/*": ["./business/repository/*"],
       "@store/*": ["./business/store/*"],
-      "@theme/*": ["./theme/*"]
+      "@components/*": ["./components/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@supabase/*": ["./supabase/*"],
+      "@theme/*": ["./theme/*"],
+      "@utils/*": ["./utils/*"]
     }
   }
 }
