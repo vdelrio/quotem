@@ -10,6 +10,7 @@
       "@store/*": ["./business/store/*"],
       "@components/*": ["./components/*"],
       "@hooks/*": ["./hooks/*"],
+      "@supabase/*": ["./supabase/*"],
       "@theme/*": ["./theme/*"],
       "@utils/*": ["./utils/*"]
     }

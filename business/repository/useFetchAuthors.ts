@@ -1,34 +1,33 @@
 import { useState, useEffect } from "react";
-import { client } from "@/supabase/client";
+import { client } from "@supabase/client";
 import { Author } from "@model/models";
 
-interface UseAuthorRepositoryReturn {
+interface ReturnType {
   authors: Author[];
   loading: boolean;
-  error: string | null;
+  error: Error | null;
   refetch: () => Promise<void>;
 }
 
-export const useAuthorRepository2 = (): UseAuthorRepositoryReturn => {
+export const useFetchAuthors = (): ReturnType => {
   const [authors, setAuthors] = useState<Author[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<Error | null>(null);
 
-  const fetchAuthors = async (): Promise<void> => {
+  const fetchAuthors = async () => {
     try {
       setLoading(true);
       setError(null);
 
+      console.log("Fetching authors...");
       const { data, error: fetchError } = await client.from("authors").select();
-
       if (fetchError) {
         throw fetchError;
       }
+
       setAuthors(data || []);
-    } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : "An error occurred";
-      setError(errorMessage);
+    } catch (err: any) {
+      setError(err);
       console.error("Error fetching authors:", err);
     } finally {
       setLoading(false);

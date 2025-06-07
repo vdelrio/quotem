@@ -11,8 +11,7 @@ import { Link } from "expo-router";
 import { Author, NO_AUTHOR, Quote } from "@model/models";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TakePhotoBtn } from "@components/TakePhotoBtn";
-import { useAuthorRepository } from "@repository/authorRepository";
-import { useAuthorRepository2 } from "@repository/useAuthorRepository";
+import { useFetchAuthors } from "@repository/useFetchAuthors";
 
 const dropdownIcon = <Icon source={require("@assets/chevronDown.png")} />;
 
@@ -29,10 +28,10 @@ export function QuoteForm({
   onSave,
   saveBtnLabel,
 }: Props) {
-  const { authors, loading } = useAuthorRepository2();
+  const { authors, loading } = useFetchAuthors();
 
-  // const authors: Author[] = useAuthorRepository((state) => state.authors);
-  // const findAuthorById = useAuthorRepository((state) => state.findAuthorById);
+  // const authors: Author[] = useAuthorStore((state) => state.authors);
+  // const findAuthorById = useAuthorStore((state) => state.findAuthorById);
 
   const onChangeAuthor = (authorId: number) => {
     const selectedAuthor = authors.find((author) => author.id === authorId);
