@@ -5,23 +5,24 @@ import { QuoteCard } from "@components/quote/QuoteCard";
 import { Button, LoaderScreen } from "react-native-ui-lib";
 import { useQuoteStore } from "@store/quoteStore";
 import { useFetchQuotes } from "@repository/useFetchQuotes";
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 
 export default function App() {
   const router = useRouter();
+
   const quotes = useQuoteStore((state) => state.quotes);
   const setQuotes = useQuoteStore((state) => state.setQuotes);
 
   const { quotes: fetchedQuotes, loading } = useFetchQuotes();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!loading && fetchedQuotes) {
       setQuotes(fetchedQuotes);
     }
   }, [loading, fetchedQuotes, setQuotes]);
 
   if (loading) {
-    return <LoaderScreen overlay />;
+    return <LoaderScreen />;
   }
 
   return (

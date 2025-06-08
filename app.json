@@ -10,8 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.vdelrio.quotem",
-      "usesIcloudStorage": true
+      "bundleIdentifier": "com.vdelrio.quotem"
     },
     "android": {
       "adaptiveIcon": {

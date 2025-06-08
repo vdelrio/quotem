@@ -21,9 +21,9 @@ export default function EditQuoteScreen() {
   );
 
   useEffect(() => {
-    const found = findQuoteById(parseInt(params.id as string));
-    if (found) {
-      setCurrentQuote(found);
+    const foundQuote = findQuoteById(parseInt(params.id as string));
+    if (foundQuote) {
+      setCurrentQuote(foundQuote);
     }
   }, [params.id, findQuoteById, setCurrentQuote]);
 

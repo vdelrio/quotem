@@ -37,7 +37,7 @@ export function QuoteForm({
   };
 
   if (loading) {
-    return <LoaderScreen overlay />;
+    return <LoaderScreen />;
   }
 
   return (

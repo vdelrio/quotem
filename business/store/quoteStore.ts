@@ -1,10 +1,10 @@
 import { create } from "zustand";
-import { ucdmAuthor } from "@model/mock-data";
 import { Quote } from "@model/models";
 
-const currentQuoteInitialData = {
+const currentQuoteInitialData: Quote = {
   text: "",
-  author: ucdmAuthor,
+  // author: null,
+  author: { id: 1, name: "UCDM" },
   imageUri: null,
 };
 

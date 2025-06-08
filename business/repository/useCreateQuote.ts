@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Quote } from "@model/models";
 import { client } from "@supabase/client";
-import { QuoteForInsert } from "@supabase/extra.types";
 import { QUOTE_SELECT_VALUES } from "@repository/utils";
+import { QuoteDataMapper } from "@repository/QuoteDataMapper";
 
 interface ReturnType {
   createQuote: (quote: Quote) => Promise<Quote | null>;
@@ -19,12 +19,7 @@ export const useCreateQuote = (): ReturnType => {
       setLoading(true);
       setError(null);
 
-      // TODO: hacer este mapeo en otro lado
-      const quoteData: QuoteForInsert = {
-        text: quote.text,
-        author_id: quote.author?.id,
-        image_uri: quote.imageUri,
-      };
+      const quoteData = QuoteDataMapper.mapQuoteForInsert(quote);
       const { data, error: createError } = await client
         .from("quotes")
         .insert(quoteData)
