@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import * as Sharing from "expo-sharing";
 import { View, Text, StyleSheet, Alert, Image } from "react-native";
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { Button, Colors, Spacings, Typography } from "react-native-ui-lib";
@@ -51,6 +52,27 @@ export default function QuoteDetailsScreen() {
     ]);
   };
 
+  const handleShareImage = async (imageUri: string) => {
+    try {
+      const canShare = await Sharing.isAvailableAsync();
+      if (!canShare) {
+        Alert.alert(
+          "Función no disponible",
+          "La capacidad de compartir no está disponible en este dispositivo o emulador.",
+        );
+        return;
+      }
+
+      await Sharing.shareAsync(imageUri, {
+        mimeType: "image/png",
+        dialogTitle: "Compartir cita",
+        // UTI: 'public.png', // Opcional para iOS si necesitas un Uniform Type Identifier específico
+      });
+    } catch (error: any) {
+      Alert.alert("Error", `Ocurrió un error al compartir: ${error.message}`);
+    }
+  };
+
   if (!quote?.id) {
     return (
       <View style={styles.notFoundContainer}>
@@ -67,7 +89,15 @@ export default function QuoteDetailsScreen() {
         <FancyFontText style={styles.quoteText}>{quote.text}</FancyFontText>
       </View>
       {quote.imageUri && (
-        <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
+        <>
+          <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
+          <Button
+            label="Compartir imagen"
+            onPress={() => handleShareImage(quote.imageUri as string)}
+            background-accent
+            marginB-10
+          />
+        </>
       )}
       <Button
         label="Editar"
