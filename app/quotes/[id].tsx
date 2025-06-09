@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import * as Sharing from "expo-sharing";
 import { View, Text, StyleSheet, Alert, Image } from "react-native";
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { Button, Colors, Spacings, Typography } from "react-native-ui-lib";
@@ -7,6 +6,7 @@ import { FancyFontText } from "@components/atoms/FancyFontText";
 import { useQuoteStore } from "@store/quoteStore";
 import { useDeleteQuote } from "@repository/useDeleteQuote";
 import { Quote } from "@model/models";
+import { ShareFileBtn } from "@components/molecules/ShareFileBtn";
 
 export default function QuoteDetailsScreen() {
   const [quote, setQuote] = useState<Quote | null>(null);
@@ -52,27 +52,6 @@ export default function QuoteDetailsScreen() {
     ]);
   };
 
-  const handleShareImage = async (imageUri: string) => {
-    try {
-      const canShare = await Sharing.isAvailableAsync();
-      if (!canShare) {
-        Alert.alert(
-          "Función no disponible",
-          "La capacidad de compartir no está disponible en este dispositivo o emulador.",
-        );
-        return;
-      }
-
-      await Sharing.shareAsync(imageUri, {
-        mimeType: "image/png",
-        dialogTitle: "Compartir cita",
-        // UTI: 'public.png', // Opcional para iOS si necesitas un Uniform Type Identifier específico
-      });
-    } catch (error: any) {
-      Alert.alert("Error", `Ocurrió un error al compartir: ${error.message}`);
-    }
-  };
-
   if (!quote?.id) {
     return (
       <View style={styles.notFoundContainer}>
@@ -91,9 +70,10 @@ export default function QuoteDetailsScreen() {
       {quote.imageUri && (
         <>
           <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
-          <Button
+          <ShareFileBtn
             label="Compartir imagen"
-            onPress={() => handleShareImage(quote.imageUri as string)}
+            fileUri={quote.imageUri as string}
+            mimeType="image/png"
             background-accent
             marginB-10
           />

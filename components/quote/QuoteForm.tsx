@@ -13,6 +13,7 @@ import { NO_AUTHOR, Quote } from "@model/models";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TakePhotoBtn } from "@components/TakePhotoBtn";
 import { useFetchAuthors } from "@repository/useFetchAuthors";
+import { ShareFileBtn } from "@components/molecules/ShareFileBtn";
 
 const dropdownIcon = <Icon source={require("@assets/chevronDown.png")} />;
 
@@ -82,7 +83,16 @@ export function QuoteForm({
           ))}
       </Picker>
       {quote.imageUri && (
-        <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
+        <>
+          <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
+          <ShareFileBtn
+            label="Compartir imagen"
+            fileUri={quote.imageUri as string}
+            mimeType="image/png"
+            background-accent
+            marginB-10
+          />
+        </>
       )}
       <TakePhotoBtn label="Tomar foto" marginB-10 />
       <Link href="/quotes/image-generator" asChild>
