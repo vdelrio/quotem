@@ -10,9 +10,9 @@ const colorPalette = {
 // Function to update theme components based on current colors
 const updateComponentThemes = () => {
   // Set theme defaults for various components
-  ThemeManager.setComponentTheme("Button", {
-    borderRadius: BorderRadiuses.br50,
-  });
+  // ThemeManager.setComponentTheme("Button", {
+  //   borderRadius: BorderRadiuses.br50,
+  // });
 };
 
 export default {

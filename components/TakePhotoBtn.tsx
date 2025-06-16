@@ -1,6 +1,6 @@
 import { Button, ButtonProps } from "react-native-ui-lib";
 import { router } from "expo-router";
-import Entypo from "@expo/vector-icons/Entypo";
+// import Entypo from "@expo/vector-icons/Entypo";
 import {
   useCameraPermission,
   useCameraDevice,
@@ -26,9 +26,8 @@ export function TakePhotoBtn(props: ButtonProps) {
   return (
     <Button
       {...props}
-      background-accent
-      iconSource={() => <Entypo name="camera" size={24} color="white" />}
-      labelStyle={{ marginLeft: 8 }}
+      // iconSource={() => <Entypo name="camera" size={24} color="white" />}
+      // labelStyle={{ marginLeft: 8 }}
       onPress={checkPermission}
     />
   );

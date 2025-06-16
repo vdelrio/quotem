@@ -71,21 +71,20 @@ export default function QuoteDetailsScreen() {
         <>
           <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
           <ShareFileBtn
-            label="Compartir imagen"
+            label="Compartir cita"
             fileUri={quote.imageUri as string}
             mimeType="image/png"
-            background-accent
-            marginB-10
+            marginB-20
           />
         </>
       )}
       <Button
         label="Editar"
         onPress={() => router.navigate(`/quotes/${quote.id}/edit`)}
-        background-accent
-        marginB-10
+        outline
+        marginB-20
       />
-      <Button label="Eliminar" onPress={handleDeleteQuote} />
+      <Button label="Eliminar" link onPress={handleDeleteQuote} />
     </View>
   );
 }

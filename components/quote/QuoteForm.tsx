@@ -11,7 +11,6 @@ import {
 import { Link } from "expo-router";
 import { NO_AUTHOR, Quote } from "@model/models";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { TakePhotoBtn } from "@components/TakePhotoBtn";
 import { useFetchAuthors } from "@repository/useFetchAuthors";
 import { ShareFileBtn } from "@components/molecules/ShareFileBtn";
 
@@ -86,23 +85,27 @@ export function QuoteForm({
         <>
           <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
           <ShareFileBtn
-            label="Compartir imagen"
+            label="Compartir cita"
             fileUri={quote.imageUri as string}
             mimeType="image/png"
-            background-accent
-            marginB-10
+            outline
+            marginB-20
           />
         </>
       )}
-      <TakePhotoBtn label="Tomar foto" marginB-10 />
       <Link href="/quotes/image-generator" asChild>
-        <Button label="Generar imagen" background-accent marginB-10 />
+        <Button
+          label={quote.imageUri ? "Cambiar imagen" : "Generar imagen"}
+          link
+          background-accent
+          marginB-20
+        />
       </Link>
       <Button
         label={saveBtnLabel}
         onPress={onSave}
         disabled={!quote.text}
-        style={styles.primaryBtn}
+        marginB-20
       />
     </KeyboardAwareScrollView>
   );
@@ -133,8 +136,5 @@ const styles = StyleSheet.create({
     height: 300,
     borderRadius: 5,
     marginBottom: 10,
-  },
-  primaryBtn: {
-    height: 55,
   },
 });

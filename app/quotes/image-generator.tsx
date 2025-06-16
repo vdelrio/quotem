@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Button } from "react-native-ui-lib";
 import { View, StyleSheet, ImageBackground, Dimensions } from "react-native";
 import ViewShot, { captureRef } from "react-native-view-shot";
@@ -6,11 +6,22 @@ import { FancyFontText } from "@components/atoms/FancyFontText";
 import { useQuoteStore } from "@store/quoteStore";
 import * as FileSystem from "expo-file-system";
 import { router } from "expo-router";
+import { getElementCyclically } from "@/business/utils";
 
 const { width } = Dimensions.get("window");
+const backgrounds = [
+  require("@assets/backgrounds/fondo-1.jpeg"),
+  require("@assets/backgrounds/fondo-2.jpeg"),
+  require("@assets/backgrounds/fondo-3.jpeg"),
+  require("@assets/backgrounds/fondo-4.jpeg"),
+  require("@assets/backgrounds/fondo-5.jpg"),
+  require("@assets/backgrounds/fondo-6.webp"),
+  require("@assets/backgrounds/fondo-7.webp"),
+];
 
 export default function ImageWithTextOverlayScreen() {
   const viewShotRef = useRef<ViewShot>(null);
+  const [backgroundIndex, setBackgroundIndex] = useState(0);
   const quote = useQuoteStore((state) => state.currentQuote);
   const setCurrentQuoteField = useQuoteStore(
     (state) => state.setCurrentQuoteField,
@@ -48,7 +59,7 @@ export default function ImageWithTextOverlayScreen() {
     <View style={styles.container}>
       <ViewShot ref={viewShotRef}>
         <ImageBackground
-          source={require("@assets/backgrounds/fondo-2.jpeg")}
+          source={getElementCyclically(backgrounds, backgroundIndex)}
           style={styles.imageBackground}
           resizeMode="cover"
         >
@@ -62,8 +73,13 @@ export default function ImageWithTextOverlayScreen() {
           </View>
         </ImageBackground>
       </ViewShot>
-
-      <Button label="Confirmar" onPress={captureAndSave} marginT-10 />
+      <Button label="Confirmar" onPress={captureAndSave} marginT-20 />
+      <Button
+        label="Cambiar fondo"
+        link
+        marginT-20
+        onPress={() => setBackgroundIndex((prevState) => prevState + 1)}
+      />
     </View>
   );
 }
