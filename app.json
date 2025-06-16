@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "QuoteM",
+//    "name": "QuoteM (PREV)",
     "slug": "quotem",
     "scheme": "quotem",
     "version": "1.0.0",
@@ -16,8 +17,10 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/q-adaptive-icon.png",
         "backgroundColor": "#ec6a52"
+//        "backgroundColor": "#42a28f"
       },
       "package": "com.vdelrio.quotem"
+//      "package": "com.vdelrio.quotem.prev"
     },
     "web": {
       "favicon": "./assets/q-favicon.png",
