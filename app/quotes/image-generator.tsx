@@ -16,7 +16,6 @@ const backgrounds = [
   require("@assets/backgrounds/fondo-4.jpeg"),
   require("@assets/backgrounds/fondo-5.jpg"),
   require("@assets/backgrounds/fondo-6.webp"),
-  require("@assets/backgrounds/fondo-7.webp"),
 ];
 
 export default function ImageWithTextOverlayScreen() {
