@@ -74,7 +74,7 @@ export default function QuoteDetailsScreen() {
             label="Compartir cita"
             fileUri={quote.imageUri as string}
             mimeType="image/png"
-            marginB-20
+            marginT-20
           />
         </>
       )}
@@ -82,9 +82,9 @@ export default function QuoteDetailsScreen() {
         label="Editar"
         onPress={() => router.navigate(`/quotes/${quote.id}/edit`)}
         outline
-        marginB-20
+        marginT-20
       />
-      <Button label="Eliminar" link onPress={handleDeleteQuote} />
+      <Button label="Eliminar" onPress={handleDeleteQuote} link marginT-20 />
     </View>
   );
 }
@@ -92,6 +92,7 @@ export default function QuoteDetailsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center",
     backgroundColor: Colors.white,
     padding: Spacings.s5,
   },

@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TextInput } from "react-native";
+import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 import {
   Button,
   Colors,
@@ -81,32 +81,37 @@ export function QuoteForm({
             />
           ))}
       </Picker>
-      {quote.imageUri && (
-        <>
-          <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
-          <ShareFileBtn
-            label="Compartir cita"
-            fileUri={quote.imageUri as string}
-            mimeType="image/png"
-            outline
-            marginB-20
+      <View style={styles.btnContainer}>
+        {quote.imageUri && (
+          <>
+            <Image
+              source={{ uri: quote.imageUri }}
+              style={styles.previewImage}
+            />
+            <ShareFileBtn
+              label="Compartir cita"
+              fileUri={quote.imageUri as string}
+              mimeType="image/png"
+              outline
+              marginT-20
+            />
+          </>
+        )}
+        <Link href="/quotes/image-generator" asChild>
+          <Button
+            label={quote.imageUri ? "Cambiar imagen" : "Generar imagen"}
+            link
+            background-accent
+            marginT-20
           />
-        </>
-      )}
-      <Link href="/quotes/image-generator" asChild>
+        </Link>
         <Button
-          label={quote.imageUri ? "Cambiar imagen" : "Generar imagen"}
-          link
-          background-accent
-          marginB-20
+          label={saveBtnLabel}
+          onPress={onSave}
+          disabled={!quote.text}
+          marginT-20
         />
-      </Link>
-      <Button
-        label={saveBtnLabel}
-        onPress={onSave}
-        disabled={!quote.text}
-        marginB-20
-      />
+      </View>
     </KeyboardAwareScrollView>
   );
 }
@@ -118,6 +123,9 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     padding: Spacings.s6,
+  },
+  btnContainer: {
+    alignItems: "center",
   },
   label: {
     ...Typography.text65R,
