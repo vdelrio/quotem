@@ -1,4 +1,8 @@
-import { BorderRadiuses, Colors, ThemeManager } from "react-native-ui-lib";
+import {
+  Colors,
+  ThemeManager,
+  BorderRadiuses,
+} from "react-native-ui-lib/style";
 
 // Initial color palette
 const colorPalette = {

@@ -1,5 +1,6 @@
 import { Platform, StyleSheet } from "react-native";
-import { Text, TextProps } from "react-native-ui-lib";
+import Text from "react-native-ui-lib/text";
+import { TextProps } from "react-native-ui-lib/src/components/text";
 
 export function FancyFontText(props: TextProps) {
   return <Text {...props} style={[styles.fancyFont, props.style]} />;

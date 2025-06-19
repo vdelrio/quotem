@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Alert, Image } from "react-native";
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
-import { Button, Colors, Spacings, Typography } from "react-native-ui-lib";
+import Button from "react-native-ui-lib/button";
+import { Colors, Spacings, Typography } from "react-native-ui-lib/style";
 import { FancyFontText } from "@components/atoms/FancyFontText";
 import { useQuoteStore } from "@store/quoteStore";
 import { useDeleteQuote } from "@repository/useDeleteQuote";

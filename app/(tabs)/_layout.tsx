@@ -1,6 +1,6 @@
 import { Link, Tabs } from "expo-router";
 import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
-import { Colors } from "react-native-ui-lib";
+import { Colors } from "react-native-ui-lib/style";
 import { Pressable } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 

@@ -1,13 +1,9 @@
 import { Image, StyleSheet, Text, TextInput, View } from "react-native";
-import {
-  Button,
-  Colors,
-  Icon,
-  LoaderScreen,
-  Picker,
-  Spacings,
-  Typography,
-} from "react-native-ui-lib";
+import { Colors, Spacings, Typography } from "react-native-ui-lib/style";
+import Picker from "react-native-ui-lib/picker";
+import Button from "react-native-ui-lib/button";
+import Icon from "react-native-ui-lib/icon";
+import LoaderScreen from "react-native-ui-lib/loaderScreen";
 import { Link } from "expo-router";
 import { NO_AUTHOR, Quote } from "@model/models";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";

@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Button } from "react-native-ui-lib";
+import Button from "react-native-ui-lib/button";
 import { View, StyleSheet, ImageBackground, Dimensions } from "react-native";
 import ViewShot, { captureRef } from "react-native-view-shot";
 import { FancyFontText } from "@components/atoms/FancyFontText";

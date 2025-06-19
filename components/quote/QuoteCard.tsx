@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
-import { Card, Colors, View } from "react-native-ui-lib";
+import Card from "react-native-ui-lib/card";
+import { Colors } from "react-native-ui-lib/style";
+import View from "react-native-ui-lib/view";
 import { useRouter } from "expo-router";
 import { Quote } from "@model/models";
 import { FancyFontText } from "@components/atoms/FancyFontText";

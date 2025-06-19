@@ -3,7 +3,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useQuoteStore } from "@store/quoteStore";
 import { QuoteForm } from "@components/quote/QuoteForm";
 import { StyleSheet, Text, View } from "react-native";
-import { Colors, Typography } from "react-native-ui-lib";
+import { Colors, Typography } from "react-native-ui-lib/style";
 import { useUpdateQuote } from "@repository/useUpdateQuote";
 
 export default function EditQuoteScreen() {

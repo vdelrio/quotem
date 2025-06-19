@@ -1,4 +1,7 @@
-import { Button, ButtonProps } from "react-native-ui-lib";
+import {
+  default as Button,
+  ButtonProps,
+} from "react-native-ui-lib/src/components/button";
 import { router } from "expo-router";
 // import Entypo from "@expo/vector-icons/Entypo";
 import {
