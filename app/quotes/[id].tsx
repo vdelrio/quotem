@@ -68,7 +68,7 @@ export default function QuoteDetailsScreen() {
       <View style={styles.quoteTextContainer}>
         <FancyFontText style={styles.quoteText}>{quote.text}</FancyFontText>
       </View>
-      {quote.imageUri && (
+      {quote.imageUri ? (
         <>
           <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
           <ShareFileBtn
@@ -77,14 +77,20 @@ export default function QuoteDetailsScreen() {
             mimeType="image/png"
             marginT-20
           />
+          <Button
+            label="Editar"
+            onPress={() => router.navigate(`/quotes/${quote.id}/edit`)}
+            outline
+            marginT-20
+          />
         </>
+      ) : (
+        <Button
+          label="Editar"
+          onPress={() => router.navigate(`/quotes/${quote.id}/edit`)}
+          marginT-20
+        />
       )}
-      <Button
-        label="Editar"
-        onPress={() => router.navigate(`/quotes/${quote.id}/edit`)}
-        outline
-        marginT-20
-      />
       <Button label="Eliminar" onPress={handleDeleteQuote} link marginT-20 />
     </View>
   );

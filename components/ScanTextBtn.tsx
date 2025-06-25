@@ -11,7 +11,7 @@ import {
 
 const CAMARA_SCREEN_ROUTE = "/quotes/camara";
 
-export function TakePhotoBtn(props: ButtonProps) {
+export function ScanTextBtn(props: ButtonProps) {
   const device = useCameraDevice("back");
   const { hasPermission, requestPermission } = useCameraPermission();
 

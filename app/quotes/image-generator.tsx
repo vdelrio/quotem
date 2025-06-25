@@ -72,13 +72,13 @@ export default function ImageWithTextOverlayScreen() {
           </View>
         </ImageBackground>
       </ViewShot>
-      <Button label="Confirmar" onPress={captureAndSave} marginT-20 />
       <Button
         label="Cambiar fondo"
         link
-        marginT-20
+        marginT-15
         onPress={() => setBackgroundIndex((prevState) => prevState + 1)}
       />
+      <Button label="Confirmar" onPress={captureAndSave} marginT-30 />
     </View>
   );
 }

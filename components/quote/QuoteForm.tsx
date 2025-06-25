@@ -7,8 +7,8 @@ import LoaderScreen from "react-native-ui-lib/loaderScreen";
 import { Link } from "expo-router";
 import { NO_AUTHOR, Quote } from "@model/models";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { ScanTextBtn } from "@components/ScanTextBtn";
 import { useFetchAuthors } from "@repository/useFetchAuthors";
-import { ShareFileBtn } from "@components/molecules/ShareFileBtn";
 
 const dropdownIcon = <Icon source={require("@assets/chevronDown.png")} />;
 
@@ -78,35 +78,38 @@ export function QuoteForm({
           ))}
       </Picker>
       <View style={styles.btnContainer}>
-        {quote.imageUri && (
+        {!quote.id ? (
           <>
-            <Image
-              source={{ uri: quote.imageUri }}
-              style={styles.previewImage}
-            />
-            <ShareFileBtn
-              label="Compartir cita"
-              fileUri={quote.imageUri as string}
-              mimeType="image/png"
-              outline
+            <Button
+              label={saveBtnLabel}
+              onPress={onSave}
+              disabled={!quote.text}
               marginT-20
+            />
+            <ScanTextBtn label="Escanear texto" link marginT-20 />
+          </>
+        ) : (
+          <>
+            {quote.imageUri && (
+              <Image
+                source={{ uri: quote.imageUri }}
+                style={styles.previewImage}
+              />
+            )}
+            <Link href="/quotes/image-generator" asChild>
+              <Button
+                label={quote.imageUri ? "Cambiar imagen" : "Crear imagen"}
+                link
+              />
+            </Link>
+            <Button
+              label={saveBtnLabel}
+              onPress={onSave}
+              disabled={!quote.text}
+              marginT-30
             />
           </>
         )}
-        <Link href="/quotes/image-generator" asChild>
-          <Button
-            label={quote.imageUri ? "Cambiar imagen" : "Generar imagen"}
-            link
-            background-accent
-            marginT-20
-          />
-        </Link>
-        <Button
-          label={saveBtnLabel}
-          onPress={onSave}
-          disabled={!quote.text}
-          marginT-20
-        />
       </View>
     </KeyboardAwareScrollView>
   );
