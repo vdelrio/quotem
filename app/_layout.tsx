@@ -1,12 +1,41 @@
-import { Link, Stack } from "expo-router";
+import { Link, Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import DesignSystem from "@theme/DesignSystem";
-import { Pressable } from "react-native";
+import { Alert, Pressable } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Colors } from "react-native-ui-lib/style";
+import { useQuoteStore } from "@store/quoteStore";
+import { useDeleteQuote } from "@repository/useDeleteQuote";
 
 export default function RootLayout() {
   DesignSystem.initializeDesignSystem();
+
+  const router = useRouter();
+  const { deleteQuote } = useDeleteQuote();
+  const quote = useQuoteStore((state) => state.currentQuote);
+  const deleteQuoteFromStore = useQuoteStore((store) => store.deleteQuote);
+
+  const handleDeleteQuote = () => {
+    if (!quote?.id) {
+      return;
+    }
+
+    Alert.alert("Eliminar cita", "¿Estas seguro de eliminar la cita?", [
+      { text: "Cancelar", style: "cancel" },
+      {
+        text: "Eliminar",
+        onPress: async () => {
+          if (quote.id) {
+            await deleteQuote(quote.id);
+            deleteQuoteFromStore(quote.id);
+          }
+          router.back();
+        },
+        style: "destructive",
+      },
+    ]);
+  };
+
   return (
     <>
       <Stack>
@@ -29,32 +58,39 @@ export default function RootLayout() {
           options={{
             title: "", // Se setea de manera dinámica
             // presentation: "modal",
-            // headerRight: () => (
-            //   <>
-            //     <Link href="/quotes/create" asChild>
-            //       <Pressable hitSlop={20} style={{ marginRight: 12 }}>
-            //         <MaterialIcons
-            //           name="edit"
-            //           size={24}
-            //           color={Colors.$iconNeutral}
-            //         />
-            //       </Pressable>
-            //     </Link>
-            //     <Link href="/quotes/create" asChild>
-            //       <Pressable hitSlop={20}>
-            //         <MaterialIcons
-            //           name="delete"
-            //           size={24}
-            //           color={Colors.$iconNeutral}
-            //         />
-            //       </Pressable>
-            //     </Link>
-            //   </>
-            // ),
+            headerRight: () => (
+              <>
+                <Link href="/quotes/image-generator" asChild>
+                  <Pressable hitSlop={20} style={{ marginRight: 12 }}>
+                    <MaterialIcons
+                      name="share"
+                      size={24}
+                      color={Colors.$iconNeutral}
+                    />
+                  </Pressable>
+                </Link>
+                <Link href="/quotes/edit" asChild>
+                  <Pressable hitSlop={20} style={{ marginRight: 12 }}>
+                    <MaterialIcons
+                      name="edit"
+                      size={24}
+                      color={Colors.$iconNeutral}
+                    />
+                  </Pressable>
+                </Link>
+                <Pressable onPress={handleDeleteQuote} hitSlop={20}>
+                  <MaterialIcons
+                    name="delete"
+                    size={24}
+                    color={Colors.$iconNeutral}
+                  />
+                </Pressable>
+              </>
+            ),
           }}
         />
         <Stack.Screen
-          name="quotes/[id]/edit"
+          name="quotes/edit"
           options={{
             title: "Editar cita",
             presentation: "modal",

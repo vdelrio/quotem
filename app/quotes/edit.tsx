@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useQuoteStore } from "@store/quoteStore";
 import { QuoteForm } from "@components/quote/QuoteForm";
@@ -12,20 +11,11 @@ export default function EditQuoteScreen() {
 
   const { updateQuote } = useUpdateQuote();
 
-  const findQuoteById = useQuoteStore((state) => state.findQuoteById);
   const updateQuoteInStore = useQuoteStore((state) => state.updateQuote);
   const currentQuote = useQuoteStore((state) => state.currentQuote);
-  const setCurrentQuote = useQuoteStore((state) => state.setCurrentQuote);
   const setCurrentQuoteField = useQuoteStore(
     (state) => state.setCurrentQuoteField,
   );
-
-  useEffect(() => {
-    const foundQuote = findQuoteById(parseInt(params.id as string));
-    if (foundQuote) {
-      setCurrentQuote(foundQuote);
-    }
-  }, [params.id, findQuoteById, setCurrentQuote]);
 
   const onSave = async () => {
     if (!currentQuote.text) {
