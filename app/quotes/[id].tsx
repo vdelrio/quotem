@@ -1,22 +1,26 @@
-import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert, Image } from "react-native";
-import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
+import { useEffect } from "react";
+import { View, Text, StyleSheet, Alert } from "react-native";
+import {
+  Link,
+  useLocalSearchParams,
+  useNavigation,
+  useRouter,
+} from "expo-router";
 import Button from "react-native-ui-lib/button";
 import { Colors, Spacings, Typography } from "react-native-ui-lib/style";
 import { FancyFontText } from "@components/atoms/FancyFontText";
 import { useQuoteStore } from "@store/quoteStore";
 import { useDeleteQuote } from "@repository/useDeleteQuote";
-import { Quote } from "@model/models";
-import { ShareFileBtn } from "@components/molecules/ShareFileBtn";
 
 export default function QuoteDetailsScreen() {
-  const [quote, setQuote] = useState<Quote | null>(null);
   const router = useRouter();
   const navigation = useNavigation();
   const params = useLocalSearchParams();
 
   const { deleteQuote } = useDeleteQuote();
 
+  const quote = useQuoteStore((state) => state.currentQuote);
+  const setQuote = useQuoteStore((state) => state.setCurrentQuote);
   const findQuoteById = useQuoteStore((state) => state.findQuoteById);
   const deleteQuoteFromStore = useQuoteStore((store) => store.deleteQuote);
 
@@ -68,29 +72,15 @@ export default function QuoteDetailsScreen() {
       <View style={styles.quoteTextContainer}>
         <FancyFontText style={styles.quoteText}>{quote.text}</FancyFontText>
       </View>
-      {quote.imageUri ? (
-        <>
-          <Image source={{ uri: quote.imageUri }} style={styles.previewImage} />
-          <ShareFileBtn
-            label="Compartir cita"
-            fileUri={quote.imageUri as string}
-            mimeType="image/png"
-            marginT-20
-          />
-          <Button
-            label="Editar"
-            onPress={() => router.navigate(`/quotes/${quote.id}/edit`)}
-            outline
-            marginT-20
-          />
-        </>
-      ) : (
-        <Button
-          label="Editar"
-          onPress={() => router.navigate(`/quotes/${quote.id}/edit`)}
-          marginT-20
-        />
-      )}
+      <Link href="/quotes/image-generator" asChild>
+        <Button label="Compartir" />
+      </Link>
+      <Button
+        label="Editar"
+        onPress={() => router.navigate(`/quotes/${quote.id}/edit`)}
+        outline
+        marginT-20
+      />
       <Button label="Eliminar" onPress={handleDeleteQuote} link marginT-20 />
     </View>
   );
@@ -118,11 +108,5 @@ const styles = StyleSheet.create({
   },
   notFoundText: {
     fontSize: Typography.text70?.fontSize,
-  },
-  previewImage: {
-    width: "100%",
-    height: 300,
-    borderRadius: 5,
-    marginBottom: 10,
   },
 });

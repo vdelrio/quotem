@@ -5,7 +5,6 @@ const currentQuoteInitialData: Quote = {
   text: "",
   // author: null,
   author: { id: 1, name: "UCDM" },
-  imageUri: null,
 };
 
 type QuoteStore = {

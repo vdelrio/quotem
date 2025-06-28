@@ -1,10 +1,9 @@
-import { Image, StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Colors, Spacings, Typography } from "react-native-ui-lib/style";
 import Picker from "react-native-ui-lib/picker";
 import Button from "react-native-ui-lib/button";
 import Icon from "react-native-ui-lib/icon";
 import LoaderScreen from "react-native-ui-lib/loaderScreen";
-import { Link } from "expo-router";
 import { NO_AUTHOR, Quote } from "@model/models";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { ScanTextBtn } from "@components/ScanTextBtn";
@@ -78,38 +77,13 @@ export function QuoteForm({
           ))}
       </Picker>
       <View style={styles.btnContainer}>
-        {!quote.id ? (
-          <>
-            <Button
-              label={saveBtnLabel}
-              onPress={onSave}
-              disabled={!quote.text}
-              marginT-20
-            />
-            <ScanTextBtn label="Escanear texto" link marginT-20 />
-          </>
-        ) : (
-          <>
-            {quote.imageUri && (
-              <Image
-                source={{ uri: quote.imageUri }}
-                style={styles.previewImage}
-              />
-            )}
-            <Link href="/quotes/image-generator" asChild>
-              <Button
-                label={quote.imageUri ? "Cambiar imagen" : "Crear imagen"}
-                link
-              />
-            </Link>
-            <Button
-              label={saveBtnLabel}
-              onPress={onSave}
-              disabled={!quote.text}
-              marginT-30
-            />
-          </>
-        )}
+        <Button
+          label={saveBtnLabel}
+          onPress={onSave}
+          disabled={!quote.text}
+          marginT-20
+        />
+        {!quote.id && <ScanTextBtn label="Escanear texto" link marginT-20 />}
       </View>
     </KeyboardAwareScrollView>
   );
@@ -137,11 +111,5 @@ const styles = StyleSheet.create({
     ...Typography.text70R,
     textAlignVertical: "top",
     marginBottom: Spacings.s6,
-  },
-  previewImage: {
-    width: "100%",
-    height: 300,
-    borderRadius: 5,
-    marginBottom: 10,
   },
 });

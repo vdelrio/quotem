@@ -4,9 +4,8 @@ import { View, StyleSheet, ImageBackground, Dimensions } from "react-native";
 import ViewShot, { captureRef } from "react-native-view-shot";
 import { FancyFontText } from "@components/atoms/FancyFontText";
 import { useQuoteStore } from "@store/quoteStore";
-import * as FileSystem from "expo-file-system";
-import { router } from "expo-router";
 import { getElementCyclically } from "@/business/utils";
+import { useShareFile } from "@hooks/useShareFile";
 
 const { width } = Dimensions.get("window");
 const backgrounds = [
@@ -21,33 +20,16 @@ const backgrounds = [
 export default function ImageWithTextOverlayScreen() {
   const viewShotRef = useRef<ViewShot>(null);
   const [backgroundIndex, setBackgroundIndex] = useState(0);
+  const { shareFile } = useShareFile();
   const quote = useQuoteStore((state) => state.currentQuote);
-  const setCurrentQuoteField = useQuoteStore(
-    (state) => state.setCurrentQuoteField,
-  );
-
-  const saveImage = async (currentUri: string) => {
-    const appDirectory = FileSystem.documentDirectory + "photos/";
-    await FileSystem.makeDirectoryAsync(appDirectory, {
-      intermediates: true,
-    });
-    const newUri = `${appDirectory}${Date.now()}.jpg`;
-
-    await FileSystem.moveAsync({
-      from: currentUri,
-      to: newUri,
-    });
-    return newUri;
-  };
 
   const captureAndSave = async () => {
     try {
       const uri = await captureRef(viewShotRef, {
         format: "png",
       });
-      const permanentUri = await saveImage(uri);
-      setCurrentQuoteField("imageUri", permanentUri);
-      router.back();
+      await shareFile(uri, "image/png");
+      // router.back();
     } catch (error) {
       console.error("Error al capturar o guardar la imagen:", error);
       alert("Error al guardar la imagen.");
@@ -78,7 +60,7 @@ export default function ImageWithTextOverlayScreen() {
         marginT-15
         onPress={() => setBackgroundIndex((prevState) => prevState + 1)}
       />
-      <Button label="Confirmar" onPress={captureAndSave} marginT-30 />
+      <Button label="Compartir" onPress={captureAndSave} marginT-30 />
     </View>
   );
 }

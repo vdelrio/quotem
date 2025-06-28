@@ -70,7 +70,7 @@ export default function RootLayout() {
         <Stack.Screen
           name="quotes/image-generator"
           options={{
-            title: "Crear imagen",
+            title: "Compartir cita",
             // presentation: "modal",
           }}
         />

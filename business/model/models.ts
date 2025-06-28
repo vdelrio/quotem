@@ -12,5 +12,4 @@ export type Quote = {
   id?: number;
   text: string;
   author: Author | null;
-  imageUri: string | null;
 };

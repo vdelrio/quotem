@@ -35,7 +35,7 @@ export default function NewQuoteScreen() {
       quote={currentQuote}
       setQuoteField={setCurrentQuoteField}
       onSave={onSave}
-      saveBtnLabel="Crear cita"
+      saveBtnLabel="Crear"
     />
   );
 }

@@ -6,7 +6,6 @@ export class QuoteDataMapper {
     return {
       text: quote.text,
       author_id: quote.author?.id,
-      image_uri: quote.imageUri,
     };
   }
 
@@ -14,7 +13,6 @@ export class QuoteDataMapper {
     return {
       text: quote.text,
       author_id: quote.author?.id,
-      image_uri: quote.imageUri,
     };
   }
 }

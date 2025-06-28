@@ -53,19 +53,16 @@ export type Database = {
         Row: {
           author_id: number | null;
           id: number;
-          image_uri: string | null;
           text: string;
         };
         Insert: {
           author_id?: number | null;
           id?: number;
-          image_uri?: string | null;
           text: string;
         };
         Update: {
           author_id?: number | null;
           id?: number;
-          image_uri?: string | null;
           text?: string;
         };
         Relationships: [
