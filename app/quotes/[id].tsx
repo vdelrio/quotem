@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
   },
   quoteText: {
     fontSize: Typography.text50?.fontSize,
+    lineHeight: Typography.text50?.lineHeight,
     textAlign: "justify",
   },
   notFoundContainer: {

@@ -5,16 +5,21 @@ import View from "react-native-ui-lib/view";
 import { useRouter } from "expo-router";
 import { Quote } from "@model/models";
 import { FancyFontText } from "@components/atoms/FancyFontText";
+import { useConfigStore } from "@store/configStore";
 
 export function QuoteCard({ quote }: { quote: Quote }) {
   const router = useRouter();
+  const collapsed = useConfigStore((state) => state.collapsed);
   return (
     <Card
       style={styles.card}
       onPress={() => router.navigate(`/quotes/${quote.id}`)}
     >
       <View>
-        <FancyFontText numberOfLines={4} style={styles.quoteText}>
+        <FancyFontText
+          numberOfLines={collapsed ? 4 : undefined}
+          style={styles.quoteText}
+        >
           {quote.text}
         </FancyFontText>
         {quote.author && (

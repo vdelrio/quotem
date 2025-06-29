@@ -1,11 +1,14 @@
-import { Link, Tabs } from "expo-router";
+import { Tabs } from "expo-router";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Feather from "@expo/vector-icons/Feather";
 import { Colors } from "react-native-ui-lib/style";
 import { Pressable } from "react-native";
-import AntDesign from "@expo/vector-icons/AntDesign";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useConfigStore } from "@store/configStore";
 
 export default function TabsLayout() {
+  const collapsed = useConfigStore((state) => state.collapsed);
+  const toggleCollapsed = useConfigStore((state) => state.toggleCollapsed);
   return (
     <Tabs screenOptions={{ tabBarActiveTintColor: Colors.$iconPrimary }}>
       <Tabs.Screen
@@ -21,15 +24,17 @@ export default function TabsLayout() {
             />
           ),
           headerRight: () => (
-            <Link href="/quotes/create" asChild>
-              <Pressable hitSlop={20} style={{ marginRight: 18 }}>
-                <AntDesign
-                  name="pluscircleo"
-                  size={24}
-                  color={Colors.$iconPrimary}
-                />
-              </Pressable>
-            </Link>
+            <Pressable
+              onPress={toggleCollapsed}
+              hitSlop={20}
+              style={{ marginRight: 12 }}
+            >
+              <Ionicons
+                name={collapsed ? "chevron-expand" : "chevron-collapse"}
+                size={24}
+                color={Colors.$iconNeutral}
+              />
+            </Pressable>
           ),
         }}
       />

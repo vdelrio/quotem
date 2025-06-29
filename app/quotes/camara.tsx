@@ -5,6 +5,7 @@ import ImagePicker from "react-native-image-crop-picker";
 import { useRef } from "react";
 import { useQuoteStore } from "@store/quoteStore";
 import { router } from "expo-router";
+import * as Haptics from "expo-haptics";
 
 const REMOVE_NEWLINES_REGEX = /\r?\n|\r/g;
 
@@ -37,6 +38,7 @@ export default function CamaraScreen() {
   };
 
   const takePhoto = async () => {
+    await Haptics.selectionAsync();
     try {
       const photo = await camera.current?.takePhoto();
       if (photo) {
