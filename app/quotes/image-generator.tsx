@@ -11,10 +11,7 @@ const { width } = Dimensions.get("window");
 const backgrounds = [
   require("@assets/backgrounds/fondo-1.jpeg"),
   require("@assets/backgrounds/fondo-2.jpeg"),
-  require("@assets/backgrounds/fondo-3.jpeg"),
-  require("@assets/backgrounds/fondo-4.jpeg"),
-  require("@assets/backgrounds/fondo-5.jpg"),
-  require("@assets/backgrounds/fondo-6.webp"),
+  require("@assets/backgrounds/fondo-3.webp"),
 ];
 
 export default function ImageWithTextOverlayScreen() {
@@ -29,7 +26,6 @@ export default function ImageWithTextOverlayScreen() {
         format: "png",
       });
       await shareFile(uri, "image/png");
-      // router.back();
     } catch (error) {
       console.error("Error al capturar o guardar la imagen:", error);
       alert("Error al guardar la imagen.");
