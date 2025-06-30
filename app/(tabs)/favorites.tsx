@@ -7,13 +7,13 @@ import { useQuoteStore } from "@store/quoteStore";
 
 export default function App() {
   const router = useRouter();
-  const getFavoriteQuotes = useQuoteStore((state) => state.getFavoriteQuotes);
+  const quotes = useQuoteStore((state) => state.quotes);
 
   return (
     <Animated.FlatList
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
-      data={getFavoriteQuotes()}
+      data={quotes.filter((quote) => quote.isFavorite)}
       renderItem={({ item }) => (
         <QuoteCard quote={item} applyFavoriteStyle={false} />
       )}

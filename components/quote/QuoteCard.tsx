@@ -12,7 +12,7 @@ export function QuoteCard({
   applyFavoriteStyle = true,
 }: {
   quote: Quote;
-  applyFavoriteStyle: boolean;
+  applyFavoriteStyle?: boolean;
 }) {
   const router = useRouter();
   const collapsed = useConfigStore((state) => state.collapsed);

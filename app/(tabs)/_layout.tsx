@@ -9,6 +9,21 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 export default function TabsLayout() {
   const collapsed = useConfigStore((state) => state.collapsed);
   const toggleCollapsed = useConfigStore((state) => state.toggleCollapsed);
+
+  const headerRight = (
+    <Pressable
+      onPress={toggleCollapsed}
+      hitSlop={20}
+      style={{ marginRight: 12 }}
+    >
+      <Ionicons
+        name={collapsed ? "chevron-expand" : "chevron-collapse"}
+        size={24}
+        color={Colors.$iconNeutral}
+      />
+    </Pressable>
+  );
+
   return (
     <Tabs screenOptions={{ tabBarActiveTintColor: Colors.$iconPrimary }}>
       <Tabs.Screen
@@ -23,19 +38,7 @@ export default function TabsLayout() {
               color={color}
             />
           ),
-          headerRight: () => (
-            <Pressable
-              onPress={toggleCollapsed}
-              hitSlop={20}
-              style={{ marginRight: 12 }}
-            >
-              <Ionicons
-                name={collapsed ? "chevron-expand" : "chevron-collapse"}
-                size={24}
-                color={Colors.$iconNeutral}
-              />
-            </Pressable>
-          ),
+          headerRight: () => headerRight,
         }}
       />
       <Tabs.Screen
@@ -46,6 +49,7 @@ export default function TabsLayout() {
           tabBarIcon: ({ size, color }) => (
             <MaterialIcons name="favorite-outline" size={size} color={color} />
           ),
+          headerRight: () => headerRight,
         }}
       />
     </Tabs>
