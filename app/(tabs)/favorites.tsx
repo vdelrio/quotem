@@ -1,14 +1,10 @@
 import { StyleSheet } from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
-import { useRouter } from "expo-router";
 import { QuoteCard } from "@components/quote/QuoteCard";
-import Button from "react-native-ui-lib/button";
 import { useQuoteStore } from "@store/quoteStore";
 
 export default function App() {
-  const router = useRouter();
   const quotes = useQuoteStore((state) => state.quotes);
-
   return (
     <Animated.FlatList
       style={styles.container}
@@ -18,14 +14,6 @@ export default function App() {
         <QuoteCard quote={item} applyFavoriteStyle={false} />
       )}
       itemLayoutAnimation={LinearTransition}
-      ListEmptyComponent={
-        <Button
-          label="Agrega tu primera cita"
-          onPress={() => {
-            router.navigate("/quotes/create");
-          }}
-        />
-      }
     />
   );
 }

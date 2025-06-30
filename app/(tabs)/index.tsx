@@ -2,7 +2,6 @@ import { SafeAreaView, StyleSheet } from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { useRouter } from "expo-router";
 import { QuoteCard } from "@components/quote/QuoteCard";
-import Button from "react-native-ui-lib/button";
 import LoaderScreen from "react-native-ui-lib/loaderScreen";
 import { useQuoteStore } from "@store/quoteStore";
 import { useFetchQuotes } from "@repository/useFetchQuotes";
@@ -35,19 +34,9 @@ export default function App() {
         data={quotes}
         renderItem={({ item }) => <QuoteCard quote={item} />}
         itemLayoutAnimation={LinearTransition}
-        ListEmptyComponent={
-          <Button
-            label="Agrega tu primera cita"
-            onPress={() => {
-              router.navigate("/quotes/create");
-            }}
-          />
-        }
       />
       <FloatingButton
         onPress={() => router.navigate("/quotes/create")}
-        // buttonSize={65}
-        // iconSize={26}
         backgroundColor={Colors.primary}
       />
     </SafeAreaView>
