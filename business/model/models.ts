@@ -12,4 +12,5 @@ export type Quote = {
   id?: number;
   text: string;
   author: Author | null;
+  isFavorite: boolean;
 };

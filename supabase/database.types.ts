@@ -53,16 +53,19 @@ export type Database = {
         Row: {
           author_id: number | null;
           id: number;
+          is_favorite: boolean;
           text: string;
         };
         Insert: {
           author_id?: number | null;
           id?: number;
+          is_favorite?: boolean;
           text: string;
         };
         Update: {
           author_id?: number | null;
           id?: number;
+          is_favorite?: boolean;
           text?: string;
         };
         Relationships: [

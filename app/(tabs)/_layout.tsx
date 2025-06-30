@@ -1,10 +1,10 @@
 import { Tabs } from "expo-router";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import Feather from "@expo/vector-icons/Feather";
 import { Colors } from "react-native-ui-lib/style";
 import { Pressable } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useConfigStore } from "@store/configStore";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 export default function TabsLayout() {
   const collapsed = useConfigStore((state) => state.collapsed);
@@ -39,12 +39,12 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="favorites"
         options={{
-          title: "Profile",
+          title: "Citas favoritas",
           tabBarShowLabel: false,
           tabBarIcon: ({ size, color }) => (
-            <Feather name="user" size={size} color={color} />
+            <MaterialIcons name="favorite-outline" size={size} color={color} />
           ),
         }}
       />

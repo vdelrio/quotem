@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.yellow70,
     padding: Spacings.s5,
   },
   quoteText: {

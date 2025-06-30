@@ -10,7 +10,7 @@ interface ReturnType {
   refetch: () => Promise<void>;
 }
 
-export const useFetchQuotes = (): ReturnType => {
+export const useFetchQuotes = (favoritesOnly = false): ReturnType => {
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
@@ -21,10 +21,16 @@ export const useFetchQuotes = (): ReturnType => {
       setError(null);
 
       console.log("Fetching quotes...");
-      const { data, error: fetchError } = await client
+      const query = client
         .from("quotes")
         .select(QUOTE_SELECT_VALUES)
         .order("id", { ascending: false });
+
+      if (favoritesOnly) {
+        query.eq("is_favorite", true);
+      }
+
+      const { data, error: fetchError } = await query;
 
       if (fetchError) {
         throw fetchError;

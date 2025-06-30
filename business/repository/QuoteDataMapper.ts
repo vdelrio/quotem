@@ -6,6 +6,7 @@ export class QuoteDataMapper {
     return {
       text: quote.text,
       author_id: quote.author?.id,
+      is_favorite: quote.isFavorite,
     };
   }
 
@@ -13,6 +14,7 @@ export class QuoteDataMapper {
     return {
       text: quote.text,
       author_id: quote.author?.id,
+      is_favorite: quote.isFavorite,
     };
   }
 }

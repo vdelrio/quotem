@@ -6,13 +6,19 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Colors } from "react-native-ui-lib/style";
 import { useQuoteStore } from "@store/quoteStore";
 import { useDeleteQuote } from "@repository/useDeleteQuote";
+import { useUpdateQuote } from "@repository/useUpdateQuote";
 
 export default function RootLayout() {
   DesignSystem.initializeDesignSystem();
 
   const router = useRouter();
   const { deleteQuote } = useDeleteQuote();
+  const { updateQuote } = useUpdateQuote();
   const quote = useQuoteStore((state) => state.currentQuote);
+  const setCurrentQuoteField = useQuoteStore(
+    (state) => state.setCurrentQuoteField,
+  );
+  const updateQuoteInStore = useQuoteStore((state) => state.updateQuote);
   const deleteQuoteFromStore = useQuoteStore((store) => store.deleteQuote);
 
   const handleDeleteQuote = () => {
@@ -34,6 +40,20 @@ export default function RootLayout() {
         style: "destructive",
       },
     ]);
+  };
+
+  const handleFavoriteQuote = async () => {
+    if (quote.id) {
+      const toggleFavoriteValue = !quote.isFavorite;
+      setCurrentQuoteField("isFavorite", toggleFavoriteValue);
+      const updatedQuote = await updateQuote({
+        ...quote,
+        isFavorite: toggleFavoriteValue,
+      });
+      if (updatedQuote) {
+        updateQuoteInStore(updatedQuote);
+      }
+    }
   };
 
   return (
@@ -69,6 +89,17 @@ export default function RootLayout() {
                     />
                   </Pressable>
                 </Link>
+                <Pressable
+                  onPress={handleFavoriteQuote}
+                  hitSlop={20}
+                  style={{ marginRight: 12 }}
+                >
+                  <MaterialIcons
+                    name={quote.isFavorite ? "favorite" : "favorite-outline"}
+                    size={24}
+                    color={Colors.$iconNeutral}
+                  />
+                </Pressable>
                 <Link href="/quotes/edit" asChild>
                   <Pressable hitSlop={20} style={{ marginRight: 12 }}>
                     <MaterialIcons

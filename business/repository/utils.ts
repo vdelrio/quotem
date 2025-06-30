@@ -1,1 +1,2 @@
-export const QUOTE_SELECT_VALUES = "id, text, author:author_id(*)";
+export const QUOTE_SELECT_VALUES =
+  "id, text, isFavorite:is_favorite, author:author_id(*)";

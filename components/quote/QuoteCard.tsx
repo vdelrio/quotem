@@ -7,12 +7,26 @@ import { Quote } from "@model/models";
 import { FancyFontText } from "@components/atoms/FancyFontText";
 import { useConfigStore } from "@store/configStore";
 
-export function QuoteCard({ quote }: { quote: Quote }) {
+export function QuoteCard({
+  quote,
+  applyFavoriteStyle = true,
+}: {
+  quote: Quote;
+  applyFavoriteStyle: boolean;
+}) {
   const router = useRouter();
   const collapsed = useConfigStore((state) => state.collapsed);
   return (
     <Card
-      style={styles.card}
+      style={[
+        styles.card,
+        {
+          backgroundColor:
+            quote.isFavorite && applyFavoriteStyle
+              ? Colors.yellow70
+              : Colors.white,
+        },
+      ]}
       onPress={() => router.navigate(`/quotes/${quote.id}`)}
     >
       <View>
@@ -34,7 +48,6 @@ export function QuoteCard({ quote }: { quote: Quote }) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: Colors.white,
     borderRadius: 6,
     padding: 12,
     marginBottom: 8,

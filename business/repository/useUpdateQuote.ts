@@ -34,7 +34,7 @@ export const useUpdateQuote = (): ReturnType => {
       return data;
     } catch (err: any) {
       setError(err);
-      console.error("Error creating quote:", err);
+      console.error("Error updating quote:", err);
       return null;
     } finally {
       setLoading(false);

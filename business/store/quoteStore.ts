@@ -5,6 +5,7 @@ const currentQuoteInitialData: Quote = {
   text: "",
   // author: null,
   author: { id: 1, name: "UCDM" },
+  isFavorite: false,
 };
 
 type QuoteStore = {
@@ -14,6 +15,7 @@ type QuoteStore = {
   updateQuote: (modifiedQuote: Quote) => void;
   deleteQuote: (quoteId: number) => void;
   findQuoteById: (quoteId: number) => Quote | null;
+  getFavoriteQuotes: () => Quote[];
   currentQuote: Quote;
   setCurrentQuote: (quote: Quote) => void;
   setCurrentQuoteField: (fieldName: keyof Quote, value: any) => void;
@@ -53,6 +55,7 @@ export const useQuoteStore = create<QuoteStore>()((set, get) => ({
   findQuoteById: (quoteId: number) => {
     return get().quotes.find((quote) => quote.id === quoteId) || null;
   },
+  getFavoriteQuotes: () => get().quotes.filter((quote) => quote.isFavorite),
   setCurrentQuote: (quote: Quote) => {
     set(() => ({
       currentQuote: { ...quote },
