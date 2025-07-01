@@ -6,6 +6,7 @@ import { useRouter } from "expo-router";
 import { Quote } from "@model/models";
 import { FancyFontText } from "@components/atoms/FancyFontText";
 import { useConfigStore } from "@store/configStore";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 export function QuoteCard({
   quote,
@@ -21,10 +22,7 @@ export function QuoteCard({
       style={[
         styles.card,
         {
-          backgroundColor:
-            quote.isFavorite && applyFavoriteStyle
-              ? Colors.yellow70
-              : Colors.white,
+          backgroundColor: Colors.white,
         },
       ]}
       onPress={() => router.navigate(`/quotes/${quote.id}`)}
@@ -37,9 +35,18 @@ export function QuoteCard({
           {quote.text}
         </FancyFontText>
         {quote.author && (
-          <FancyFontText style={styles.author}>
-            {quote.author.name}
-          </FancyFontText>
+          <View style={styles.authorContainer}>
+            <FancyFontText style={styles.author}>
+              {quote.author.name}
+            </FancyFontText>
+            {quote.isFavorite && applyFavoriteStyle && (
+              <MaterialIcons
+                name="favorite"
+                size={20}
+                color={Colors.$iconNeutral}
+              />
+            )}
+          </View>
         )}
       </View>
     </Card>
@@ -67,5 +74,10 @@ const styles = StyleSheet.create({
   author: {
     fontSize: 16,
     color: Colors.$textNeutralLight,
+  },
+  authorContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });

@@ -58,8 +58,8 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
 const styles = StyleSheet.create({
   fabContainer: {
     position: "absolute", // Permite posicionamiento flotante
-    bottom: 30, // Distancia desde abajo
-    right: 30, // Distancia desde la derecha
+    bottom: 20, // Distancia desde abajo
+    right: 25, // Distancia desde la derecha
     justifyContent: "center",
     alignItems: "center",
     elevation: 8, // Sombra para Android

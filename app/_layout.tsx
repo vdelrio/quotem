@@ -85,7 +85,10 @@ export default function RootLayout() {
             headerRight: () => (
               <>
                 <Link href="/quotes/image-generator" asChild>
-                  <Pressable hitSlop={15} style={{ marginRight: 15 }}>
+                  <Pressable
+                    hitSlop={{ top: 10, bottom: 10, left: 8, right: 8 }}
+                    style={{ marginRight: 16 }}
+                  >
                     <MaterialIcons
                       name="share"
                       size={24}
@@ -95,8 +98,8 @@ export default function RootLayout() {
                 </Link>
                 <Pressable
                   onPress={handleFavoriteQuote}
-                  hitSlop={15}
-                  style={{ marginRight: 15 }}
+                  hitSlop={{ top: 10, bottom: 10, left: 8, right: 8 }}
+                  style={{ marginRight: 16 }}
                 >
                   <MaterialIcons
                     name={quote.isFavorite ? "favorite" : "favorite-outline"}
@@ -105,7 +108,10 @@ export default function RootLayout() {
                   />
                 </Pressable>
                 <Link href="/quotes/edit" asChild>
-                  <Pressable hitSlop={15} style={{ marginRight: 15 }}>
+                  <Pressable
+                    hitSlop={{ top: 10, bottom: 10, left: 8, right: 8 }}
+                    style={{ marginRight: 16 }}
+                  >
                     <MaterialIcons
                       name="edit"
                       size={24}
@@ -113,7 +119,10 @@ export default function RootLayout() {
                     />
                   </Pressable>
                 </Link>
-                <Pressable onPress={handleDeleteQuote} hitSlop={15}>
+                <Pressable
+                  onPress={handleDeleteQuote}
+                  hitSlop={{ top: 10, bottom: 10, left: 8, right: 8 }}
+                >
                   <MaterialIcons
                     name="delete"
                     size={24}
