@@ -9,6 +9,8 @@ const colorPalette = {
   primary: "#ec6a52",
   secondary: "#9dbdba",
   accent: "#42a28f",
+  sepia: "#fbf0d9",
+  darkGray: "#333333",
 };
 
 // Function to update theme components based on current colors

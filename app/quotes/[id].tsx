@@ -36,8 +36,10 @@ export default function QuoteDetailsScreen() {
   }
 
   return (
-    <View style={styles.container}>
-      <FancyFontText style={styles.quoteText}>{quote.text}</FancyFontText>
+    <View style={[styles.container, { backgroundColor: Colors.sepia }]}>
+      <FancyFontText style={[styles.quoteText, { color: Colors.darkGray }]}>
+        {quote.text}
+      </FancyFontText>
     </View>
   );
 }
@@ -46,13 +48,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "#FBF0D9",
     padding: Spacings.s5,
   },
   quoteText: {
     fontSize: Typography.text50?.fontSize,
     lineHeight: Typography.text50?.lineHeight,
-    color: "#5F4B32",
     textAlign: "justify",
   },
   notFoundContainer: {

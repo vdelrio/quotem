@@ -28,7 +28,9 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: Colors.secondary }]}
+    >
       <Animated.FlatList
         contentContainerStyle={styles.contentContainer}
         data={quotes}
@@ -46,9 +48,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // TODO: ver por qué no toma el del design system
-    // backgroundColor: Colors.secondary,
-    backgroundColor: "#9dbdba",
   },
   contentContainer: {
     padding: 12,
