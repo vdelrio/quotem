@@ -46,12 +46,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: Colors.yellow70,
+    backgroundColor: "#FBF0D9",
     padding: Spacings.s5,
   },
   quoteText: {
     fontSize: Typography.text50?.fontSize,
     lineHeight: Typography.text50?.lineHeight,
+    color: "#5F4B32",
     textAlign: "justify",
   },
   notFoundContainer: {
