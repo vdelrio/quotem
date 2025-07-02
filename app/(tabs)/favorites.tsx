@@ -10,9 +10,7 @@ export default function App() {
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
       data={quotes.filter((quote) => quote.isFavorite)}
-      renderItem={({ item }) => (
-        <QuoteCard quote={item} applyFavoriteStyle={false} />
-      )}
+      renderItem={({ item }) => <QuoteCard quote={item} />}
       itemLayoutAnimation={LinearTransition}
     />
   );

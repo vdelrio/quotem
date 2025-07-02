@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 import Card from "react-native-ui-lib/card";
 import { Colors } from "react-native-ui-lib/style";
 import View from "react-native-ui-lib/view";
@@ -7,16 +7,26 @@ import { Quote } from "@model/models";
 import { FancyFontText } from "@components/atoms/FancyFontText";
 import { useConfigStore } from "@store/configStore";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { useUpdateQuote } from "@repository/useUpdateQuote";
+import { useQuoteStore } from "@store/quoteStore";
 
-export function QuoteCard({
-  quote,
-  applyFavoriteStyle = true,
-}: {
-  quote: Quote;
-  applyFavoriteStyle?: boolean;
-}) {
+export function QuoteCard({ quote }: { quote: Quote }) {
   const router = useRouter();
   const collapsed = useConfigStore((state) => state.collapsed);
+  const updateQuoteInStore = useQuoteStore((state) => state.updateQuote);
+  const { updateQuote } = useUpdateQuote();
+
+  const handleFavoriteQuote = async () => {
+    const toggleFavoriteValue = !quote.isFavorite;
+    const updatedQuote = await updateQuote({
+      ...quote,
+      isFavorite: toggleFavoriteValue,
+    });
+    if (updatedQuote) {
+      updateQuoteInStore(updatedQuote);
+    }
+  };
+
   return (
     <Card
       style={[
@@ -39,13 +49,13 @@ export function QuoteCard({
             <FancyFontText style={styles.author}>
               {quote.author.name}
             </FancyFontText>
-            {quote.isFavorite && applyFavoriteStyle && (
+            <Pressable onPress={handleFavoriteQuote} hitSlop={15}>
               <MaterialIcons
-                name="favorite"
-                size={20}
+                name={quote.isFavorite ? "favorite" : "favorite-outline"}
+                size={18}
                 color={Colors.$iconNeutral}
               />
-            )}
+            </Pressable>
           </View>
         )}
       </View>
