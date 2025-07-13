@@ -6,7 +6,7 @@ import { useRouter } from "expo-router";
 import { Quote } from "@model/models";
 import { FancyFontText } from "@components/atoms/FancyFontText";
 import { useConfigStore } from "@store/configStore";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useUpdateQuote } from "@repository/useUpdateQuote";
 import { useQuoteStore } from "@store/quoteStore";
 
@@ -50,8 +50,9 @@ export function QuoteCard({ quote }: { quote: Quote }) {
               {quote.author.name}
             </FancyFontText>
             <Pressable onPress={handleFavoriteQuote} hitSlop={15}>
-              <MaterialIcons
-                name={quote.isFavorite ? "favorite" : "favorite-outline"}
+              <FontAwesome5
+                name="bookmark"
+                solid={quote.isFavorite}
                 size={18}
                 color={Colors.$iconNeutral}
               />

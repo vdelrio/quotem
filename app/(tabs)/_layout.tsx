@@ -4,7 +4,6 @@ import { Colors } from "react-native-ui-lib/style";
 import { Pressable } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useConfigStore } from "@store/configStore";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 export default function TabsLayout() {
   const collapsed = useConfigStore((state) => state.collapsed);
@@ -47,7 +46,11 @@ export default function TabsLayout() {
           title: "Citas favoritas",
           tabBarShowLabel: false,
           tabBarIcon: ({ size, color }) => (
-            <MaterialIcons name="favorite-outline" size={size} color={color} />
+            <MaterialCommunityIcons
+              name="bookmark-multiple-outline"
+              size={size}
+              color={color}
+            />
           ),
           headerRight: () => headerRight,
         }}

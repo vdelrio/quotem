@@ -7,6 +7,7 @@ import { Colors } from "react-native-ui-lib/style";
 import { useQuoteStore } from "@store/quoteStore";
 import { useDeleteQuote } from "@repository/useDeleteQuote";
 import { useUpdateQuote } from "@repository/useUpdateQuote";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
 export default function RootLayout() {
   DesignSystem.initializeDesignSystem();
@@ -101,9 +102,10 @@ export default function RootLayout() {
                   hitSlop={{ top: 10, bottom: 10, left: 8, right: 8 }}
                   style={{ marginRight: 16 }}
                 >
-                  <MaterialIcons
-                    name={quote.isFavorite ? "favorite" : "favorite-outline"}
-                    size={24}
+                  <FontAwesome5
+                    name="bookmark"
+                    solid={quote.isFavorite}
+                    size={20}
                     color={Colors.$iconNeutral}
                   />
                 </Pressable>
