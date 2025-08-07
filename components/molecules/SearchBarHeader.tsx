@@ -1,19 +1,19 @@
-import React, { useState } from "react";
 import { TextInput, View, StyleSheet, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useConfigStore } from "@store/configStore";
 import { Colors } from "react-native-ui-lib/style";
-// import { useSearch } from "../context/SearchContext"; // Importa tu contexto
 
-interface SearchBarHeaderProps {
+interface Props {
+  value: string;
+  onChangeValue: (text: string) => void;
   placeholder?: string;
 }
 
-export const SearchBarHeader: React.FC<SearchBarHeaderProps> = ({
+export function SearchBarHeader({
   placeholder = "Buscar citas",
-}) => {
-  // const { searchText, setSearchText } = useSearch();
-  const [searchText, setSearchText] = useState<string>("");
+  value,
+  onChangeValue,
+}: Props) {
   const collapsed = useConfigStore((state) => state.collapsed);
   const toggleCollapsed = useConfigStore((state) => state.toggleCollapsed);
 
@@ -28,16 +28,16 @@ export const SearchBarHeader: React.FC<SearchBarHeaderProps> = ({
       <TextInput
         style={styles.input}
         placeholder={placeholder}
-        value={searchText}
-        onChangeText={setSearchText}
+        value={value}
+        onChangeText={onChangeValue}
         placeholderTextColor={Colors.$iconNeutral}
         autoCapitalize="none"
         autoCorrect={false}
         clearButtonMode="always" // Solo iOS
       />
-      {searchText.length > 0 && (
+      {value.length > 0 && (
         <Pressable
-          onPress={() => setSearchText("")}
+          onPress={() => onChangeValue("")}
           hitSlop={{ top: 10, bottom: 10, left: 4, right: 4 }}
           style={{ marginRight: 8 }}
         >
@@ -56,7 +56,7 @@ export const SearchBarHeader: React.FC<SearchBarHeaderProps> = ({
       </Pressable>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -70,7 +70,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 50,
     paddingHorizontal: 15,
-    marginVertical: 8,
+    marginTop: 45,
+    marginBottom: 16,
+    height: 45,
   },
   searchIcon: {
     marginRight: 8,
