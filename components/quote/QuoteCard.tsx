@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet } from "react-native";
 import Card from "react-native-ui-lib/card";
-import { Colors } from "react-native-ui-lib/style";
+import { BorderRadiuses, Colors } from "react-native-ui-lib/style";
 import View from "react-native-ui-lib/view";
 import { useRouter } from "expo-router";
 import { Quote } from "@model/models";
@@ -66,7 +66,7 @@ export function QuoteCard({ quote }: { quote: Quote }) {
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 6,
+    borderRadius: BorderRadiuses.br30,
     padding: 12,
     marginBottom: 8,
     shadowColor: Colors.black,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   quoteText: {
-    fontSize: 18,
+    fontSize: 19,
     marginBottom: 6,
   },
   author: {
