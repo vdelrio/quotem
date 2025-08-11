@@ -7,6 +7,7 @@ import FloatingButton from "@components/atoms/FloatingButton";
 import { Colors } from "react-native-ui-lib/style";
 import { SearchBarHeader } from "@components/molecules/SearchBarHeader";
 import { useSearchQuotes } from "@hooks/useSearchQuotes";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function App() {
   const router = useRouter();
@@ -17,31 +18,40 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: Colors.secondary }]}
+    <LinearGradient
+      style={styles.gradient}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      colors={[Colors.gradientStart, Colors.gradientEnd]}
     >
-      <Animated.FlatList
-        ListHeaderComponent={
-          <SearchBarHeader
-            placeholder="Buscar citas"
-            value={searchText}
-            onChangeValue={setSearchText}
-          />
-        }
-        contentContainerStyle={styles.contentContainer}
-        data={quotes}
-        renderItem={({ item }) => <QuoteCard quote={item} />}
-        itemLayoutAnimation={LinearTransition}
-      />
-      <FloatingButton
-        onPress={() => router.navigate("/quotes/create")}
-        backgroundColor={Colors.primary}
-      />
-    </SafeAreaView>
+      <SafeAreaView style={styles.container}>
+        <Animated.FlatList
+          ListHeaderComponent={
+            <SearchBarHeader
+              placeholder="Buscar citas"
+              value={searchText}
+              onChangeValue={setSearchText}
+            />
+          }
+          contentContainerStyle={styles.contentContainer}
+          data={quotes}
+          renderItem={({ item }) => <QuoteCard quote={item} />}
+          itemLayoutAnimation={LinearTransition}
+        />
+        <FloatingButton
+          onPress={() => router.navigate("/quotes/create")}
+          backgroundColor={Colors.primary}
+        />
+      </SafeAreaView>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
+  gradient: {
+    flex: 1,
+    backgroundColor: "white",
+  },
   container: {
     flex: 1,
   },
