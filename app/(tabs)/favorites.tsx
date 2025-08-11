@@ -1,13 +1,27 @@
 import { StyleSheet } from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { QuoteCard } from "@components/quote/QuoteCard";
-import { useQuoteStore } from "@store/quoteStore";
+import { SearchBarHeader } from "@components/molecules/SearchBarHeader";
+import { useSearchQuotes } from "@repository/useSearchQuotes";
+import LoaderScreen from "react-native-ui-lib/loaderScreen";
 
-export default function App() {
-  const quotes = useQuoteStore((state) => state.quotes);
+export default function Favorites() {
+  const { loading, quotes, searchText, setSearchText } = useSearchQuotes();
+
+  if (loading) {
+    return <LoaderScreen />;
+  }
+
   return (
     <Animated.FlatList
       style={styles.container}
+      ListHeaderComponent={
+        <SearchBarHeader
+          placeholder="Buscar citas"
+          value={searchText}
+          onChangeValue={setSearchText}
+        />
+      }
       contentContainerStyle={styles.contentContainer}
       data={quotes.filter((quote) => quote.isFavorite)}
       renderItem={({ item }) => <QuoteCard quote={item} />}
