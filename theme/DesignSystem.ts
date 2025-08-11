@@ -16,7 +16,7 @@ const colorPalette = {
   sepia: "#fbf0d9",
   darkGray: "#333333",
   gradientStart: secondary,
-  gradientEnd: "white",
+  gradientEnd: "#eeeeee",
 };
 
 // Function to update theme components based on current colors
