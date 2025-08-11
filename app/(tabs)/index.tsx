@@ -6,7 +6,7 @@ import LoaderScreen from "react-native-ui-lib/loaderScreen";
 import FloatingButton from "@components/atoms/FloatingButton";
 import { Colors } from "react-native-ui-lib/style";
 import { SearchBarHeader } from "@components/molecules/SearchBarHeader";
-import { useSearchQuotes } from "@repository/useSearchQuotes";
+import { useSearchQuotes } from "@hooks/useSearchQuotes";
 
 export default function App() {
   const router = useRouter();

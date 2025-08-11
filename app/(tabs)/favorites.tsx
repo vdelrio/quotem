@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { QuoteCard } from "@components/quote/QuoteCard";
 import { SearchBarHeader } from "@components/molecules/SearchBarHeader";
-import { useSearchQuotes } from "@repository/useSearchQuotes";
+import { useSearchQuotes } from "@hooks/useSearchQuotes";
 import LoaderScreen from "react-native-ui-lib/loaderScreen";
 
 export default function Favorites() {
