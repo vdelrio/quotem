@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "QuoteM",
-//    "name": "QuoteM (PREV)",
+//    "name": "QuoteM",
+    "name": "QuoteM (DEBUG)",
     "slug": "quotem",
     "scheme": "quotem",
     "version": "1.0.0",
@@ -17,10 +17,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/q-adaptive-icon.png",
         "backgroundColor": "#ec6a52"
-//        "backgroundColor": "#42a28f"
       },
-      "package": "com.vdelrio.quotem"
-//      "package": "com.vdelrio.quotem.prev"
+//      "package": "com.vdelrio.quotem"
+      "package": "com.vdelrio.quotem.debug"
     },
     "web": {
       "favicon": "./assets/q-favicon.png",
