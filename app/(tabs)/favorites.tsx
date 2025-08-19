@@ -32,7 +32,9 @@ export default function Favorites() {
         }
         contentContainerStyle={styles.contentContainer}
         data={quotes.filter((quote) => quote.isFavorite)}
-        renderItem={({ item }) => <QuoteCard quote={item} />}
+        renderItem={({ item }) => (
+          <QuoteCard quote={item} searchText={searchText} />
+        )}
         itemLayoutAnimation={LinearTransition}
       />
     </LinearGradient>

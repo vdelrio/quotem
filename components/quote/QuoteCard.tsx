@@ -2,6 +2,7 @@ import { Pressable, StyleSheet } from "react-native";
 import Card from "react-native-ui-lib/card";
 import { BorderRadiuses, Colors } from "react-native-ui-lib/style";
 import View from "react-native-ui-lib/view";
+import Text from "react-native-ui-lib/text";
 import { useRouter } from "expo-router";
 import { Quote } from "@model/models";
 import { FancyFontText } from "@components/atoms/FancyFontText";
@@ -10,7 +11,12 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useUpdateQuote } from "@repository/useUpdateQuote";
 import { useQuoteStore } from "@store/quoteStore";
 
-export function QuoteCard({ quote }: { quote: Quote }) {
+interface Props {
+  quote: Quote;
+  searchText: string;
+}
+
+export function QuoteCard({ quote, searchText }: Props) {
   const router = useRouter();
   const collapsed = useConfigStore((state) => state.collapsed);
   const updateQuoteInStore = useQuoteStore((state) => state.updateQuote);
@@ -42,7 +48,12 @@ export function QuoteCard({ quote }: { quote: Quote }) {
           numberOfLines={collapsed ? 4 : undefined}
           style={styles.quoteText}
         >
-          {quote.text}
+          <Text
+            highlightString={searchText}
+            highlightStyle={{ backgroundColor: Colors.highlight }}
+          >
+            {quote.text}
+          </Text>
         </FancyFontText>
         {quote.author && (
           <View style={styles.authorContainer}>

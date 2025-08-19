@@ -35,7 +35,9 @@ export default function App() {
           }
           contentContainerStyle={styles.contentContainer}
           data={quotes}
-          renderItem={({ item }) => <QuoteCard quote={item} />}
+          renderItem={({ item }) => (
+            <QuoteCard quote={item} searchText={searchText} />
+          )}
           itemLayoutAnimation={LinearTransition}
         />
         <FloatingButton

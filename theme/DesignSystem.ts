@@ -14,6 +14,7 @@ const colorPalette = {
   secondary,
   accent,
   sepia: "#fbf0d9",
+  highlight: "#ffde64",
   darkGray: "#333333",
   gradientStart: secondary,
   gradientEnd: "#e8f3f1",
