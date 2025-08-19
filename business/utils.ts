@@ -9,3 +9,13 @@ export const getElementCyclically = (
     ((index % array.length) + array.length) % array.length;
   return array[normalizedIndex];
 };
+
+export const normalizeText = (text: string | undefined) => {
+  if (!text) {
+    return "";
+  }
+  return text
+    .normalize("NFD") // Unicode Normalization form of this string
+    .replace(/[\u0300-\u036f]/g, "") // Remove diacritics
+    .toLowerCase();
+};

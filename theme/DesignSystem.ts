@@ -4,13 +4,19 @@ import {
   BorderRadiuses,
 } from "react-native-ui-lib/style";
 
+const primary = "#ec6a52";
+const secondary = "#9dbdba";
+const accent = "#42a28f";
+
 // Initial color palette
 const colorPalette = {
-  primary: "#ec6a52",
-  secondary: "#9dbdba",
-  accent: "#42a28f",
+  primary,
+  secondary,
+  accent,
   sepia: "#fbf0d9",
   darkGray: "#333333",
+  gradientStart: secondary,
+  gradientEnd: "#eeeeee",
 };
 
 // Function to update theme components based on current colors
