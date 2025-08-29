@@ -2,6 +2,7 @@ import { TextInput, View, StyleSheet, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useConfigStore } from "@store/configStore";
 import { Colors } from "react-native-ui-lib/style";
+import { useNavigation, DrawerActions } from "@react-navigation/native";
 
 interface Props {
   value: string;
@@ -16,15 +17,25 @@ export function SearchBarHeader({
 }: Props) {
   const collapsed = useConfigStore((state) => state.collapsed);
   const toggleCollapsed = useConfigStore((state) => state.toggleCollapsed);
+  const navigation = useNavigation();
+
+  const openDrawer = () => {
+    navigation.dispatch(DrawerActions.openDrawer());
+  };
 
   return (
     <View style={styles.container}>
-      <Ionicons
-        name="search"
-        size={20}
-        color={Colors.$iconNeutral}
-        style={styles.searchIcon}
-      />
+      <Pressable
+        onPress={openDrawer}
+        hitSlop={{ top: 10, bottom: 10, left: 4, right: 4 }}
+      >
+        <Ionicons
+          name="menu"
+          size={20}
+          color={Colors.$iconNeutral}
+          style={styles.menuIcon}
+        />
+      </Pressable>
       <TextInput
         style={styles.input}
         placeholder={placeholder}
@@ -74,7 +85,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     height: 50,
   },
-  searchIcon: {
+  menuIcon: {
     marginRight: 8,
   },
   input: {
