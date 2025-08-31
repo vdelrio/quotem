@@ -14,8 +14,8 @@ function CustomDrawerContent(props: any) {
     <DrawerContentScrollView {...props}>
       <View style={styles.header}>
         <Text style={styles.title}>
-          <Text style={styles.quoteText}>Quote</Text>
-          <Text style={styles.mText}>M</Text>
+          <Text style={{ color: Colors.$iconNeutral }}>Quote</Text>
+          <Text style={{ color: Colors.primary }}>M</Text>
         </Text>
       </View>
       <DrawerItemList {...props} />
@@ -74,11 +74,5 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: 500,
-  },
-  quoteText: {
-    color: Colors.$iconNeutral,
-  },
-  mText: {
-    color: Colors.primary,
   },
 });
