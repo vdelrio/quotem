@@ -34,7 +34,7 @@ export default function Layout() {
         }}
       >
         <Drawer.Screen
-          name="(tabs)"
+          name="index"
           options={{
             headerShown: false,
             drawerLabel: "Citas",
@@ -47,20 +47,20 @@ export default function Layout() {
             ),
           }}
         />
-        {/*<Drawer.Screen*/}
-        {/*  name="create"*/}
-        {/*  options={{*/}
-        {/*    headerShown: false,*/}
-        {/*    drawerLabel: "Favoritas",*/}
-        {/*    drawerIcon: ({ size, color }) => (*/}
-        {/*      <MaterialCommunityIcons*/}
-        {/*        name="bookmark-multiple-outline"*/}
-        {/*        size={size}*/}
-        {/*        color={color}*/}
-        {/*      />*/}
-        {/*    ),*/}
-        {/*  }}*/}
-        {/*/>*/}
+        <Drawer.Screen
+          name="favorites"
+          options={{
+            headerShown: false,
+            drawerLabel: "Favoritas",
+            drawerIcon: ({ size, color }) => (
+              <MaterialCommunityIcons
+                name="bookmark-multiple-outline"
+                size={size}
+                color={color}
+              />
+            ),
+          }}
+        />
       </Drawer>
     </GestureHandlerRootView>
   );
