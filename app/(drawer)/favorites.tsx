@@ -7,7 +7,7 @@ import LoaderScreen from "react-native-ui-lib/loaderScreen";
 import { Colors } from "react-native-ui-lib/style";
 import { LinearGradient } from "expo-linear-gradient";
 
-export default function Favorites() {
+export default function FavoritesScreen() {
   const { loading, quotes, searchText, setSearchText } = useSearchQuotes();
 
   if (loading) {

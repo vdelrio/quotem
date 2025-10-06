@@ -1,6 +1,7 @@
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   DrawerContentScrollView,
   DrawerItemList,
@@ -51,13 +52,23 @@ export default function Layout() {
           name="favorites"
           options={{
             headerShown: false,
-            drawerLabel: "Favoritas",
+            drawerLabel: "Citas favoritas",
             drawerIcon: ({ size, color }) => (
               <MaterialCommunityIcons
                 name="bookmark-multiple-outline"
                 size={size}
                 color={color}
               />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="authors"
+          options={{
+            title: "Editar autores",
+            drawerLabel: "Autores",
+            drawerIcon: ({ size, color }) => (
+              <FontAwesome name="book" size={size} color={color} />
             ),
           }}
         />
