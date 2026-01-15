@@ -55,21 +55,19 @@ export function QuoteCard({ quote, searchText }: Props) {
             {quote.text}
           </Text>
         </FancyFontText>
-        {quote.author && (
-          <View style={styles.authorContainer}>
-            <FancyFontText style={styles.author}>
-              {quote.author.name}
-            </FancyFontText>
-            <Pressable onPress={handleFavoriteQuote} hitSlop={15}>
-              <FontAwesome5
-                name="bookmark"
-                solid={quote.isFavorite}
-                size={18}
-                color={Colors.$iconNeutral}
-              />
-            </Pressable>
-          </View>
-        )}
+        <View style={styles.authorContainer}>
+          <FancyFontText style={styles.author}>
+            {quote?.author?.name}
+          </FancyFontText>
+          <Pressable onPress={handleFavoriteQuote} hitSlop={15}>
+            <FontAwesome5
+              name="bookmark"
+              solid={quote.isFavorite}
+              size={18}
+              color={Colors.$iconNeutral}
+            />
+          </Pressable>
+        </View>
       </View>
     </Card>
   );
