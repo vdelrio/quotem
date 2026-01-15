@@ -1,6 +1,7 @@
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   DrawerContentScrollView,
   DrawerItemList,
@@ -14,8 +15,8 @@ function CustomDrawerContent(props: any) {
     <DrawerContentScrollView {...props}>
       <View style={styles.header}>
         <Text style={styles.title}>
-          <Text style={styles.quoteText}>Quote</Text>
-          <Text style={styles.mText}>M</Text>
+          <Text style={{ color: Colors.$iconNeutral }}>Quote</Text>
+          <Text style={{ color: Colors.primary }}>M</Text>
         </Text>
       </View>
       <DrawerItemList {...props} />
@@ -51,13 +52,23 @@ export default function Layout() {
           name="favorites"
           options={{
             headerShown: false,
-            drawerLabel: "Favoritas",
+            drawerLabel: "Citas favoritas",
             drawerIcon: ({ size, color }) => (
               <MaterialCommunityIcons
                 name="bookmark-multiple-outline"
                 size={size}
                 color={color}
               />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="authors"
+          options={{
+            title: "Editar autores",
+            drawerLabel: "Autores",
+            drawerIcon: ({ size, color }) => (
+              <FontAwesome name="book" size={size} color={color} />
             ),
           }}
         />
@@ -74,11 +85,5 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: 500,
-  },
-  quoteText: {
-    color: Colors.$iconNeutral,
-  },
-  mText: {
-    color: Colors.primary,
   },
 });

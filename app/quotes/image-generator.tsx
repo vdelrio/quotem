@@ -12,6 +12,9 @@ const backgrounds = [
   require("@assets/backgrounds/fondo-1.jpeg"),
   require("@assets/backgrounds/fondo-2.jpeg"),
   require("@assets/backgrounds/fondo-3.webp"),
+  require("@assets/backgrounds/fondo-4.jpeg"),
+  require("@assets/backgrounds/fondo-5.jpeg"),
+  require("@assets/backgrounds/fondo-6.jpeg"),
 ];
 
 export default function ImageWithTextOverlayScreen() {
@@ -37,7 +40,7 @@ export default function ImageWithTextOverlayScreen() {
       <ViewShot ref={viewShotRef}>
         <ImageBackground
           source={getElementCyclically(backgrounds, backgroundIndex)}
-          style={styles.imageBackground}
+          style={[styles.imageBackground, { height: quote.text.length * 2 }]}
           resizeMode="cover"
         >
           <View style={styles.textContainer}>
@@ -69,13 +72,13 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     width: width * 0.9, // 90% del ancho de la pantalla
-    height: 300, // Altura fija o puedes hacerla relativa también
+    // height: quote.text, // Altura fija o puedes hacerla relativa también
     justifyContent: "center", // Centra el contenido verticalmente
     alignItems: "center", // Centra el contenido horizontalmente
   },
   textContainer: {
     padding: 10,
-    backgroundColor: "rgba(0, 0, 0, 0.5)", // Fondo semi-transparente para mejorar legibilidad
+    backgroundColor: "rgba(0, 0, 0, 0.6)", // Fondo semi-transparente para mejorar legibilidad
     width: "90%", // El texto ocupará el 90% del ancho de la imagen
     alignSelf: "center", // Asegura que el contenedor del texto esté centrado
   },
